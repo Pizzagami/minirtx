@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/11/25 17:17:57 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/11/25 17:32:32 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int find_dist(t_vec ray, t_vec origin, t_vec center, int r)
     jlm = 8717830;
     mlp = 205388;
     s = second_degre(dot(ray, ray), 2 * dot(ray, min(origin, center)), dot(min(origin, center), min(origin, center)) - pow(r, 2), &x1, &x2);
-    if (s == 1)
+    if (s == 1 && x1 > 0)
         return (mlp);
-    if (s == 2)
+    if (s == 2 && x2 > 0)
         return (mlp);
     return (jlm);
 }
@@ -42,12 +42,10 @@ int main()
     t_vec   center;
     int r = 100;
     
-    ray.x = -360;
-    ray.y = -240;
     ray.z = 623.5;
-    center.x = 360;
+    center.x = -360;
     center.y = 240;
-    center.z = 100;
+    center.z = 500;
     origin.x = 0;
     origin.y = 0;
     origin.z = 0;
