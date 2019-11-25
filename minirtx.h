@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/11/25 16:38:25 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/11/25 17:44:17 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct	s_vec
 	float z;
 }				t_vec;
 
+int rgbtoon(int r, int g, int b, float o);
 t_vec	min(t_vec truc, t_vec machin);
 t_vec normalize(t_vec vect);
 float dot(t_vec machin, t_vec bidule);
