@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/11/25 17:44:17 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:37:23 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_vec	min(t_vec truc, t_vec machin);
 t_vec normalize(t_vec vect);
 float dot(t_vec machin, t_vec bidule);
 int second_degre(float a, float b, float c, float *x1, float *x2);
+float find_dist(t_vec ray, t_vec origin, t_vec center, int r);
 
 
 #endif
