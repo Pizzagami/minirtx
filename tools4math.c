@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/11/25 16:46:35 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/11/27 10:44:02 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,36 @@ t_vec	min(t_vec truc, t_vec machin)
 float	dot(t_vec machin, t_vec bidule)
 {
 	return(machin.x * bidule.x + machin.y * bidule.y + machin.z * bidule.z);
+}
+
+t_vec	plus(t_vec truc, t_vec machin)
+{
+	truc.x += machin.x;
+	truc.y += machin.y;
+	truc.z += machin.z;
+	return (truc);
+}
+
+t_vec	fois(t_vec truc, float a)
+{
+	truc.x *= a;
+	truc.y *= a;
+	truc.z *= a;
+	return (truc);
+}
+
+int ft_atoi(char *str)
+{
+	int i;
+	int nb;
+
+	i = 0;
+	nb = 0;
+	while (str[i])
+	{
+		if (str[i] >= '0' && str[i] <= '9')
+			nb = nb * 10 + str[i] - 48;
+		i++;
+	}
+	return (nb);
 }
