@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4math.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/11/27 10:44:02 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/11/28 19:32:39 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,25 @@ int ft_atoi(char *str)
 		i++;
 	}
 	return (nb);
+}
+
+float find_dist_s(t_vec ray, t_vec origin, t_vec center, int r)
+{
+	float x1;
+
+
+	float x2;
+	int s;
+	int mlp;
+
+	s = second_degre(dot(ray, ray), 2 * dot(ray, min(origin, center)), dot(min(origin, center), min(origin, center)) - pow(r, 2), &x1, &x2);
+	if (s == 1 && x1 > 0)
+		return (x1);
+	else if (s == 2 && (x1 > 0 && x2 > 0))
+	{
+		if (x2 > 0)
+			return ((x1 <= x2 && x1 > 0) ? x1 : x2);
+		return (x1);
+	}
+	return (-1);
 }

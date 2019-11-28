@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/11/28 17:11:27 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/11/28 19:06:24 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirtx.h"
 
-float find_dist(t_vec ray, t_vec origin, t_vec center, int r)
+float find_dist_s(t_vec ray, t_vec origin, t_vec center, int r)
 {
 	float x1;
 
@@ -33,121 +33,133 @@ float find_dist(t_vec ray, t_vec origin, t_vec center, int r)
 	return (-1);
 }
 
-int rgbtoon(int r, int g, int b)
+int rgbtoon(t_color color)
 {
-	if (r > 255)
-	r = 255;
-	if (g > 255)
-	g = 255;
-	if (b > 255)
-	b = 255;
-	if (r < 0)
-	r = 0;
-	if (g < 0)
-	g = 0;
-	if (b < 0)
-	b = 0;
-	return(r * 65536 + g * 256 + b);
+	if (color.r > 255)
+	color.r = 255;
+	if (color.g > 255)
+	color.g = 255;
+	if (color.b > 255)
+	color.b = 255;
+	if (color.r < 0)
+	color.r = 0;
+	if (color.g < 0)
+	color.g = 0;
+	if (color.b < 0)
+	color.b = 0;
+	return(color.r * 65536 + color.g * 256 + color.b);
 }
-int main(int argc, char **argv)
-{
-	int     res_x;  // faire une struct coord avec tt les x et y
-	int     res_y;
-	void    *mlx_ptr;
-	void    *mlx_win;
-	float     x;
-	float     y;
-	float   dist;
-	t_vec   ray;
-	t_vec   origin;
-	t_vec   center;
-	int r = 5;
-	float   iAR;
-	float   Px;
-	float   Py;
-	int fov;
-	float c;   /////////faire une struct avec tt la merde couleur affichage
+
+t_color		cal_col(t_cam cam, t_tg shape, t_light l1)
+{	
+	t_color color;
 	t_vec normal;
 	t_vec light;
 	t_vec point;
+	float dist;
+	float c;
+	float amb = 0.1;
 
+	color.r = 0;
+	color.g = 0;
+	color.b = 0;
+	dist = find_dist_s(normalize(cam.ray), cam.origin, shape.center, shape.dia / 2);
+	if (dist != -1)
+	{
+		color.r = amb * shape.color.r;
+		color.g = amb * shape.color.g;
+		color.b = amb * shape.color.b;
+		t_light *la;
+		la = &l1;
+		while (la != NULL)
+		{
+			point = plus(cam.origin, fois(cam.ray, dist));
+			light = normalize(min(la->pos, point));
+			normal = normalize(min(point, shape.center));
+			c = dot(light, normal);
+			if (c < 0)
+				c = 0;
+			color.r += c * la->color.r;
+			color.g += c * la->color.g;
+			color.b += c * la->color.b;
+			la = la->next;
+		}
+	if (color.r > shape.color.r)
+		color.r = shape.color.r;
+	if (color.g > shape.color.g)
+		color.g = shape.color.g;
+	if (color.b > shape.color.b)
+		color.b = shape.color.b;
+	}
+	return (color);
+}
+int main(int argc, char **argv)
+{
+	t_coor coor;
+	void    *mlx_ptr;
+	void    *mlx_win;
+	t_cam	cam;
+	t_vec   center;
+	float   iAR;
+	int fov;
+	t_tg shape;
+
+	shape.dia = 10;
 	fov = ft_atoi(argv[3]);
-	res_x = ft_atoi(argv[1]);
-	res_y = ft_atoi(argv[2]);
-	ray.z = 623.5;
-	center.x = 0;
-	center.y = 0;
-	center.z = -10;
-	origin.x = 0;
-	origin.y = 0;
-	origin.z = 0;
+	coor.res_x = ft_atoi(argv[1]);
+	coor.res_y = ft_atoi(argv[2]);
+	cam.ray.z = 623.5;
+	shape.center.x = 0;
+	shape.center.y = 0;
+	shape.center.z = -10;
+	shape.color.r = 255;
+	shape.color.b = 255;
+	shape.color.g = 0;
+	cam.origin.x = 0;
+	cam.origin.y = 0;
+	cam.origin.z = 0;
 
 	t_light l1;
 	l1.pos.x = -5;
 	l1.pos.y = -5;
 	l1.pos.z = -5;
-	l1.col.r = 255;
-	l1.col.g = 0;
-	l1.col.b = 0;
+	l1.color.r = 0;
+	l1.color.g = 255;
+	l1.color.b = 255;
 	t_light l2;
 	l2.pos.x = 5;
-	l2.pos.y = 5;
+	l2.pos.y = -55;
 	l2.pos.z = -5;
-	l2.col.r = 0;
-	l2.col.g = 0;
-	l2.col.b = 255;
+	l2.color.r = 255;
+	l2.color.g = 255;
+	l2.color.b = 0;
 	l2.next = NULL;
 	l1.next = &l2;
 
-	t_col back;
+	t_color back;
 	back.r = 0;
 	back.g = 0;
 	back.b = 0;
 
 	mlx_ptr = mlx_init();
 	
-	mlx_win = mlx_new_window(mlx_ptr, res_x, res_y, "Mael best");
-	x = 0;
-	while(x < res_x)
+	mlx_win = mlx_new_window(mlx_ptr, coor.res_x, coor.res_y, "Mael best");
+	coor.x = 0;
+	while(coor.x < coor.res_x)
+	{
+		coor.y = 0;
+		while (coor.y < coor.res_y)
 		{
-			y = 0;
-			while (y < res_y)
-			{
-				iAR = (float)res_x / (float)res_y; // assuming width > height 
-				Px = (2 * ((x + 0.5f) / (float)res_x) - 1) * tan((float)fov /2 /180 * M_PI) * iAR;
-				Py = (1 - (2 * ((y + 0.5f) / (float)res_y))) * tan((float)fov /2 /180 * M_PI);
-				ray.y = Py;
-				ray.x = Px;
-				ray.z = -1;
-				dist = find_dist(normalize(ray), origin, center, r);
-				t_col color;
-				color.r = 0;
-				color.g = 0;
-				color.b = 0;
-				if (dist == -1)
-					color = back;
-				else
-				{
-					t_light *la;
-					la = &l1;
-					while (la != NULL)
-					{
-						point = plus(origin, fois(ray, dist));
-						light = normalize(min(la->pos, point));
-						normal = normalize(min(point, center));
-						c = dot(light, normal);
-						color.r += c * la->col.r;
-						color.g += c * la->col.g;
-						color.b += c * la->col.b;
-						la = la->next;
-					}
-				}
-				mlx_pixel_put(mlx_ptr, mlx_win, x, y, rgbtoon(color.r, color.g, color.b));
-				y++;
-			}
-			x++;
+			iAR = (float)coor.res_x / (float)coor.res_y; // assuming width > height 
+			cam.ray.x = (2 * ((coor.x + 0.5f) / (float)coor.res_x) - 1) * tan((float)fov /2 /180 * M_PI) * iAR;
+			cam.ray.y = (1 - (2 * ((coor.y + 0.5f) / (float)coor.res_y))) * tan((float)fov /2 /180 * M_PI);
+			cam.ray.z = -1;
+			mlx_pixel_put(mlx_ptr, mlx_win, coor.x, coor.y, rgbtoon(cal_col(cam, shape, l1)));
+			coor.y++;
 		}
-
+		coor.x++;
+	}
+	void *r;
 	mlx_hook(mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, r);
 	mlx_key_hook(mlx_win, &key_hook, r);
 	mlx_loop(mlx_ptr);
