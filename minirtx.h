@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/11/28 18:48:23 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/11/29 15:16:21 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_vec			normalize(t_vec vect);
 t_vec			plus(t_vec truc, t_vec machin);
 t_vec			fois(t_vec truc, float a);
 float			dot(t_vec machin, t_vec bidule);
-float			find_dist_s(t_vec ray, t_vec origin, t_vec center, int r);
+float			find_dist(t_cam, t_tg shape);
 int				second_degre(float a, float b, float c, float *x1, float *x2);
 int				key_hook(int key);
 int				exit_hook(void *param);

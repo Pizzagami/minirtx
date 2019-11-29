@@ -6,32 +6,12 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/11/28 19:06:24 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:00:26 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirtx.h"
 
-float find_dist_s(t_vec ray, t_vec origin, t_vec center, int r)
-{
-	float x1;
-
-
-	float x2;
-	int s;
-	int mlp;
-
-	s = second_degre(dot(ray, ray), 2 * dot(ray, min(origin, center)), dot(min(origin, center), min(origin, center)) - pow(r, 2), &x1, &x2);
-	if (s == 1 && x1 > 0)
-		return (x1);
-	else if (s == 2 && (x1 > 0 && x2 > 0))
-	{
-		if (x2 > 0)
-			return ((x1 <= x2 && x1 > 0) ? x1 : x2);
-		return (x1);
-	}
-	return (-1);
-}
 
 int rgbtoon(t_color color)
 {
@@ -58,13 +38,14 @@ t_color		cal_col(t_cam cam, t_tg shape, t_light l1)
 	t_vec point;
 	float dist;
 	float c;
-	float amb = 0.1;
+	float amb = 0.6;
 
 	color.r = 0;
 	color.g = 0;
 	color.b = 0;
-	dist = find_dist_s(normalize(cam.ray), cam.origin, shape.center, shape.dia / 2);
-	if (dist != -1)
+	dist = 1;
+	dist = find_dist(cam, shape);
+	if (dist != -1.0)
 	{
 		color.r = amb * shape.color.r;
 		color.g = amb * shape.color.g;
@@ -78,7 +59,7 @@ t_color		cal_col(t_cam cam, t_tg shape, t_light l1)
 			normal = normalize(min(point, shape.center));
 			c = dot(light, normal);
 			if (c < 0)
-				c = 0;
+				c = -c;
 			color.r += c * la->color.r;
 			color.g += c * la->color.g;
 			color.b += c * la->color.b;
@@ -91,7 +72,7 @@ t_color		cal_col(t_cam cam, t_tg shape, t_light l1)
 	if (color.b > shape.color.b)
 		color.b = shape.color.b;
 	}
-	return (color);
+		return (color);
 }
 int main(int argc, char **argv)
 {
@@ -111,28 +92,28 @@ int main(int argc, char **argv)
 	cam.ray.z = 623.5;
 	shape.center.x = 0;
 	shape.center.y = 0;
-	shape.center.z = -10;
+	shape.center.z = 10;
 	shape.color.r = 255;
 	shape.color.b = 255;
-	shape.color.g = 0;
+	shape.color.g = 255;
 	cam.origin.x = 0;
 	cam.origin.y = 0;
-	cam.origin.z = 0;
+	cam.origin.z = 10;
 
 	t_light l1;
-	l1.pos.x = -5;
-	l1.pos.y = -5;
-	l1.pos.z = -5;
-	l1.color.r = 0;
-	l1.color.g = 255;
-	l1.color.b = 255;
+	l1.pos.x = 0;
+	l1.pos.y = 0;
+	l1.pos.z = 10;
+	l1.color.r = 255;
+	l1.color.g = 0;
+	l1.color.b = 0;
 	t_light l2;
-	l2.pos.x = 5;
-	l2.pos.y = -55;
-	l2.pos.z = -5;
-	l2.color.r = 255;
-	l2.color.g = 255;
-	l2.color.b = 0;
+	l2.pos.x = 0;
+	l2.pos.y = 0;
+	l2.pos.z = 10;
+	l2.color.r = 0;
+	l2.color.g = 0;
+	l2.color.b = 255;
 	l2.next = NULL;
 	l1.next = &l2;
 
@@ -143,7 +124,7 @@ int main(int argc, char **argv)
 
 	mlx_ptr = mlx_init();
 	
-	mlx_win = mlx_new_window(mlx_ptr, coor.res_x, coor.res_y, "Mael best");
+	mlx_win = mlx_new_window(mlx_ptr, coor.res_x, coor.res_y, "Mael2");
 	coor.x = 0;
 	while(coor.x < coor.res_x)
 	{
@@ -154,6 +135,7 @@ int main(int argc, char **argv)
 			cam.ray.x = (2 * ((coor.x + 0.5f) / (float)coor.res_x) - 1) * tan((float)fov /2 /180 * M_PI) * iAR;
 			cam.ray.y = (1 - (2 * ((coor.y + 0.5f) / (float)coor.res_y))) * tan((float)fov /2 /180 * M_PI);
 			cam.ray.z = -1;
+			cam.ray = normalize(cam.ray);
 			mlx_pixel_put(mlx_ptr, mlx_win, coor.x, coor.y, rgbtoon(cal_col(cam, shape, l1)));
 			coor.y++;
 		}

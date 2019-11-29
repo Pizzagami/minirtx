@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+         #
+#    By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:50:27 by selgrabl          #+#    #+#              #
-#    Updated: 2019/11/28 14:16:44 by braimbau         ###   ########.fr        #
+#    Updated: 2019/11/29 14:40:52 by selgrabl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = minirtx
 SRCS = 	./main.c	\
 		./tools4math.c \
 		./tools4mlx.c \
+		./tools.c \
 
 
 OBJS = ${SRCS:.c=.o}

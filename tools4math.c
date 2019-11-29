@@ -6,13 +6,11 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/11/28 19:32:39 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:03:18 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirtx.h"
-
-
 
 int second_degre(float a, float b, float c, float *x1, float *x2)
 {
@@ -55,6 +53,7 @@ t_vec	min(t_vec truc, t_vec machin)
 	truc.x -= machin.x;
 	truc.y -= machin.y;
 	truc.z -= machin.z;
+
 	return (truc);
 }
 
@@ -79,39 +78,24 @@ t_vec	fois(t_vec truc, float a)
 	return (truc);
 }
 
-int ft_atoi(char *str)
-{
-	int i;
-	int nb;
 
-	i = 0;
-	nb = 0;
-	while (str[i])
-	{
-		if (str[i] >= '0' && str[i] <= '9')
-			nb = nb * 10 + str[i] - 48;
-		i++;
-	}
-	return (nb);
-}
-
-float find_dist_s(t_vec ray, t_vec origin, t_vec center, int r)
+float find_dist(t_cam cam, t_tg shape)
 {
 	float x1;
-
-
 	float x2;
 	int s;
-	int mlp;
 
-	s = second_degre(dot(ray, ray), 2 * dot(ray, min(origin, center)), dot(min(origin, center), min(origin, center)) - pow(r, 2), &x1, &x2);
-	if (s == 1 && x1 > 0)
+	s = second_degre(dot(cam.ray, cam.ray),
+	 2 * dot(cam.ray,min(cam.origin, shape.center)),
+	 dot(min(cam.origin, shape.center),
+	min(cam.origin, shape.center)) - pow(shape.dia/2, 2), &x1, &x2);
+	if (s == 1 && x1 > 0.0)
 		return (x1);
-	else if (s == 2 && (x1 > 0 && x2 > 0))
-	{
-		if (x2 > 0)
-			return ((x1 <= x2 && x1 > 0) ? x1 : x2);
+	else if (s == 2 && (x1 > 0.0 || x2 > 0.0))
+	{	
+		if (x2 > 0.0)
+			return ((x1 <= x2 && x1 > 0.0) ? x1 : x2);
 		return (x1);
 	}
-	return (-1);
+	return (-1.0);
 }
