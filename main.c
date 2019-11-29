@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/11/29 17:00:26 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:36:45 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_color		cal_col(t_cam cam, t_tg shape, t_light l1)
 	t_vec point;
 	float dist;
 	float c;
-	float amb = 0.6;
+	float amb = 0;
 
 	color.r = 0;
 	color.g = 0;
@@ -86,36 +86,40 @@ int main(int argc, char **argv)
 	t_tg shape;
 
 	shape.dia = 10;
+	shape.vec.x = 0;
+	shape.vec.y = 1;
+	shape.vec.z = 0;
+	shape.type = 0;
 	fov = ft_atoi(argv[3]);
 	coor.res_x = ft_atoi(argv[1]);
 	coor.res_y = ft_atoi(argv[2]);
 	cam.ray.z = 623.5;
 	shape.center.x = 0;
-	shape.center.y = 0;
-	shape.center.z = 10;
+	shape.center.y = -5;
+	shape.center.z = 0;
 	shape.color.r = 255;
 	shape.color.b = 255;
 	shape.color.g = 255;
 	cam.origin.x = 0;
 	cam.origin.y = 0;
-	cam.origin.z = 10;
+	cam.origin.z = 25;
 
 	t_light l1;
 	l1.pos.x = 0;
 	l1.pos.y = 0;
-	l1.pos.z = 10;
+	l1.pos.z = 0;
 	l1.color.r = 255;
 	l1.color.g = 0;
 	l1.color.b = 0;
 	t_light l2;
-	l2.pos.x = 0;
-	l2.pos.y = 0;
-	l2.pos.z = 10;
+	l2.pos.x = -7;
+	l2.pos.y = 8;
+	l2.pos.z = 20;
 	l2.color.r = 0;
 	l2.color.g = 0;
 	l2.color.b = 255;
 	l2.next = NULL;
-	l1.next = &l2;
+	l1.next = NULL;
 
 	t_color back;
 	back.r = 0;

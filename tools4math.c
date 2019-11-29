@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/11/29 17:03:18 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:28:51 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,15 @@ float find_dist(t_cam cam, t_tg shape)
 	float x2;
 	int s;
 
-	s = second_degre(dot(cam.ray, cam.ray),
-	 2 * dot(cam.ray,min(cam.origin, shape.center)),
-	 dot(min(cam.origin, shape.center),
+	x2 = 0;
+	s = 1;
+	if (shape.type == 1)
+	s = second_degre(dot(cam.ray, cam.ray),2 *dot(cam.ray,
+	min(cam.origin, shape.center)),dot(min(cam.origin, shape.center),
 	min(cam.origin, shape.center)) - pow(shape.dia/2, 2), &x1, &x2);
+	if (shape.type == 0)
+	x1 = (dot(cam.ray, shape.vec) != 0) ?(dot(min(shape.center, cam.origin), shape.vec)/
+	dot(cam.ray, shape.vec)) : 0;
 	if (s == 1 && x1 > 0.0)
 		return (x1);
 	else if (s == 2 && (x1 > 0.0 || x2 > 0.0))

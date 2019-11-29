@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/11/29 15:16:21 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:28:52 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,14 @@ typedef struct	s_cam
 typedef	struct s_tg
 {
 	t_vec center;
-	t_vec p1;
-	t_vec p2;
-	t_vec p3;
-	t_vec vec;
-	t_color color;
-	float dia;
-	float hi;
+	t_vec	p1;
+	t_vec	p2;
+	t_vec	p3;
+	t_vec	vec;
+	t_color	color;
+	float	dia;
+	float	hi;
+	int		type;
 
 }				t_tg;
 
