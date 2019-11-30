@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/11/29 17:36:45 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/11/30 15:49:41 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ t_color		cal_col(t_cam cam, t_tg shape, t_light l1)
 		{
 			point = plus(cam.origin, fois(cam.ray, dist));
 			light = normalize(min(la->pos, point));
+			if (shape.type == 0 || shape.type == 4)
+			normal = shape.vec;
+			else
 			normal = normalize(min(point, shape.center));
 			c = dot(light, normal);
 			if (c < 0)
@@ -84,25 +87,28 @@ int main(int argc, char **argv)
 	float   iAR;
 	int fov;
 	t_tg shape;
-
-	shape.dia = 10;
-	shape.vec.x = 0;
-	shape.vec.y = 1;
-	shape.vec.z = 0;
-	shape.type = 0;
+	t_rtx		rtx;
+	rtx = parseke(argv[1]);
+	return(0);
+	shape.dia	= 9;
+	shape.vec.x = 0.01;
+	shape.vec.y = 0.01;
+	shape.vec.z = 0.99;
+	shape.type	= 4;
+	shape.hi	= 5;
 	fov = ft_atoi(argv[3]);
 	coor.res_x = ft_atoi(argv[1]);
 	coor.res_y = ft_atoi(argv[2]);
 	cam.ray.z = 623.5;
 	shape.center.x = 0;
-	shape.center.y = -5;
-	shape.center.z = 0;
+	shape.center.y = 0;
+	shape.center.z = -10;
 	shape.color.r = 255;
 	shape.color.b = 255;
 	shape.color.g = 255;
 	cam.origin.x = 0;
 	cam.origin.y = 0;
-	cam.origin.z = 25;
+	cam.origin.z = 0;
 
 	t_light l1;
 	l1.pos.x = 0;
@@ -114,7 +120,7 @@ int main(int argc, char **argv)
 	t_light l2;
 	l2.pos.x = -7;
 	l2.pos.y = 8;
-	l2.pos.z = 20;
+	l2.pos.z = 0;
 	l2.color.r = 0;
 	l2.color.g = 0;
 	l2.color.b = 255;
@@ -128,7 +134,7 @@ int main(int argc, char **argv)
 
 	mlx_ptr = mlx_init();
 	
-	mlx_win = mlx_new_window(mlx_ptr, coor.res_x, coor.res_y, "Mael2");
+	mlx_win = mlx_new_window(mlx_ptr, coor.res_x, coor.res_y, "Pizza");
 	coor.x = 0;
 	while(coor.x < coor.res_x)
 	{

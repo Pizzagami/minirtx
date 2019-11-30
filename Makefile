@@ -6,16 +6,17 @@
 #    By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:50:27 by selgrabl          #+#    #+#              #
-#    Updated: 2019/11/29 14:40:52 by selgrabl         ###   ########.fr        #
+#    Updated: 2019/11/30 15:53:20 by selgrabl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minirtx
 
-SRCS = 	./main.c	\
-		./tools4math.c \
-		./tools4mlx.c \
-		./tools.c \
+SRCS = 	./main.c		\
+		./tools4math.c	\
+		./tools4mlx.c	\
+		./tools.c		\
+		./parsing.c		\
 
 
 OBJS = ${SRCS:.c=.o}

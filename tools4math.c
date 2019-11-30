@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/11/29 17:28:51 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/11/30 14:59:08 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,30 @@ t_vec	fois(t_vec truc, float a)
 	return (truc);
 }
 
+t_vec	rotation(t_vec truc) /////ROTATION FAUX
+{
+	float tmp;
+	tmp = truc.x;
+	truc.z =  truc.x;
+	truc.x = truc.z;
+	truc.y = tmp ;
+	return (truc);
+}
 
+int		inter(t_vec	dot, t_vec center, float hi, t_vec vec)
+{
+	int x;
+
+	//hi /= 2;
+	vec = fois(rotation(vec), hi);
+
+	x = 0;
+	x = ((dot.x <= (center.x + vec.x)) && (dot.x >= (center.x - vec.x)))? x: 1;
+		vec = fois(rotation(vec), hi);
+	x = ((dot.y <= (center.y + vec.y)) && (dot.y >= (center.y - vec.y))) ? x: 1;
+	//	printf("%d\n",x);
+	return (x);
+}
 float find_dist(t_cam cam, t_tg shape)
 {
 	float x1;
@@ -91,9 +114,11 @@ float find_dist(t_cam cam, t_tg shape)
 	s = second_degre(dot(cam.ray, cam.ray),2 *dot(cam.ray,
 	min(cam.origin, shape.center)),dot(min(cam.origin, shape.center),
 	min(cam.origin, shape.center)) - pow(shape.dia/2, 2), &x1, &x2);
-	if (shape.type == 0)
+	if (shape.type == 0 || shape.type == 4)
 	x1 = (dot(cam.ray, shape.vec) != 0) ?(dot(min(shape.center, cam.origin), shape.vec)/
 	dot(cam.ray, shape.vec)) : 0;
+	if (shape.type == 4)
+	x1 = (inter(plus(cam.origin, fois(cam.ray, x1)), shape.center, shape.hi, shape.vec) > 0) ? 0: x1;
 	if (s == 1 && x1 > 0.0)
 		return (x1);
 	else if (s == 2 && (x1 > 0.0 || x2 > 0.0))
