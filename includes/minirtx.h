@@ -1,0 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirtx.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
+/*   Updated: 2019/12/01 13:53:42 by selgrabl         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MINIRTX_H
+# define MINIRTX_H
+
+#include <mlx.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include "struct.h"
+
+#define BUFFER_SIZE 2147483
+#define StructureNotifyMask	(1L<<17)
+#define DestroyNotify	17
+#define NAF M_E
+
+t_color			cal_col(t_cam, t_tg shape, t_light l1);
+float			find_dist(t_cam, t_tg shape);
+int				inter(t_vec	dot, t_vec center, float hi, t_vec vec);
+int				key_hook(int key);
+int				exit_hook(void *param);
+
+#endif

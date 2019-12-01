@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minirtx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/11/30 15:49:41 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/01 14:00:23 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirtx.h"
-
+#include "struct.h"
 
 int rgbtoon(t_color color)
 {
@@ -153,6 +153,6 @@ int main(int argc, char **argv)
 	}
 	void *r;
 	mlx_hook(mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, r);
-	mlx_key_hook(mlx_win, &key_hook, r);
+	mlx_key_hook(mlx_win, key_hook, r);
 	mlx_loop(mlx_ptr);
 }

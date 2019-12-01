@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.c                                            :+:      :+:    :+:   */
+/*   mlx_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/28 19:34:04 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/11/30 18:18:57 by selgrabl         ###   ########.fr       */
+/*   Created: 2019/11/27 19:53:33 by braimbau          #+#    #+#             */
+/*   Updated: 2019/12/01 13:54:14 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirtx.h"
 
-int ft_atoi(char *str)
+int		exit_hook(void *param)
 {
-	int i;
-	int nb;
-
-	i = 0;
-	nb = 0;
-	while (str[i])
-	{
-		if (str[i] >= '0' && str[i] <= '9')
-			nb = nb * 10 + str[i] - 48;
-		i++;
-	}
-	return (nb);
+	exit(0);
 }
 
-int ft_strlen(char *str)
+int		key_hook(int key)
 {
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	if (key == 53)
+		exit(0);
 }

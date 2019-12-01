@@ -6,11 +6,17 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/11/30 18:04:11 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/01 19:51:24 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirtx.h"
+#include "parsing.h"
+
+int main(int argc, char **argv)
+{
+	parseke(argv[1]);
+	return (0);
+}
 
 t_rtx		parseke(char *str)
 {
@@ -20,15 +26,14 @@ t_rtx		parseke(char *str)
 	fd = open(str, O_RDONLY);
 	if (fd < 0)
 	{
-		perror("");
+		perror("Error : ");
 		exit(1);
 	}
-	printf("|%d|\n", fd);
 	while(*(str + 1))
 		str++;
 	if ((*str) != 't' || *(str - 1) != 'r' || *(str - 2) != '.')
 	{
-		printf("Format incorrect \n");
+		printf("Error : Format incorrect \n");
 		close(fd);
 		exit(1);
 	}
@@ -40,28 +45,52 @@ t_rtx		parseke(char *str)
 t_rtx		parsing(int fd)
 {
 	t_rtx	rtx;
-	int		x;
 	char	buf[BUFFER_SIZE];
+	t_tg	shape;
 
+	rtx.res.x = -1;
+	rtx.amb.color.b = -1;
+	shape.next = NULL;
+	rtx.shape = &shape;
 	if(read(fd, &buf, BUFFER_SIZE) == BUFFER_SIZE)
 	{
-		printf("CE SERAI UN PEU LONG KAN MEME !!\n");
+		printf("Error : CE SERAI UN PEU LONG KAN MEME !!\n");
 		exit(1);
 	}
+	ft_switch(buf, rtx, fd);
+	if (rtx.res.x * rtx.amb.color.b < 0)
+	{
+		write(2 , "Error : Resolution or/and Ambiant light undefined", 49);
+		close(fd);
+		exit(EXIT_FAILURE);
+	}
+	return(rtx);
+}
+
+void		ft_switch(char buf[BUFFER_SIZE], t_rtx rtx, int fd)
+{
+	int x;
+	char *err;
+
 	x = 0;
 	while(buf[x])
 	{
 		if(buf[x] == '\n')
 			x++;
-		if(buf[x] == 'A' || buf[x] == 'R')
-			init_ar(buf, &x, &rtx);
+		if (buf[x] == 'A' || buf[x] == 'R')
+			err = init_ar(buf, &x, &rtx);
 		if(buf[x] == 'l' || (buf[x] == 'c' && buf[x + 1] != 'y'))
-			init_view(buf, &x, &rtx);
+			err = init_view(buf, &x, &rtx);
 		if (buf[x] == 's' || (buf[x] == 'p' && buf[x + 1] == 'l'))
-			init_sp(buf, &x, &rtx);
+			err =init_sp(buf, &x, &rtx);
 		if(buf[x] == 't' || (buf[x] == 'c' && buf[x + 1] == 'y'))
-			init_tc(buf, &x, &rtx);
-			printf("|%f|\n", NAF);
+			err =init_tc(buf, &x, &rtx);
+		if (err != NULL)
+		{
+			write(0, err, ft_strlen(err));
+			close(fd);
+			exit(1);
+		}
+		x++;
 	}
-	return(rtx);
 }

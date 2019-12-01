@@ -6,11 +6,11 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/11/30 14:59:08 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/01 13:56:39 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirtx.h"
+#include "tools.h"
 
 int second_degre(float a, float b, float c, float *x1, float *x2)
 {
