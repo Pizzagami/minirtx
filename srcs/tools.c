@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 19:34:04 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/01 19:51:58 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/02 16:10:08 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int				ft_atoi(char *str, int x)
 	if (str[i] == '-')
 	{
 		sign = -1;
-		x++;
+		i++;
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
@@ -41,6 +41,8 @@ int 			ft_strlen(char *str)
 {
 	int i;
 
+	if (str == NULL)
+		return (0);
 	i = 0;
 	while (str[i])
 		i++;
@@ -57,10 +59,9 @@ float			ft_atof(char buf[BUFFER_SIZE], int x)
     f = 0;
     d = 0;
     i = 0;
-    signe = 1;
-	x--;
-    if(buf[x++] == '-')
-        signe = -1;
+    signe = (buf[x] == '-') ? -1 : 1;
+	if (signe == -1)
+		x++;
     while(buf[x] >= '0' && buf[x] <= '9')
         f = 10 * f + (buf[x++] - 48);
     if (buf[x] != ' ' && buf[x] !=  '.' && buf[x] != '\n' && buf[x] != '\0')
@@ -72,8 +73,7 @@ float			ft_atof(char buf[BUFFER_SIZE], int x)
     if (x - i > 0)
         while(x - i++ > 0)
             d /= 10;
-    f = (d + f) * signe;
-    return(f);
+    return((d + f) * signe);
 }
 
 void			read_float(char buf[BUFFER_SIZE], int *x, float *ret)

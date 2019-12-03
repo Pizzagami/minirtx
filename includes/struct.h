@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/01 19:11:41 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/02 16:44:19 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,11 @@ typedef struct	s_coor
 
 typedef struct	s_cam
 {
-	t_vec origin;
-	t_vec ray;
+	t_vec	origin;
+	t_vec	ray;
+	t_vec	vec;
+	int		fov;
+	void	*next;
 }				t_cam;
 
 typedef	struct s_obj
@@ -80,7 +83,7 @@ typedef struct	s_all
 	t_vec	vec;
 	t_color	color;
 	t_coor	coor;
-	t_cam	cam;
+	t_cam	*cam;
 	t_light	*light;
 	t_tg	*shape;
 }				t_rtx;

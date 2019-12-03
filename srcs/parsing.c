@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/01 19:51:24 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/02 18:09:23 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int main(int argc, char **argv)
 {
 	parseke(argv[1]);
+	printf("=====PARSING DONE=====\n");
 	return (0);
 }
 
@@ -46,19 +47,19 @@ t_rtx		parsing(int fd)
 {
 	t_rtx	rtx;
 	char	buf[BUFFER_SIZE];
-	t_tg	shape;
+
 
 	rtx.res.x = -1;
 	rtx.amb.color.b = -1;
-	shape.next = NULL;
-	rtx.shape = &shape;
+	init_lst(fd,&rtx);
 	if(read(fd, &buf, BUFFER_SIZE) == BUFFER_SIZE)
 	{
 		printf("Error : CE SERAI UN PEU LONG KAN MEME !!\n");
 		exit(1);
 	}
-	ft_switch(buf, rtx, fd);
-	if (rtx.res.x * rtx.amb.color.b < 0)
+	ft_switch(buf, &rtx, fd);
+	printf("=====PARSING ALMOSTE DONE=====\n");
+	if (rtx.res.x < 0 || rtx.amb.color.b < 0)
 	{
 		write(2 , "Error : Resolution or/and Ambiant light undefined", 49);
 		close(fd);
@@ -67,8 +68,9 @@ t_rtx		parsing(int fd)
 	return(rtx);
 }
 
-void		ft_switch(char buf[BUFFER_SIZE], t_rtx rtx, int fd)
+void		ft_switch(char buf[BUFFER_SIZE], t_rtx *rtx, int fd)
 {
+	
 	int x;
 	char *err;
 
@@ -78,17 +80,18 @@ void		ft_switch(char buf[BUFFER_SIZE], t_rtx rtx, int fd)
 		if(buf[x] == '\n')
 			x++;
 		if (buf[x] == 'A' || buf[x] == 'R')
-			err = init_ar(buf, &x, &rtx);
+			err = init_ar(buf, &x, rtx);
 		if(buf[x] == 'l' || (buf[x] == 'c' && buf[x + 1] != 'y'))
-			err = init_view(buf, &x, &rtx);
+			err = init_view(buf, &x, rtx);
 		if (buf[x] == 's' || (buf[x] == 'p' && buf[x + 1] == 'l'))
-			err =init_sp(buf, &x, &rtx);
+			err =init_sp(buf, &x, rtx);
 		if(buf[x] == 't' || (buf[x] == 'c' && buf[x + 1] == 'y'))
-			err =init_tc(buf, &x, &rtx);
+			err =init_tc(buf, &x, rtx);
 		if (err != NULL)
 		{
-			write(0, err, ft_strlen(err));
+			write(2, err, ft_strlen(err));
 			close(fd);
+			printf("=====Exit programme because of parsing error=====\n");
 			exit(1);
 		}
 		x++;
