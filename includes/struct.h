@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/02 16:44:19 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/03 14:13:40 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct	s_light
 {
 	t_vec	pos;
 	t_color	color;
-	void	*next;
+	struct s_light	*next;
 }				t_light;
 
 typedef struct	s_coor
@@ -46,7 +46,7 @@ typedef struct	s_cam
 	t_vec	ray;
 	t_vec	vec;
 	int		fov;
-	void	*next;
+	struct s_cam	*next;
 }				t_cam;
 
 typedef	struct s_obj
@@ -60,7 +60,7 @@ typedef	struct s_obj
 	float	dia;
 	float	hi;
 	int		type;
-	void	*next;
+	struct s_obj	*next;
 
 }				t_tg;
 

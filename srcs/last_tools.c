@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   last_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:41:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/02 18:12:52 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/03 15:41:52 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,18 @@
 void	init_lst(int fd, t_rtx *rtx)
 {
 	t_tg	*shape;
+	t_light *light;
 	t_cam	*cam;
-	t_light	*light;
-	int x;
 
-	x = 0;
-	if (!(shape = malloc(sizeof(shape))))
-		x = 1;
-	shape->next = NULL;
+	shape = malloc(sizeof(t_tg));
 	rtx->shape = shape;
-	if (!(cam = malloc(sizeof(cam))))
-		x = 1;
-	cam->next = NULL;
-	rtx->cam = cam;
-	if (!(light = malloc(sizeof(light))))
-		x = 1;
-	light->next = NULL;
+	rtx->shape->next = NULL;
+	light = malloc(sizeof(t_light));
 	rtx->light = light;
-	if (x == 1)
-	{
-	write(2, "Error : allocation failed during init_lst\n", 42);
-	close(fd);
-	exit(1);
-	}
+	rtx->light->next = NULL;
+	cam = malloc(sizeof(t_cam));
+	rtx->cam = cam;
+	rtx->cam->next = NULL;
 }
 
 t_tg	*last_tg(t_tg *lst)
@@ -47,7 +36,11 @@ t_tg	*last_tg(t_tg *lst)
 	current = lst;
 	if (lst)
 		while (lst && current->next)
-			current = current->next;
+			{
+				current = current->next;
+				printf("test\n");
+			}
+	printf("LOL\n");
 	return (current);
 }
 

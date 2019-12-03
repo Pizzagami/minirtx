@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 19:34:04 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/02 16:10:08 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/03 15:41:37 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,26 +76,31 @@ float			ft_atof(char buf[BUFFER_SIZE], int x)
     return((d + f) * signe);
 }
 
-void			read_float(char buf[BUFFER_SIZE], int *x, float *ret)
-{ 
+float			read_float(char buf[BUFFER_SIZE], int *x)
+{
+	float ret;
 	while (buf[*x] == ' ')
 		(*x)++;
-	*ret = ft_atof(buf, *x);
+	ret = ft_atof(buf, *x);
 	while ((buf[*x] >= '0' && buf[*x] <= '9') || buf[*x] == '-' ||
     buf[*x] == '.')
 		(*x)++;
 	while (buf[*x] == ' ')
 		(*x)++;
+	return (ret);
 }
 
-void			read_int(char buf[BUFFER_SIZE], int *x, int *ret)
+int			read_int(char buf[BUFFER_SIZE], int *x)
 {
+	int ret;
+
 	while (buf[*x] == ' ')
 		(*x)++;
-	*ret = ft_atoi(buf, *x);
+	ret = ft_atoi(buf, *x);
 	while ((buf[*x] >= '0' && buf[*x] <= '9') || buf[*x] == '-' ||
 	buf[*x] == '.')
 		(*x)++;
 	while (buf[*x] == ' ')
 		(*x)++;
+		return(ret);
 }

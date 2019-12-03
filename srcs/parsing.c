@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/02 18:09:23 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/03 15:52:26 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,16 @@ t_rtx		parseke(char *str)
 	}
 	rtx = parsing(fd);
 	close(fd);
+	
+	int i = 0;
+	t_tg *shape;
+	shape = rtx.shape;
+	while (shape->next)
+	{
+		printf("lc = %d : type = %d pos = %f %f %f\n", i,shape->type, shape->center.x, shape->center.y,shape->center.z);
+		shape = shape->next;
+		i++;
+	}
 	return(rtx);
 }
 

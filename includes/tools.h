@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/02 18:09:43 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/03 15:41:34 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ float			dot(t_vec machin, t_vec bidule);
 float      		ft_atof(char buf[BUFFER_SIZE], int x);
 
 void			init_lst(int fd, t_rtx *rtx);
-void 			read_int(char buf[BUFFER_SIZE], int *x, int *ret);
-void			read_float(char buf[BUFFER_SIZE], int *x,float *ret);
+int 			read_int(char buf[BUFFER_SIZE], int *x);
+float			read_float(char buf[BUFFER_SIZE], int *x);
 
 t_tg			*last_tg(t_tg *lst);
 t_cam			*last_cam(t_cam *lst);
