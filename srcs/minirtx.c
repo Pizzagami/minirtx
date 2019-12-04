@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/04 13:12:34 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/04 18:43:58 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_color		cal_col(t_cam cam, t_tg shape, t_light l1)
 				normal = normalize(min(point, shape.center));
 			c = dot(light, normal);
 			if (c < 0)
-				c = -c;
+				c = 0;
 			color.r += c * la->color.r;
 			color.g += c * la->color.g;
 			color.b += c * la->color.b;
@@ -84,9 +84,7 @@ int main(int argc, char **argv)
 	float	aspect_ratio;
 	t_rtx	rtx;
 
-	printf("LOL\n");
 	rtx = parseke(argc, argv);
-	printf("LOL2\n");
 	mlx_ptr = mlx_init();
 	mlx_win = mlx_new_window(mlx_ptr, rtx.res.x, rtx.res.y, "Pizza");
 	rtx.coor.x = 0;
@@ -95,7 +93,7 @@ int main(int argc, char **argv)
 		rtx.coor.y = 0;
 		while (rtx.coor.y < rtx.res.y)
 		{
-			aspect_ratio = rtx.res.x / rtx.res.y; // assuming width > height 
+			aspect_ratio = (float)rtx.res.x / (float)rtx.res.y; // assuming width > height 
 			rtx.cam->ray.x = (2 * ((rtx.coor.x + 0.5) / rtx.res.x) - 1) *
 			tan((float)rtx.cam->fov /2 /180 * M_PI) * aspect_ratio;
 			rtx.cam->ray.y = (1 - (2 * ((rtx.coor.y + 0.5) / rtx.res.y))) *

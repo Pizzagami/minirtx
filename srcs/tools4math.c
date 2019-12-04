@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/04 12:49:33 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/04 18:28:24 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ int		inter(t_vec	dot, t_vec center, float hi, t_vec vec)
 	x = ((dot.x <= (center.x + vec.x)) && (dot.x >= (center.x - vec.x)))? x: 1;
 		vec = fois(rotation(vec), hi);
 	x = ((dot.y <= (center.y + vec.y)) && (dot.y >= (center.y - vec.y))) ? x: 1;
-	//	printf("%d\n",x);
 	return (x);
 }
 float find_dist(t_cam cam, t_tg shape)

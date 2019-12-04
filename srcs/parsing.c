@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/04 13:17:47 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/04 18:31:52 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_rtx		parseke(int argc, char **argv)
 	light = rtx.light;
 	while (light->next)
 	{
-		printf("lc = %d : pos = %f %f %f\n", i, light->pos.x, light->pos.y,light->pos.z);
+		printf("lc = %d : pos = %f %f %f \n", i, light->pos.x, light->pos.y,light->pos.z);
 		light = light->next;
 		i++;
 	}
@@ -102,6 +102,7 @@ void		ft_switch(char buf[BUFFER_SIZE], t_rtx *rtx, int fd)
 	int x;
 	char *err;
 
+	err =NULL;
 	x = 0;
 	while(buf[x])
 	{
@@ -115,7 +116,9 @@ void		ft_switch(char buf[BUFFER_SIZE], t_rtx *rtx, int fd)
 			err = init_sp(buf, &x, rtx);
 		else if(buf[x] == 't' || (buf[x] == 'c' && buf[x + 1] == 'y'))
 			err = init_tc(buf, &x, rtx);
-		if (err != NULL || buf[x] != '\n')
+		while (buf[x] == ' ')
+			x++;
+		if (err != NULL || (buf[x] != '\n' && buf[x]))
 		{
 			if (err != NULL)
 				write(2, err, ft_strlen(err));
