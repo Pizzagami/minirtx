@@ -6,38 +6,35 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/04 11:03:36 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/04 12:25:03 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int main(int argc, char **argv)
-{
-	parseke(argv[1]);
-	printf("=====PARSING DONE=====\n");
-	return (0);
-}
-
-t_rtx		parseke(char *str)
+t_rtx		parseke(int argc, char **argv)
 {
 	t_rtx	rtx;
 	int		fd;
 	
-	fd = open(str, O_RDONLY);
+	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
 		perror("Error : ");
 		exit(1);
 	}
-	while(*(str + 1))
-		str++;
-	if ((*str) != 't' || *(str - 1) != 'r' || *(str - 2) != '.')
+	while(*(argv[1] + 1))
+		argv[1]++;
+	if ((*argv[1] != 't' || *(argv[1] - 1) != 'r' || *(argv[1] - 2) != '.'))
 	{
 		printf("Error : Format incorrect \n");
 		close(fd);
 		exit(1);
 	}
+	if (argc == 2)
+		rtx.save = (strcmp(argv[2],"-save") == 0) ? 1 : 0;
+	else if (argc > 2)
+		write(1, "Error : too many argunens\n", 26);
 	rtx = parsing(fd);
 	close(fd);
 	
@@ -112,15 +109,18 @@ void		ft_switch(char buf[BUFFER_SIZE], t_rtx *rtx, int fd)
 			x++;
 		if (buf[x] == 'A' || buf[x] == 'R')
 			err = init_ar(buf, &x, rtx);
-		if(buf[x] == 'l' || (buf[x] == 'c' && buf[x + 1] != 'y'))
+		else if(buf[x] == 'l' || (buf[x] == 'c' && buf[x + 1] != 'y'))
 			err = init_view(buf, &x, rtx);
-		if (buf[x] == 's' || (buf[x] == 'p' && buf[x + 1] == 'l'))
+		else if (buf[x] == 's' || (buf[x] == 'p' && buf[x + 1] == 'l'))
 			err = init_sp(buf, &x, rtx);
-		if(buf[x] == 't' || (buf[x] == 'c' && buf[x + 1] == 'y'))
+		else if(buf[x] == 't' || (buf[x] == 'c' && buf[x + 1] == 'y'))
 			err = init_tc(buf, &x, rtx);
-		if (err != NULL)
+		if (err != NULL || buf[x] != '\n')
 		{
-			write(2, err, ft_strlen(err));
+			if (err != NULL)
+				write(2, err, ft_strlen(err));
+			else
+				write(1, "Error : format of file is incorect\n", 35);
 			close(fd);
 			printf("=====Exit programme because of parsing error=====\n");
 			exit(1);
