@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/03 14:13:40 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/03 17:04:05 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct 	s_color
 
 typedef struct	s_light
 {
+	float	ratio;
 	t_vec	pos;
 	t_color	color;
 	struct s_light	*next;

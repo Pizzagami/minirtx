@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/03 15:52:26 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/04 10:13:56 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,33 @@ t_rtx		parseke(char *str)
 	close(fd);
 	
 	int i = 0;
+	printf("++++SHAPE++++\n");
 	t_tg *shape;
 	shape = rtx.shape;
 	while (shape->next)
 	{
-		printf("lc = %d : type = %d pos = %f %f %f\n", i,shape->type, shape->center.x, shape->center.y,shape->center.z);
+		printf("lc = %d : type = %d pos = %10f %10f %10f color : %3d %3d %3d hi = %10f dia = %10f vec = %10f %10f %10f\n", i,shape->type, shape->center.x, shape->center.y,shape->center.z, shape->color.r, shape->color.g, shape->color.b, shape->hi, shape->dia, shape->vec.x, shape->vec.y, shape->vec.z);
 		shape = shape->next;
+		i++;
+	}
+	i = 0;
+	printf("++++CAMERA++++\n");
+	t_cam *cam;
+	cam = rtx.cam;
+	while (cam->next)
+	{
+		printf("lc = %d : pos = %f %f %f\n", i, cam->origin.x, cam->origin.y,cam->origin.z);
+		cam = cam->next;
+		i++;
+	}
+	i = 0;
+	printf("++++LIGHT++++\n");
+	t_light *light;
+	light = rtx.light;
+	while (light->next)
+	{
+		printf("lc = %d : pos = %f %f %f\n", i, light->pos.x, light->pos.y,light->pos.z);
+		light = light->next;
 		i++;
 	}
 	return(rtx);
@@ -94,9 +115,9 @@ void		ft_switch(char buf[BUFFER_SIZE], t_rtx *rtx, int fd)
 		if(buf[x] == 'l' || (buf[x] == 'c' && buf[x + 1] != 'y'))
 			err = init_view(buf, &x, rtx);
 		if (buf[x] == 's' || (buf[x] == 'p' && buf[x + 1] == 'l'))
-			err =init_sp(buf, &x, rtx);
+			err = init_sp(buf, &x, rtx);
 		if(buf[x] == 't' || (buf[x] == 'c' && buf[x + 1] == 'y'))
-			err =init_tc(buf, &x, rtx);
+			err = init_tc(buf, &x, rtx);
 		if (err != NULL)
 		{
 			write(2, err, ft_strlen(err));

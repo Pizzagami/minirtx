@@ -6,13 +6,13 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:13:56 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/03 15:47:10 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/03 17:13:54 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tools.h"
 
-char	*check_color(char buf[BUFFER_SIZE], int *x, t_color *color, char *id)
+char	*read_color(char buf[BUFFER_SIZE], int *x, t_color *color, char *id)
 {
 	color->r = read_int(buf, x);
 	if (color->r == -42)
@@ -33,7 +33,7 @@ char	*check_color(char buf[BUFFER_SIZE], int *x, t_color *color, char *id)
 	return (NULL);
 }
 
-char	*check_vec(char buf[BUFFER_SIZE], int *x, t_vec *vec, char *id)
+char	*read_vec(char buf[BUFFER_SIZE], int *x, t_vec *vec, char *id)
 {
 	vec->x = read_float(buf, x);
 	if (vec->x == NAF)
@@ -80,7 +80,7 @@ char	*join(char *s1, char *s2)
 	return (r);
 }
 
-char	*check_pos(char buf[BUFFER_SIZE], int *x, t_vec *vec, char *id)
+char	*read_pos(char buf[BUFFER_SIZE], int *x, t_vec *vec, char *id)
 {
 	vec->x = read_float(buf, x);
 	if (vec->x == NAF)

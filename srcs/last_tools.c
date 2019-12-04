@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:41:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/03 15:41:52 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/03 16:55:50 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,41 +27,4 @@ void	init_lst(int fd, t_rtx *rtx)
 	cam = malloc(sizeof(t_cam));
 	rtx->cam = cam;
 	rtx->cam->next = NULL;
-}
-
-t_tg	*last_tg(t_tg *lst)
-{
-	t_tg *current;
-
-	current = lst;
-	if (lst)
-		while (lst && current->next)
-			{
-				current = current->next;
-				printf("test\n");
-			}
-	printf("LOL\n");
-	return (current);
-}
-
-t_cam	*last_cam(t_cam *lst)
-{
-	t_cam *current;
-
-	current = lst;
-	if (lst)
-		while (lst && current->next)
-			current = current->next;
-	return (current);
-}
-
-t_light	*last_light(t_light *lst)
-{
-	t_light *current;
-
-	current = lst;
-	if (lst)
-		while (lst && current->next)
-			current = current->next;
-	return (current);
 }

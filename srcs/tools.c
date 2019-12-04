@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 19:34:04 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/03 15:41:37 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/03 16:52:16 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,10 @@ float			ft_atof(char buf[BUFFER_SIZE], int x)
 		x++;
     while(buf[x] >= '0' && buf[x] <= '9')
         f = 10 * f + (buf[x++] - 48);
-    if (buf[x] != ' ' && buf[x] !=  '.' && buf[x] != '\n' && buf[x] != '\0')
+    if (buf[x] != ' ' && buf[x] !=  '.' && buf[x] != '\n' &&
+		buf[x] != '\0' && buf[x] != ',')
         return(NAF);
-    x++;
+    x = (buf[x] == '.')? x++: x;
 	i = x;
     while(buf[x] > 47 && buf[x] < 58)
         d = 10 * d + (buf[x++] - 48);
