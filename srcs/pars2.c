@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/03 17:51:18 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/04 10:55:17 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char *init_ar(char buf[BUFFER_SIZE], int *x, t_rtx *rtx)
 	(*x)++;
 	if (buf[(*x) - 1] == 'A')
 	{
+		if (rtx->amb.color.b != -1)
+			return ("Error : Only one ambiant light allowed\n");
 		rtx->amb.ratio = read_float(buf, x);
 		if (rtx->amb.ratio == NAF)
 			return("Error : Invalid float for ratio of ambiant light\n");
@@ -24,6 +26,8 @@ char *init_ar(char buf[BUFFER_SIZE], int *x, t_rtx *rtx)
 			return("Error : Value out of range for ratio of ambiant light\n");
 		return(read_color(buf, x, &(rtx->amb.color), "ambiante light\n"));
 	}
+	if (rtx->amb.color.b != -1)
+		return ("Error : Only one resolution allowed\n");
 	rtx->res.x = read_int(buf, x);
 	if (rtx->res.x > 2160 || rtx->res.x < 1)
 		return ("Error : Value out of range for resolution in \"x\"\n");
@@ -96,6 +100,10 @@ char *init_tc(char buf[BUFFER_SIZE], int *x, t_rtx *rtx)
 {
 	char *ret;
 	t_tg *shape;
+
+	shape = malloc(sizeof(t_tg));
+	shape->next = rtx->shape;
+	rtx->shape = shape;
 	(*x) += 2;
 	if (buf[*x - 2] == 'c' && buf[*x - 1] == 'y')
 	{
@@ -105,9 +113,9 @@ char *init_tc(char buf[BUFFER_SIZE], int *x, t_rtx *rtx)
 		shape->dia = read_float(buf, x);
 		if (shape->dia < 0)
 			ret = join(ret,"Error : diameter must be positive\n");
-		shape->dia = read_float(buf, x);
+		shape->hi = read_float(buf, x);
 		if (shape->hi < 0)
-			ret = join(ret,"Error : height must be positive\n");
+			ret = join(ret,"Error : height of cylinder must be positive\n");
 		ret = join(ret, read_color(buf, x, &(shape->color), "cylindre color\n"));
 		return(ret);
 	}

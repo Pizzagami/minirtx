@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/01 13:53:42 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:39:43 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include "struct.h"
-
+#include "parsing.h"
+ 
 #define BUFFER_SIZE 2147483
 #define StructureNotifyMask	(1L<<17)
 #define DestroyNotify	17

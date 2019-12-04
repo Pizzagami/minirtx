@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:13:56 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/03 17:13:54 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:03:35 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,21 @@ char	*read_pos(char buf[BUFFER_SIZE], int *x, t_vec *vec, char *id)
 	if (vec->z == NAF)
 		return (join("Error : Invalid float for z of ", id));
 	return (NULL);
+}
+
+void	init_lst(int fd, t_rtx *rtx)
+{
+	t_tg	*shape;
+	t_light *light;
+	t_cam	*cam;
+
+	shape = malloc(sizeof(t_tg));
+	rtx->shape = shape;
+	rtx->shape->next = NULL;
+	light = malloc(sizeof(t_light));
+	rtx->light = light;
+	rtx->light->next = NULL;
+	cam = malloc(sizeof(t_cam));
+	rtx->cam = cam;
+	rtx->cam->next = NULL;
 }
