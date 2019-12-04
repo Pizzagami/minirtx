@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/01 13:56:39 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/04 12:49:33 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,13 @@ t_vec	fois(t_vec truc, float a)
 	return (truc);
 }
 
+t_color	lfois(t_color color, float a)
+{
+	color.r *= a;
+	color.g *= a;
+	color.b *= a;
+	return (color);
+}
 t_vec	rotation(t_vec truc) /////ROTATION FAUX
 {
 	float tmp;

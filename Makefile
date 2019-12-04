@@ -6,7 +6,7 @@
 #    By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:50:27 by selgrabl          #+#    #+#              #
-#    Updated: 2019/12/04 11:04:20 by braimbau         ###   ########.fr        #
+#    Updated: 2019/12/04 13:10:08 by selgrabl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,18 +14,18 @@ NAME = minirtx
 
 SRCS = 	./srcs/minirtx.c	\
 		./srcs/tools4math.c	\
-		./srcs/tools4mlx.c	\
 		./srcs/tools.c		\
 		./srcs/parsing.c	\
 		./srcs/pars2.c		\
 		./srcs/tools2.c		\
+		./srcs/mlx_hook.c	\
 
 
 OBJS = ${SRCS:.c=.o}
 
 CC  = gcc
 
-CFLAGS = -Iminilibx -Lminilibx -lmlx -framework OpenGL -framework Appkit -Wall -Wextra  -I./includes/
+CFLAGS =  -Lincludes/minilibx -lmlx -framework OpenGL -framework Appkit -Wall -Wextra  -I./includes/
 
 RM  = rm -f
 

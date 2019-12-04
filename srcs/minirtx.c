@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/04 11:44:53 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:12:34 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_color		cal_col(t_cam cam, t_tg shape, t_light l1)
 	t_vec normal;
 	t_vec light;
 	t_vec point;
+	t_light *la;
 	float dist;
 	float c;
 	float amb = 0;
@@ -49,16 +50,16 @@ t_color		cal_col(t_cam cam, t_tg shape, t_light l1)
 		color.r = amb * shape.color.r;
 		color.g = amb * shape.color.g;
 		color.b = amb * shape.color.b;
-		t_light *la;
 		la = &l1;
+		lfois(la->color, la->ratio);
 		while (la != NULL)
 		{
 			point = plus(cam.origin, fois(cam.ray, dist));
 			light = normalize(min(la->pos, point));
 			if (shape.type == 0 || shape.type == 4)
-			normal = shape.vec;
+				normal = shape.vec;
 			else
-			normal = normalize(min(point, shape.center));
+				normal = normalize(min(point, shape.center));
 			c = dot(light, normal);
 			if (c < 0)
 				c = -c;
@@ -83,24 +84,29 @@ int main(int argc, char **argv)
 	float	aspect_ratio;
 	t_rtx	rtx;
 
+	printf("LOL\n");
 	rtx = parseke(argc, argv);
+	printf("LOL2\n");
 	mlx_ptr = mlx_init();
-	mlx_win = mlx_new_window(mlx_ptr, coor.res_x, coor.res_y, "Pizza");
-	coor.x = 0;
-	while(coor.x < coor.res_x)
+	mlx_win = mlx_new_window(mlx_ptr, rtx.res.x, rtx.res.y, "Pizza");
+	rtx.coor.x = 0;
+	while(rtx.coor.x < rtx.res.x)
 	{
-		coor.y = 0;
-		while (coor.y < coor.res_y)
+		rtx.coor.y = 0;
+		while (rtx.coor.y < rtx.res.y)
 		{
-			aspect_ratio = (float)coor.res_x / (float)coor.res_y; // assuming width > height 
-			cam.ray.x = (2 * ((coor.x + 0.5f) / (float)coor.res_x) - 1) * tan((float)fov /2 /180 * M_PI) * aspect_ratio;
-			cam.ray.y = (1 - (2 * ((coor.y + 0.5f) / (float)coor.res_y))) * tan((float)fov /2 /180 * M_PI);
-			cam.ray.z = -1;
-			cam.ray = normalize(cam.ray);
-			mlx_pixel_put(mlx_ptr, mlx_win, coor.x, coor.y, rgbtoon(cal_col(cam, shape, l1)));
-			coor.y++;
+			aspect_ratio = rtx.res.x / rtx.res.y; // assuming width > height 
+			rtx.cam->ray.x = (2 * ((rtx.coor.x + 0.5) / rtx.res.x) - 1) *
+			tan((float)rtx.cam->fov /2 /180 * M_PI) * aspect_ratio;
+			rtx.cam->ray.y = (1 - (2 * ((rtx.coor.y + 0.5) / rtx.res.y))) *
+			tan((float)rtx.cam->fov /2 /180 * M_PI);
+			rtx.cam->ray.z = -1;
+			rtx.cam->ray = normalize(rtx.cam->ray);
+			mlx_pixel_put(mlx_ptr, mlx_win, rtx.coor.x, rtx.coor.y,
+			rgbtoon(cal_col(*(rtx.cam), *(rtx.shape), *(rtx.light))));
+			rtx.coor.y++;
 		}
-		coor.x++;
+		rtx.coor.x++;
 	}
 	void *r;
 	mlx_hook(mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, r);

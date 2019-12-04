@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:13:56 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/04 11:03:35 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:16:38 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,22 @@ void	init_lst(int fd, t_rtx *rtx)
 	cam = malloc(sizeof(t_cam));
 	rtx->cam = cam;
 	rtx->cam->next = NULL;
+}
+
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	unsigned int i;
+
+	i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0')
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - s2[i]);
+		i++;
+	}
+	if (((s1[i] == '\0' && s2[i] != '\0') ||
+				(s2[i] == '\0' && s1[i] != '\0')))
+		return ((unsigned char)s1[i] - s2[i]);
+	return (0);
 }

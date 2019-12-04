@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:36:32 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/04 12:18:04 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:05:23 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-#include "minirtx.h"
 #include "tools.h"
 
 t_rtx			parseke(int argc, char **argv);

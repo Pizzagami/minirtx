@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/04 12:25:03 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:17:47 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ t_rtx		parseke(int argc, char **argv)
 		close(fd);
 		exit(1);
 	}
-	if (argc == 2)
-		rtx.save = (strcmp(argv[2],"-save") == 0) ? 1 : 0;
-	else if (argc > 2)
+	if (argc == 3)
+		rtx.save = (ft_strcmp(argv[2],"-save") == 0) ? 1 : 0;
+	else if (argc > 3)
 		write(1, "Error : too many argunens\n", 26);
 	rtx = parsing(fd);
 	close(fd);
