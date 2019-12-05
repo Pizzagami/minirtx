@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/04 12:52:02 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/05 13:20:53 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char *init_sp(char buf[BUFFER_SIZE], int *x, t_rtx *rtx)
 		return (ret);
 	}
 	shape->type = (buf[*x - 2] == 's') ? 4 : 0;
-	ret = read_pos(buf, x, &(shape->center), "vector of plane / square\n");
+	ret = read_pos(buf, x, &(shape->center), "position of plane / square\n");
 	ret = join(ret, read_vec(buf, x, &(shape->vec), "vector of plane/square\n"));
 	shape->hi = (shape->type == 4) ? read_float(buf, x): 0;
 	if (shape->hi < 0)

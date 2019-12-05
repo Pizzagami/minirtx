@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/04 13:16:56 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/05 16:54:48 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_vec			normalize(t_vec vect);
 t_vec			fois(t_vec truc, float a);
 t_vec			min(t_vec truc, t_vec machin);
 t_vec			plus(t_vec truc, t_vec machin);
+t_vec			xfois(t_vec truc, float a);
 t_color			lfois(t_color color, float a);
 int				ft_strcmp(char *s1, char *s2);
 

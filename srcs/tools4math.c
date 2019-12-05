@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/04 18:28:24 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/05 17:10:34 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,13 @@ t_vec	fois(t_vec truc, float a)
 	truc.z *= a;
 	return (truc);
 }
+t_vec	xfois(t_vec truc, float a)
+{
+	truc.x = a * (1 - truc.x) * truc.z;
+	truc.y = a * (1 - truc.y) * truc.z;
+	truc.z = a * (1 - truc.z);
+	return (truc);
+}
 
 t_color	lfois(t_color color, float a)
 {
@@ -85,26 +92,15 @@ t_color	lfois(t_color color, float a)
 	color.b *= a;
 	return (color);
 }
-t_vec	rotation(t_vec truc) /////ROTATION FAUX
-{
-	float tmp;
-	tmp = truc.x;
-	truc.z =  truc.x;
-	truc.x = truc.z;
-	truc.y = tmp ;
-	return (truc);
-}
 
 int		inter(t_vec	dot, t_vec center, float hi, t_vec vec)
 {
 	int x;
 
-	//hi /= 2;
-	vec = fois(rotation(vec), hi);
-
+	hi /= 2;
+	vec = xfois(vec, hi);
 	x = 0;
 	x = ((dot.x <= (center.x + vec.x)) && (dot.x >= (center.x - vec.x)))? x: 1;
-		vec = fois(rotation(vec), hi);
 	x = ((dot.y <= (center.y + vec.y)) && (dot.y >= (center.y - vec.y))) ? x: 1;
 	return (x);
 }

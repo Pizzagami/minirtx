@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 19:34:04 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/03 16:52:16 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/05 14:04:37 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,14 @@ float			ft_atof(char buf[BUFFER_SIZE], int x)
     if (buf[x] != ' ' && buf[x] !=  '.' && buf[x] != '\n' &&
 		buf[x] != '\0' && buf[x] != ',')
         return(NAF);
-    x = (buf[x] == '.')? x++: x;
+    x = (buf[x] == '.')? x + 1: x;
 	i = x;
     while(buf[x] > 47 && buf[x] < 58)
         d = 10 * d + (buf[x++] - 48);
     if (x - i > 0)
         while(x - i++ > 0)
             d /= 10;
+	printf("|%f|\n", (d + f) * signe);
     return((d + f) * signe);
 }
 
