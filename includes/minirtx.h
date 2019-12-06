@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/04 13:06:16 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/06 17:09:10 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 #define DestroyNotify	17
 #define NAF M_E
 
-t_color			cal_col(t_cam, t_tg shape, t_light l1);
-float			find_dist(t_cam, t_tg shape);
+t_color			cal_col(t_cam, t_tg *lshape, t_light *llight,t_rtx rtx);
+t_color     	cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist);
 int				inter(t_vec	dot, t_vec center, float hi, t_vec vec);
 int				key_hook(int key);
 int				exit_hook(void *param);

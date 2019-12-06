@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tools4math.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/04 18:28:24 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/06 17:10:01 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tools.h"
 
-int second_degre(float a, float b, float c, float *x1, float *x2)
+int		second_degre(float a, float b, float c, float *x1, float *x2)
 {
 	float d;
 
@@ -37,7 +37,26 @@ int second_degre(float a, float b, float c, float *x1, float *x2)
 	}
 }
 
-t_vec normalize(t_vec vect)
+t_color color_add(t_color base, t_color add, float coef)
+{
+   base.r += add.r * coef;
+   base.g += add.g * coef;
+   base.b += add.b * coef;
+   return (base);
+}
+ 
+t_color color_cap(t_color color, t_color max)
+{
+   if (color.r > max.r)
+       color.r = max.r;
+   if (color.g > max.g)
+       color.g = max.g;
+   if (color.b > max.b)
+       color.b = max.b;
+   return (color);
+}
+
+t_vec	normalize(t_vec vect)
 {
 	t_vec tmp;
 
@@ -78,37 +97,35 @@ t_vec	fois(t_vec truc, float a)
 	return (truc);
 }
 
-t_color	lfois(t_color color, float a)
+t_vec	xfois(t_vec truc, float a)
 {
-	color.r *= a;
-	color.g *= a;
-	color.b *= a;
-	return (color);
-}
-t_vec	rotation(t_vec truc) /////ROTATION FAUX
-{
-	float tmp;
-	tmp = truc.x;
-	truc.z =  truc.x;
-	truc.x = truc.z;
-	truc.y = tmp ;
-	return (truc);
+    truc.x = a * (1 - truc.x) * truc.z;
+    truc.y = a * (1 - truc.y) * truc.z;
+    truc.z = a * (1 - truc.z);
+    return (truc);
 }
 
-int		inter(t_vec	dot, t_vec center, float hi, t_vec vec)
+t_color lfois(t_color color, float a)
 {
-	int x;
-
-	//hi /= 2;
-	vec = fois(rotation(vec), hi);
-
-	x = 0;
-	x = ((dot.x <= (center.x + vec.x)) && (dot.x >= (center.x - vec.x)))? x: 1;
-		vec = fois(rotation(vec), hi);
-	x = ((dot.y <= (center.y + vec.y)) && (dot.y >= (center.y - vec.y))) ? x: 1;
-	return (x);
+    color.r *= a;
+    color.g *= a;
+    color.b *= a;
+    return (color);
 }
-float find_dist(t_cam cam, t_tg shape)
+
+int     inter(t_vec dot, t_vec center, float hi, t_vec vec)
+{
+    int x;
+
+    hi /= 2;
+    vec = xfois(vec, hi);
+    x = 0;
+    x = ((dot.x <= (center.x + vec.x)) && (dot.x >= (center.x - vec.x)))? x: 1;
+    x = ((dot.y <= (center.y + vec.y)) && (dot.y >= (center.y - vec.y))) ? x: 1;
+    return (x);
+}
+
+float find_dist(t_vec origin, t_vec ray, t_tg shape)
 {
 	float x1;
 	float x2;
@@ -117,14 +134,14 @@ float find_dist(t_cam cam, t_tg shape)
 	x2 = 0;
 	s = 1;
 	if (shape.type == 1)
-	s = second_degre(dot(cam.ray, cam.ray),2 *dot(cam.ray,
-	min(cam.origin, shape.center)),dot(min(cam.origin, shape.center),
-	min(cam.origin, shape.center)) - pow(shape.dia/2, 2), &x1, &x2);
+	s = second_degre(dot(ray, ray),2 *dot(ray,
+	min(origin, shape.center)),dot(min(origin, shape.center),
+	min(origin, shape.center)) - pow(shape.dia/2, 2), &x1, &x2);
 	if (shape.type == 0 || shape.type == 4)
-	x1 = (dot(cam.ray, shape.vec) != 0) ?(dot(min(shape.center, cam.origin), shape.vec)/
-	dot(cam.ray, shape.vec)) : 0;
+	x1 = (dot(ray, shape.vec) != 0) ?(dot(min(shape.center, origin), shape.vec)/
+	dot(ray, shape.vec)) : 0;
 	if (shape.type == 4)
-	x1 = (inter(plus(cam.origin, fois(cam.ray, x1)), shape.center, shape.hi, shape.vec) > 0) ? 0: x1;
+	x1 = (inter(plus(origin, fois(ray, x1)), shape.center, shape.hi, shape.vec) > 0) ? 0: x1;
 	if (s == 1 && x1 > 0.0)
 		return (x1);
 	else if (s == 2 && (x1 > 0.0 || x2 > 0.0))
@@ -134,4 +151,14 @@ float find_dist(t_cam cam, t_tg shape)
 		return (x1);
 	}
 	return (-1.0);
+}
+
+t_vec   cross(t_vec machin, t_vec bidule)
+{
+    t_vec truc;
+
+    truc.x = machin.y * bidule.z - machin.z * bidule.y;
+    truc.y = machin.z * bidule.x - machin.x * bidule.z;
+    truc.z = machin.x * bidule.y - machin.y * bidule.x;
+
 }

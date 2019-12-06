@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/04 18:43:58 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/06 17:09:41 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,45 +29,40 @@ int rgbtoon(t_color color)
 	return(color.r * 65536 + color.g * 256 + color.b);
 }
 
-t_color		cal_col(t_cam cam, t_tg shape, t_light l1)
+t_color		cal_col(t_cam cam, t_tg *lshape, t_light *llight, t_rtx rtx)
 {	
 	t_color color;
-	t_vec normal;
-	t_vec light;
-	t_vec point;
-	t_light *la;
 	float dist;
+	float ldist;
 	float c;
-	float amb = 0;
+	t_tg shape;
+	t_tg *pshape;
 
 	color.r = 0;
 	color.g = 0;
 	color.b = 0;
-	dist = 1;
-	dist = find_dist(cam, shape);
+	dist = -1;
+	int i = 0;
+	pshape = lshape;
+	while (pshape->next != NULL)
+	{
+		pshape->vec = (pshape->type == 3) ?  normalize(cross(min(pshape->p2, pshape->p1),
+   		min(pshape->p3, pshape->p1))) : pshape->vec;
+		ldist = find_dist(cam.origin, cam.ray, *pshape);
+		i++;
+		if (ldist != - 1 && (dist == - 1 || ldist < dist))
+		{
+			dist = ldist;
+			shape = *pshape;
+		}
+		pshape = pshape->next;
+	}
 	if (dist != -1.0)
 	{
-		color.r = amb * shape.color.r;
-		color.g = amb * shape.color.g;
-		color.b = amb * shape.color.b;
-		la = &l1;
-		lfois(la->color, la->ratio);
-		while (la != NULL)
-		{
-			point = plus(cam.origin, fois(cam.ray, dist));
-			light = normalize(min(la->pos, point));
-			if (shape.type == 0 || shape.type == 4)
-				normal = shape.vec;
-			else
-				normal = normalize(min(point, shape.center));
-			c = dot(light, normal);
-			if (c < 0)
-				c = 0;
-			color.r += c * la->color.r;
-			color.g += c * la->color.g;
-			color.b += c * la->color.b;
-			la = la->next;
-		}
+		color.r = rtx.amb.ratio * rtx.amb.color.r / 255 * shape.color.r;
+		color.g = rtx.amb.ratio * rtx.amb.color.g / 255 * shape.color.g;
+		color.b = rtx.amb.ratio * rtx.amb.color.b / 255 * shape.color.b;
+		color = color_add(color, cal_lit(cam, shape, rtx, dist), 1);
 	if (color.r > shape.color.r)
 		color.r = shape.color.r;
 	if (color.g > shape.color.g)
@@ -75,8 +70,42 @@ t_color		cal_col(t_cam cam, t_tg shape, t_light l1)
 	if (color.b > shape.color.b)
 		color.b = shape.color.b;
 	}
-		return (color);
+	return (color);
 }
+
+t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
+{
+	t_vec normal;
+	t_vec light;
+	t_vec point;
+	t_color color;
+	float c;
+	t_tg *sh;
+	float ldist;	
+	
+	color.r = 0;
+	color.g = 0;
+	color.b = 0;
+	while (rtx.light != NULL)
+	{
+		point = plus(cam.origin, fois(cam.ray, dist));
+		light = normalize(min(rtx.light->pos, point));
+		if (shape.type == 0 || shape.type == 4 || shape.type == 3)
+			normal = shape.vec;
+		else
+			normal = normalize(min(point, shape.center));
+		c = dot(light, normal);
+		if (c < 0)
+			c = 0;
+		color.r += c * rtx.light->color.r * shape.color.r /255;
+		color.g += c * rtx.light->color.g * shape.color.g /255;
+		color.b += c * rtx.light->color.b * shape.color.b /255;
+		rtx.light = rtx.light->next;
+	}
+	return (color);
+}
+
+
 int main(int argc, char **argv)
 {
 	void	*mlx_ptr;
@@ -86,7 +115,7 @@ int main(int argc, char **argv)
 
 	rtx = parseke(argc, argv);
 	mlx_ptr = mlx_init();
-	mlx_win = mlx_new_window(mlx_ptr, rtx.res.x, rtx.res.y, "Pizza");
+	mlx_win = mlx_new_window(mlx_ptr, rtx.res.x, rtx.res.y, "miniRTX");
 	rtx.coor.x = 0;
 	while(rtx.coor.x < rtx.res.x)
 	{
@@ -101,7 +130,7 @@ int main(int argc, char **argv)
 			rtx.cam->ray.z = -1;
 			rtx.cam->ray = normalize(rtx.cam->ray);
 			mlx_pixel_put(mlx_ptr, mlx_win, rtx.coor.x, rtx.coor.y,
-			rgbtoon(cal_col(*(rtx.cam), *(rtx.shape), *(rtx.light))));
+			rgbtoon(cal_col(*(rtx.cam), rtx.shape, rtx.light, rtx)));
 			rtx.coor.y++;
 		}
 		rtx.coor.x++;
