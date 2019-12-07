@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/06 17:08:52 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/07 17:24:03 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,12 @@ t_vec			min(t_vec truc, t_vec machin);
 t_vec			plus(t_vec truc, t_vec machin);
 t_vec			cross(t_vec machin, t_vec bidule);
 t_color			lfois(t_color color, float a);
+t_color			color_init(int r, int g, int b);
 t_color			color_add(t_color base, t_color add, float coef);
 t_color			color_cap(t_color color, t_color max);
 int				ft_strcmp(char *s1, char *s2);
 float			find_dist(t_vec origin, t_vec ray, t_tg shape);
+int     		distri(t_tg tri, t_vec p);
+int     		distsqr(t_vec   dot, t_vec center, float hi, t_vec vec);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/04 18:31:52 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/07 18:44:18 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,37 +37,6 @@ t_rtx		parseke(int argc, char **argv)
 		write(1, "Error : too many argunens\n", 26);
 	rtx = parsing(fd);
 	close(fd);
-	
-	int i = 0;
-	printf("++++SHAPE++++\n");
-	t_tg *shape;
-	shape = rtx.shape;
-	while (shape->next)
-	{
-		printf("lc = %d : type = %d pos = %10f %10f %10f color : %3d %3d %3d hi = %10f dia = %10f vec = %10f %10f %10f\n", i,shape->type, shape->center.x, shape->center.y,shape->center.z, shape->color.r, shape->color.g, shape->color.b, shape->hi, shape->dia, shape->vec.x, shape->vec.y, shape->vec.z);
-		shape = shape->next;
-		i++;
-	}
-	i = 0;
-	printf("++++CAMERA++++\n");
-	t_cam *cam;
-	cam = rtx.cam;
-	while (cam->next)
-	{
-		printf("lc = %d : pos = %f %f %f\n", i, cam->origin.x, cam->origin.y,cam->origin.z);
-		cam = cam->next;
-		i++;
-	}
-	i = 0;
-	printf("++++LIGHT++++\n");
-	t_light *light;
-	light = rtx.light;
-	while (light->next)
-	{
-		printf("lc = %d : pos = %f %f %f \n", i, light->pos.x, light->pos.y,light->pos.z);
-		light = light->next;
-		i++;
-	}
 	return(rtx);
 }
 

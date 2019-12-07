@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/06 17:09:41 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/07 19:04:06 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_color		cal_col(t_cam cam, t_tg *lshape, t_light *llight, t_rtx rtx)
 	pshape = lshape;
 	while (pshape->next != NULL)
 	{
-		pshape->vec = (pshape->type == 3) ?  normalize(cross(min(pshape->p2, pshape->p1),
+		pshape->vec = (pshape->type == 3) ? normalize(cross(min(pshape->p2, pshape->p1),
    		min(pshape->p3, pshape->p1))) : pshape->vec;
 		ldist = find_dist(cam.origin, cam.ray, *pshape);
 		i++;
@@ -88,6 +88,7 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 	color.b = 0;
 	while (rtx.light != NULL)
 	{
+		sh = rtx.shape;
 		point = plus(cam.origin, fois(cam.ray, dist));
 		light = normalize(min(rtx.light->pos, point));
 		if (shape.type == 0 || shape.type == 4 || shape.type == 3)
@@ -97,6 +98,13 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 		c = dot(light, normal);
 		if (c < 0)
 			c = 0;
+		ldist = find_dist(rtx.light->pos, min(point, light), shape);
+		while (sh->next)
+		{
+			if (find_dist(rtx.light->pos, min(point, light), *sh) < ldist && find_dist(rtx.light->pos, min(point, light), *sh) > 0)
+				c = 0;
+			sh = sh->next;
+		}
 		color.r += c * rtx.light->color.r * shape.color.r /255;
 		color.g += c * rtx.light->color.g * shape.color.g /255;
 		color.b += c * rtx.light->color.b * shape.color.b /255;
