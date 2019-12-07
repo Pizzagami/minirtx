@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 19:34:04 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/06 16:42:49 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/07 19:07:30 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ float			ft_atof(char buf[BUFFER_SIZE], int x)
     if (x - i > 0)
         while(x - i++ > 0)
             d /= 10;
+	printf("|%f|\n", (d + f) * signe);
     return((d + f) * signe);
 }
 

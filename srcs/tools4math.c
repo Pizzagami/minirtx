@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/07 19:00:44 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/07 19:07:18 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,13 @@ t_vec	fois(t_vec truc, float a)
 	truc.x *= a;
 	truc.y *= a;
 	truc.z *= a;
+	return (truc);
+}
+t_vec	xfois(t_vec truc, float a)
+{
+	truc.x = a * (1 - truc.x) * truc.z;
+	truc.y = a * (1 - truc.y) * truc.z;
+	truc.z = a * (1 - truc.z);
 	return (truc);
 }
 

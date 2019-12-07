@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:13:56 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/04 13:16:38 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/05 13:25:55 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	*read_color(char buf[BUFFER_SIZE], int *x, t_color *color, char *id)
 
 char	*read_vec(char buf[BUFFER_SIZE], int *x, t_vec *vec, char *id)
 {
+	(*x)++;
 	vec->x = read_float(buf, x);
 	if (vec->x == NAF)
 		return (join("Error : Invalid float for x of ", id));
