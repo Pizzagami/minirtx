@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/07 17:23:40 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/09 14:40:06 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRTX_H
 # define MINIRTX_H
- 
-#define BUFFER_SIZE 2147483
+
 #include <mlx.h>
 #include <math.h>
 #include <stdio.h>
@@ -23,6 +22,7 @@
 #include "struct.h"
 #include "parsing.h"
 
+#define BUFFER_SIZE 42
 #define StructureNotifyMask	(1L<<17)
 #define DestroyNotify	17
 #define NAF M_E

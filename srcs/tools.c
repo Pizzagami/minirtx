@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 19:34:04 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/08 14:16:11 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/09 16:08:01 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tools.h"
 
-int				ft_atoi(char *str, int x)
+int		ft_atoi(char *str, int x)
 {
 	int i;
 	int nb;
@@ -37,19 +37,29 @@ int				ft_atoi(char *str, int x)
 	return (nb * sign);
 }
 
-int 			ft_strlen(char *str)
+int 		ft_strlen(char *str)
 {
 	int i;
 
 	if (str == NULL)
 		return (0);
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 		i++;
 	return (i);
 }
 
-float			ft_atof(char buf[BUFFER_SIZE], int x)
+void	ft_putstr(char *str)
+{
+	int i;
+
+	i = 0;
+	while(str && str[i])
+		i++;
+	write(0, str, i);
+}
+
+float		ft_atof(char *buf, int x)
 {
     float   f;
     float   d;
@@ -58,7 +68,6 @@ float			ft_atof(char buf[BUFFER_SIZE], int x)
 
     f = 0;
     d = 0;
-    i = 0;
     signe = (buf[x] == '-') ? -1 : 1;
 	if (signe == -1)
 		x++;
@@ -77,31 +86,19 @@ float			ft_atof(char buf[BUFFER_SIZE], int x)
     return((d + f) * signe);
 }
 
-float			read_float(char buf[BUFFER_SIZE], int *x)
+void	ft_putnbr(int nb)
 {
-	float ret;
-	while (buf[*x] == ' ')
-		(*x)++;
-	ret = ft_atof(buf, *x);
-	while ((buf[*x] >= '0' && buf[*x] <= '9') || buf[*x] == '-' ||
-    buf[*x] == '.')
-		(*x)++;
-	while (buf[*x] == ' ')
-		(*x)++;
-	return (ret);
-}
-
-int			read_int(char buf[BUFFER_SIZE], int *x)
-{
-	int ret;
-
-	while (buf[*x] == ' ')
-		(*x)++;
-	ret = ft_atoi(buf, *x);
-	while ((buf[*x] >= '0' && buf[*x] <= '9') || buf[*x] == '-' ||
-	buf[*x] == '.')
-		(*x)++;
-	while (buf[*x] == ' ')
-		(*x)++;
-		return(ret);
+	unsigned int	nbr;
+	char			a;
+	if (nb < 0)
+	{
+		ft_putstr("-");
+		nbr = (unsigned int)(nb * -1);
+	}
+	else
+		nbr = (unsigned int)nb;
+	if (nbr >= 10)
+		ft_putnbr(nbr / 10);
+	a = nbr % 10 + 48;
+	write(0, &a,1);
 }

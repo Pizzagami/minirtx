@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+         #
+#    By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:50:27 by selgrabl          #+#    #+#              #
-#    Updated: 2019/12/08 13:58:37 by braimbau         ###   ########.fr        #
+#    Updated: 2019/12/09 15:29:33 by selgrabl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,13 +22,15 @@ SRCS = 	./srcs/minirtx.c		\
 		./srcs/tools4vector.c	\
 		./srcs/tools4vector2.c	\
 		./srcs/tools4math.c		\
+		./srcs/ft_split.c		\
+		./srcs/get_next_line.c	\
 
 
 OBJS = ${SRCS:.c=.o}
 
 CC  = gcc
 
-CFLAGS =  -Lincludes/minilibx -lmlx -framework OpenGL -framework Appkit -Wall -Wextra  -I./includes/
+CFLAGS =  -fsanitize=address -g3 -Lincludes/minilibx -lmlx -framework OpenGL -framework Appkit -Wall -Wextra -I./includes/
 
 RM  = rm -f
 

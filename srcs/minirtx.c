@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/07 19:07:35 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/09 14:38:41 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,10 @@ t_color		cal_col(t_cam cam, t_tg *lshape, t_light *llight, t_rtx rtx)
 	pshape = lshape;
 	while (pshape->next != NULL)
 	{
-		pshape->vec = (pshape->type == 3) ? normalize(cross(min(pshape->p2, pshape->p1),
+		pshape->vec = (pshape->type == 3) ? normalize(cross(min(pshape->p2,
+		pshape->p1),
    		min(pshape->p3, pshape->p1))) : pshape->vec;
-		ldist = find_dist(cam.origin, cam.ray, *pshape);
+		ldist = find_dist(cam.origin, cam.ray, *pshape, rtx);
 		i++;
 		if (ldist != - 1 && (dist == - 1 || ldist < dist))
 		{
@@ -89,6 +90,7 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 	while (rtx.light != NULL)
 	{
 		sh = rtx.shape;
+
 		point = plus(cam.origin, fois(cam.ray, dist));
 		light = normalize(min(rtx.light->pos, point));
 		if (shape.type == 0 || shape.type == 4 || shape.type == 3)
@@ -98,10 +100,11 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 		c = dot(light, normal);
 		if (c < 0)
 			c = 0;
-		ldist = find_dist(rtx.light->pos, min(point, light), shape);
+		ldist = find_dist(rtx.light->pos, min(point, light), shape, rtx);
 		while (sh->next)
 		{
-			if (find_dist(rtx.light->pos, min(point, light), *sh) < ldist && find_dist(rtx.light->pos, min(point, light), *sh) > 0)
+			if (find_dist(rtx.light->pos, min(point, light), *sh, rtx) < ldist &&
+				find_dist(rtx.light->pos, min(point, light), *sh, rtx) > 0)
 				c = 0;
 			sh = sh->next;
 		}
@@ -114,7 +117,7 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 }
 
 
-int main(int argc, char **argv)
+int main2(int argc, char **argv)
 {
 	void	*mlx_ptr;
 	void	*mlx_win;
@@ -125,6 +128,7 @@ int main(int argc, char **argv)
 	mlx_ptr = mlx_init();
 	mlx_win = mlx_new_window(mlx_ptr, rtx.res.x, rtx.res.y, "miniRTX");
 	rtx.coor.x = 0;
+	rtx.shape->vec.x = 1;
 	while(rtx.coor.x < rtx.res.x)
 	{
 		rtx.coor.y = 0;
@@ -132,7 +136,7 @@ int main(int argc, char **argv)
 		{
 			aspect_ratio = (float)rtx.res.x / (float)rtx.res.y; // assuming width > height 
 			rtx.cam->ray.x = (2 * ((rtx.coor.x + 0.5) / rtx.res.x) - 1) *
-			tan((float)rtx.cam->fov /2 /180 * M_PI) * aspect_ratio;
+			tan((float)rtx.cam->fov / 2.0 / 180.0 * M_PI) * aspect_ratio;
 			rtx.cam->ray.y = (1 - (2 * ((rtx.coor.y + 0.5) / rtx.res.y))) *
 			tan((float)rtx.cam->fov /2 /180 * M_PI);
 			rtx.cam->ray.z = -1;

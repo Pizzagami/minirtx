@@ -6,25 +6,28 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:13:56 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/05 13:25:55 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/09 15:13:05 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tools.h"
 
-char	*read_color(char buf[BUFFER_SIZE], int *x, t_color *color, char *id)
+char	*read_color(char *buf, t_color *color, char *id)
 {
-	color->r = read_int(buf, x);
+	int x;
+
+	x = 0;
+	color->r = ft_atoi(buf, x);
 	if (color->r == -42)
 		return (join("Error : Invalid integer for red of ", id));
-	if (buf[(*x)++] != ',')
+	if (buf[(x)++] != ',')
 		return (join("Error : Invalid format for ", id));
-	color->g = read_int(buf, x);
+	color->g = ft_atoi(buf, x);
 	if (color->g == -42)
 		return (join("Error : Invalid integer for green of ", id));
-	if (buf[(*x)++] != ',')
+	if (buf[(x)++] != ',')
 		return (join("Error : Invalid format for ", id));
-	color->b = read_int(buf, x);
+	color->b = ft_atoi(buf, x);
 	if (color->b == - 42)
 		return (join("Error : Invalid integer for blue of ", id));
 	if (color->r > 255 || color->r < 0 || color->g > 255 ||
@@ -33,20 +36,22 @@ char	*read_color(char buf[BUFFER_SIZE], int *x, t_color *color, char *id)
 	return (NULL);
 }
 
-char	*read_vec(char buf[BUFFER_SIZE], int *x, t_vec *vec, char *id)
+char	*read_vec(char *buf, t_vec *vec, char *id)
 {
-	(*x)++;
-	vec->x = read_float(buf, x);
+	int x;
+
+	x= 0;
+	vec->x = ft_atof(buf, x);
 	if (vec->x == NAF)
 		return (join("Error : Invalid float for x of ", id));
-	if (buf[(*x)++] != ',')
+	if (buf[x++] != ',')
 		return (join("Error : Invalid format for ", id));
-	vec->y = read_float(buf, x);
+	vec->y = ft_atof(buf, x);
 	if (vec->y == NAF)
 		return (join("Error : Invalid float for y of ", id));
-	if (buf[(*x)++] != ',')
+	if (buf[x++] != ',')
 		return (join("Error : Invalid format for ", id));
-	vec->z = read_float(buf, x);
+	vec->z = ft_atof(buf, x);
 	if (vec->z == NAF)
 		return (join("Error : Invalid float for z of ", id));
 	if (vec->x > 1 || vec->x < -1 || vec->y > 1 ||
@@ -81,19 +86,22 @@ char	*join(char *s1, char *s2)
 	return (r);
 }
 
-char	*read_pos(char buf[BUFFER_SIZE], int *x, t_vec *vec, char *id)
+char	*read_pos(char *buf, t_vec *vec, char *id)
 {
-	vec->x = read_float(buf, x);
+	int x;
+
+	x = 0;
+	vec->x = ft_atof(buf, x);
 	if (vec->x == NAF)
 		return (join("Error : Invalid float for x of ", id));
-	if (buf[(*x)++] != ',')
+	if (buf[x++] != ',')
 		return (join("Error : Invalid format for ", id));
-	vec->y = read_float(buf, x);
+	vec->y = ft_atof(buf, x);
 	if (vec->y == NAF)
 		return (join("Error : Invalid float for y of ", id));
-	if (buf[(*x)++] != ',')
+	if (buf[x++] != ',')
 		return (join("Error : Invalid format for ", id));
-	vec->z = read_float(buf, x);
+	vec->z = ft_atof(buf, x);
 	if (vec->z == NAF)
 		return (join("Error : Invalid float for z of ", id));
 	return (NULL);
