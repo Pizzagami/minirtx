@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/09 14:38:41 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/09 17:58:49 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,31 @@ int rgbtoon(t_color color)
 	return(color.r * 65536 + color.g * 256 + color.b);
 }
 
-t_color		cal_col(t_cam cam, t_tg *lshape, t_light *llight, t_rtx rtx)
+t_color		cal_col(t_cam cam, t_rtx rtx)
 {	
 	t_color color;
 	float dist;
 	float ldist;
 	float c;
 	t_tg shape;
-	t_tg *pshape;
-
+	
 	color.r = 0;
 	color.g = 0;
 	color.b = 0;
 	dist = -1;
 	int i = 0;
-	pshape = lshape;
-	while (pshape->next != NULL)
+	while (rtx.shape->next != NULL)
 	{
-		pshape->vec = (pshape->type == 3) ? normalize(cross(min(pshape->p2,
-		pshape->p1),
-   		min(pshape->p3, pshape->p1))) : pshape->vec;
-		ldist = find_dist(cam.origin, cam.ray, *pshape, rtx);
+		rtx.shape->vec = (rtx.shape->type == 3) ? normalize(cross(min(rtx.shape->p2, rtx.shape->p1),
+   		min(rtx.shape->p3, rtx.shape->p1))) : rtx.shape->vec;
+		ldist = find_dist(cam.origin, cam.ray, *rtx.shape);
 		i++;
 		if (ldist != - 1 && (dist == - 1 || ldist < dist))
 		{
 			dist = ldist;
-			shape = *pshape;
+			shape = *rtx.shape;
 		}
-		pshape = pshape->next;
+		rtx.shape = rtx.shape->next;
 	}
 	if (dist != -1.0)
 	{
@@ -142,7 +139,7 @@ int main2(int argc, char **argv)
 			rtx.cam->ray.z = -1;
 			rtx.cam->ray = normalize(rtx.cam->ray);
 			mlx_pixel_put(mlx_ptr, mlx_win, rtx.coor.x, rtx.coor.y,
-			rgbtoon(cal_col(*(rtx.cam), rtx.shape, rtx.light, rtx)));
+			rgbtoon(cal_col(*(rtx.cam), rtx)));
 			rtx.coor.y++;
 		}
 		rtx.coor.x++;
