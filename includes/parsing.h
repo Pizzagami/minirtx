@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:36:32 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/09 17:35:39 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/09 18:30:43 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ int				get_next_line(int fd, char **line);
 int				count_words(char *str, char *charset);
 int				clear_buff(int x, int fd, char ***buf);
 
-char			*pars_a(char **buf, t_rtx *rtx); B
-char			*pars_r(char **buf, t_rtx *rtx); S
-char			*pars_c(char **buf, t_rtx *rtx); B
-char			*pars_l(char **buf, t_rtx *rtx); B
-char			*pars_s(char **buf, t_rtx *rtx); S
-char 			*pars_sq(char **buf, t_rtx *rtx); B
-char			*pars_tr(char **buf, t_rtx *rtx); S
-char			*pars_cy(char **buf, t_rtx *rtx); B
-char			*pars_ce(char **buf, t_rtx *rtx); B
-char			*pars_py(char **buf, t_rtx *rtx); S
-char			*pars_cu(char **buf, t_rtx *rtx); S
+char			*pars_a(char **buf, t_rtx *rtx); //B
+char			*pars_r(char **buf, t_rtx *rtx); 
+char			*pars_c(char **buf, t_rtx *rtx); //B
+char			*pars_l(char **buf, t_rtx *rtx); //B
+char			*pars_s(char **buf, t_rtx *rtx); 
+char 			*pars_sq(char **buf, t_rtx *rtx); //B
+char			*pars_tr(char **buf, t_rtx *rtx); 
+char			*pars_cy(char **buf, t_rtx *rtx); //B
+char			*pars_ce(char **buf, t_rtx *rtx); //B
+char			*pars_py(char **buf, t_rtx *rtx); 
+char			*pars_cu(char **buf, t_rtx *rtx); 
 char			**ft_split(char *str, char *charset);
 
 char			*ft_strcpy(char *dest, char *src);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/09 16:29:58 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/09 18:26:32 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 char 		*pars_a(char **buf, t_rtx *rtx)
 {
+	char	*ret;
+
 	if (!buf[1] || !buf[2])
 		return("Missing argument(s) on declaraton of ambiant light");
 	if (buf[3] != NULL)
@@ -21,7 +23,9 @@ char 		*pars_a(char **buf, t_rtx *rtx)
 	rtx->amb.ratio = ft_atof(buf[1], 0);
 	if (rtx->amb.ratio > 1 || rtx->amb.ratio < 0)
 		return ("Value out of range for ratio of ambiant light");
-	return(NULL);	
+	ret = read_color(buf, &(rtx->amb.color), "of ambiant light");
+	rtx->amb.color = lfois(rtx->amb.color, rtx->amb.ratio);
+	return(ret);
 }
 
 char		*pars_r(char **buf, t_rtx *rtx)

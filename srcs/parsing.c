@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/09 17:04:18 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/09 18:30:07 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ t_rtx		parsing(int fd)
 		ft_switch(str, &rtx, fd, i);
 		i++;
 	}
-	if (rtx.res.x < 0 || rtx.amb.color.b < 0)
+	/*if (rtx.res.x < 0 || rtx.amb.color.b < 0)
 	{
 		write(2 , "Error : Resolution or/and Ambiant light undefined\n", 50);
 		close(fd);
 		exit(EXIT_FAILURE);
-	}
+	}*/
 	return(rtx);
 }
 
@@ -101,4 +101,5 @@ int main(int argc, char **argv)
 	t_rtx rtx;
 
 	rtx = parseke(argc, argv);
+	printf("amb : ratio : %f color : %d %d %d \n", rtx.amb.ratio, rtx.amb.color.r, rtx.amb.color.g, rtx.amb.color.b);
 }
