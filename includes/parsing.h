@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:36:32 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/09 17:35:39 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/09 18:11:49 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int				count_words(char *str, char *charset);
 int				clear_buff(int x, int fd, char ***buf);
 
 char			*pars_a(char **buf, t_rtx *rtx); B
-char			*pars_r(char **buf, t_rtx *rtx); S
+char			*pars_r(char **buf, t_rtx *rtx);
 char			*pars_c(char **buf, t_rtx *rtx); B
 char			*pars_l(char **buf, t_rtx *rtx); B
 char			*pars_s(char **buf, t_rtx *rtx); S

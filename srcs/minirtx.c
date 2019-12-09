@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/09 17:58:49 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/09 18:16:26 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,11 @@ t_color		cal_col(t_cam cam, t_rtx rtx)
 	color.g = 0;
 	color.b = 0;
 	dist = -1;
-	int i = 0;
 	while (rtx.shape->next != NULL)
 	{
 		rtx.shape->vec = (rtx.shape->type == 3) ? normalize(cross(min(rtx.shape->p2, rtx.shape->p1),
    		min(rtx.shape->p3, rtx.shape->p1))) : rtx.shape->vec;
-		ldist = find_dist(cam.origin, cam.ray, *rtx.shape);
-		i++;
+		ldist = find_dist(cam.origin, cam.ray, *rtx.shape, rtx);
 		if (ldist != - 1 && (dist == - 1 || ldist < dist))
 		{
 			dist = ldist;

@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 19:34:04 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/09 18:10:20 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/09 18:33:35 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int		ft_atoi(char *str, int *x)
 	}
 	if (i == *x)
 		return(-42);
+	i = (str[i + 1]) ? i++: i;
+	*x = (str[i] == ',') ? i + 1: 0;
 	return (nb * sign);
 }
 
@@ -84,6 +86,8 @@ float		ft_atof(char *buf, int *x)
     if (*x - i > 0)
         while(*x - i++ > 0)
             d /= 10;
+	*x = (buf[(*x) + 1]) ? (*x)++: x;
+	*x = (buf[(*x) - 1] == ',') ? *x: 0;
     return((d + f) * signe);
 }
 
