@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/09 18:33:56 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/09 18:52:18 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int				ft_strlen(char *str);
 int				rgbtoon(t_color color);
-int				ft_atoi(char *str, int *x);
+int				ft_atoi(char *str);
 int     		distri(t_tg tri, t_vec p);
 int				ft_strcmp(char *s1, char *s2);
 int				second_degre(float a, float b, float c, float *x1, float *x2);
@@ -28,7 +28,7 @@ char			*read_vec(char *buf, t_vec *vec, char *id);
 char			*read_pos(char *buf, t_vec *vec, char *id);
 char			*read_color(char *buf, t_color *color,char *str);
 
-float      		ft_atof(char *buf, int *x);
+float      		ft_atof(char *buf);
 float			dot(t_vec machin, t_vec bidule);
 float			find_dist(t_vec origin, t_vec ray, t_tg shape, t_rtx rtx);
 

@@ -6,37 +6,33 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 19:34:04 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/09 18:33:35 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/09 18:51:46 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tools.h"
 
-int		ft_atoi(char *str, int *x)
+int		ft_atoi(char *str)
 {
 	int i;
 	int nb;
 	int sign;
 
 	sign = 1;
-	i = 0 + *x;
+	i = 0;
 	nb = 0;
 	if (str[i] == '-')
 	{
 		sign = -1;
 		i++;
-		(*x)++;
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		nb = nb * 10 + str[i] - 48;
 		i++;
-		(*x)++;
 	}
-	if (i == *x)
+	if (i < 1)
 		return(-42);
-	i = (str[i + 1]) ? i++: i;
-	*x = (str[i] == ',') ? i + 1: 0;
 	return (nb * sign);
 }
 
@@ -62,32 +58,32 @@ void	ft_putstr(char *str)
 	write(0, str, i);
 }
 
-float		ft_atof(char *buf, int *x)
+float		ft_atof(char *buf)
 {
     float   f;
     float   d;
     float   i;
     float   signe;
+	int		x;
 
+	x = 0;
     f = 0;
     d = 0;
-    signe = (buf[*x] == '-') ? -1 : 1;
+    signe = (buf[x] == '-') ? -1 : 1;
 	if (signe == -1)
-		(*x)++;
-    while(buf[*x] >= '0' && buf[*x] <= '9')
-        f = 10 * f + (buf[(*x)++] - 48);
-    if (buf[*x] != ' ' && buf[*x] !=  '.' && buf[*x] != '\n' &&
-		buf[*x] != '\0' && buf[*x] != ',')
+		x++;
+    while(buf[x] >= '0' && buf[*x] <= '9')
+        f = 10 * f + (buf[x++] - 48);
+    if (buf[x] != ' ' && buf[x] !=  '.' && buf[*x] != '\n' &&
+		buf[x] != '\0' && buf[x] != ',')
         return(NAF);
-    *x = (buf[*x] == '.')? *x + 1: *x;
-	i = *x;
-    while(buf[*x] > 47 && buf[*x] < 58)
-        d = 10 * d + (buf[(*x)++] - 48);
-    if (*x - i > 0)
-        while(*x - i++ > 0)
+    x = (buf[x] == '.')? x + 1: x;
+	i = x;
+    while(buf[x] > 47 && buf[x] < 58)
+        d = 10 * d + (buf[x++] - 48);
+    if (x - i > 0)
+        while(x - i++ > 0)
             d /= 10;
-	*x = (buf[(*x) + 1]) ? (*x)++: x;
-	*x = (buf[(*x) - 1] == ',') ? *x: 0;
     return((d + f) * signe);
 }
 

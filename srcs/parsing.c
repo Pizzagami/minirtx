@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/09 17:04:18 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/09 18:46:26 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 	if (str[0] == '\0')
 		return;
 	err = NULL;
-	buf = ft_split(str, " ");
+	buf = ft_split(str, " ,");
 	err = (ft_strcmp(buf[0], "A") == 0) ? pars_a(buf, rtx) : err;
 	err = (ft_strcmp(buf[0], "R") == 0) ? pars_r(buf, rtx) : err;
 	err = (ft_strcmp(buf[0], "c") == 0) ? pars_c(buf, rtx) : err;
