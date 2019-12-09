@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/09 18:36:34 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/09 18:52:23 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,24 @@
 char 		*pars_a(char **buf, t_rtx *rtx)
 {
 	char	*ret;
+	int		x;
 
+	x = 0;
 	if (!buf[1] || !buf[2])
 		return("Missing argument(s) on declaraton of ambiant light");
 	if (buf[3] != NULL)
 		return("Too many arguments on declaration of ambiant light");
-	rtx->amb.ratio = ft_atof(buf[1], 0);
+	rtx->amb.ratio = ft_atof(buf[1], &x);
 	if (rtx->amb.ratio > 1 || rtx->amb.ratio < 0)
 		return ("Value out of range for ratio of ambiant light");
-	ret = read_color(buf, &(rtx->amb.color), "of ambiant light");
+	ret = read_color(buf[2], &(rtx->amb.color), "of ambiant light");
 	rtx->amb.color = lfois(rtx->amb.color, rtx->amb.ratio);
 	return(ret);
 }
 
 char		*pars_r(char **buf, t_rtx *rtx)
 {
-	int x;
-
-	x = 0;
-	if (!buf[1] || !buf[2])
-		return("Missing argument(s) on declaraton of the resolution");
-	if (buf[3])
-		return("Too many arguments on declaration of the resolution");
-	rtx->res.x = ft_atoi(buf[1], x);
-	rtx->res.y = ft_atoi(buf[2], x);
-
+	return(NULL);
 }
 
 char 		*pars_sq(char **buf, t_rtx *rtx)

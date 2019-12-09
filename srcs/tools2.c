@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:13:56 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/09 18:05:46 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/09 18:49:33 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*read_color(char *buf, t_color *color, char *id)
 	int x;
 
 	x = 0;
+	printf("*%s*\n", buf);
 	color->r = ft_atoi(buf, &x);
 	if (color->r == -42)
 		return (join("Error : Invalid integer for red of ", id));
