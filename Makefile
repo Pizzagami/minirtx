@@ -6,7 +6,7 @@
 #    By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:50:27 by selgrabl          #+#    #+#              #
-#    Updated: 2019/12/11 14:23:20 by braimbau         ###   ########.fr        #
+#    Updated: 2019/12/11 15:59:59 by braimbau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ clean	:
 fclean	:  clean
 	${RM} ${NAME}
 
-re: fclean all
+re: all clean
 
 .PHONY: all clean fclean re
 

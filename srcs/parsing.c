@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/11 14:24:14 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/11 16:28:10 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,11 @@ void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 
 int main(int argc, char **argv)
 {
-	t_rtx rtx;
-	int i;
-	t_cam *cam;
+	t_rtx 	rtx;
+	int		i;
+	t_cam	*cam;
+	t_light	*light;
+	t_tg	*shape;
 
 	rtx = parseke(argc, argv);
 	printf("amb : ratio : %5f color : %3d %3d %3d \n", rtx.amb.ratio, rtx.amb.color.r, rtx.amb.color.g, rtx.amb.color.b);
@@ -111,5 +113,24 @@ int main(int argc, char **argv)
 		i++;
 		printf("cam %d : pos : %3f %3f %3f vec : %3f %3f %3f fov = %d\n", i, cam->origin.x, cam->origin.y, cam->origin.z, cam->vec.x, cam->vec.y, cam->vec.z, cam->fov);
 		cam = cam->next;
+	}
+	i = 0;
+	light = rtx.light;
+	while(light)
+	{
+		i++;
+		printf("light %d : pos : %3f %3f %3f ratio : %f color : %d %d %d\n", i, light->pos.x, light->pos.y, light->pos.z, light->ratio, light->color.r, light->color.g, light->color.b);
+		light = light->next;
+	}
+	i = 0;
+	shape = rtx.shape;
+	while(shape)
+	{
+		i++;
+		if (shape->type == 4)
+			printf("shape %d : square : pos : %f %f %f vec : %f %f %f hight : %f color : %d %d %d\n", i, shape->center.x, shape->center.y, shape->center.z, shape->vec.x, shape->vec.y, shape->vec.z, shape->hi, shape->color.r, shape->color.g, shape->color.b);
+		if (shape->type == 2)
+			printf("shape %d : cylinder : pos : %f %f %f vec : %f %f %f hight : %f dia = %f color : %d %d %d\n", i, shape->center.x, shape->center.y, shape->center.z, shape->vec.x, shape->vec.y, shape->vec.z, shape->hi, shape->dia, shape->color.r, shape->color.g, shape->color.b);
+		shape = shape->next;
 	}
 }
