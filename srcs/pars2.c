@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/09 18:52:23 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/11 12:46:49 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 char 		*pars_a(char **buf, t_rtx *rtx)
 {
 	char	*ret;
-	int		x;
 
-	x = 0;
 	if (!buf[1] || !buf[2])
 		return("Missing argument(s) on declaraton of ambiant light");
 	if (buf[3] != NULL)
 		return("Too many arguments on declaration of ambiant light");
-	rtx->amb.ratio = ft_atof(buf[1], &x);
+	rtx->amb.ratio = ft_atof(buf[1]);
+	if ((isnan(rtx->amb.ratio)))
+		return("Invalid number for ratio of ambiant light");
 	if (rtx->amb.ratio > 1 || rtx->amb.ratio < 0)
 		return ("Value out of range for ratio of ambiant light");
 	ret = read_color(buf[2], &(rtx->amb.color), "of ambiant light");
@@ -52,7 +52,24 @@ char		*pars_tr(char **buf, t_rtx *rtx)
 
 char		*pars_c(char **buf, t_rtx *rtx)
 {
-	return NULL;
+	char *ret;
+	t_cam *cam;
+
+	cam = malloc(sizeof(t_cam));
+	cam->next = rtx->cam;
+	rtx->cam = cam;
+	if (!buf[1] || !buf[2] || !buf[3])
+		return("Missing argument(s) on declaraton of ambiant light");
+	if (buf[4] != NULL)
+		return("Too many arguments on declaration of ambiant light");
+	ret = read_pos(buf[1], &(rtx->cam->origin), "of camera");
+	ret = join(ret, read_vec(buf[2], &(rtx->cam->vec), "of camera's vector"));
+	rtx->cam->fov = ft_atoi(buf[3]);
+	if (rtx->cam->fov == -42)
+		return("Invalid number for FOV of camera");
+	if (rtx->cam->fov > 180 || rtx->cam->fov < 0)
+		return ("Value out of range for FOV of camera");
+	return(ret);
 }
 
 char		*pars_l(char **buf, t_rtx *rtx)

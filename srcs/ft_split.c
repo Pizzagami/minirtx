@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 10:29:23 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/09 16:34:37 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/09 19:47:05 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void	alloc_word(char *str, char *charset, char **ptr)
 			c++;
 		}
 	}
-	ptr[m - 1] = malloc((1 + c) * sizeof(char));
+	if (m)
+		ptr[m - 1] = malloc((1 + c) * sizeof(char));
 	ptr[m] = malloc(sizeof(NULL));
 }
 
@@ -98,7 +99,7 @@ char	**ft_split(char *str, char *charset)
 		while (!is_sep(*str, charset) && *str != '\0')
 			ptr[m - 1][c++] = *(str++);
 	}
-	ptr[m - 1][c] = '\0';
+	(m) ? ptr[m - 1][c] = '\0' : 0;
 	ptr[m] = NULL;
 	return (ptr);
 }

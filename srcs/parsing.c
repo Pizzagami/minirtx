@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/09 18:37:14 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/11 10:54:06 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ t_rtx		parsing(int fd)
 }
 
 void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
-{
-	
+{	
 	int x;
 	char *err;
 	char **buf;
@@ -99,7 +98,17 @@ void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 int main(int argc, char **argv)
 {
 	t_rtx rtx;
+	int i;
+	t_cam *cam;
 
 	rtx = parseke(argc, argv);
-	printf("amb : ratio : %f color : %d %d %d \n", rtx.amb.ratio, rtx.amb.color.r, rtx.amb.color.g, rtx.amb.color.b);
+	printf("amb : ratio : %5f color : %3d %3d %3d \n", rtx.amb.ratio, rtx.amb.color.r, rtx.amb.color.g, rtx.amb.color.b);
+	i = 0;
+	cam = rtx.cam;
+	while(cam)
+	{
+		i++;
+		printf("cam %d : pos : %3f %3f %3f vec : %3f %3f %3f fov = %d\n", i, cam->origin.x, cam->origin.y, cam->origin.z, cam->vec.x, cam->vec.y, cam->vec.z, cam->fov);
+		cam = cam->next;
+	}
 }

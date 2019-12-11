@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/09 17:58:51 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/09 20:07:58 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #define BUFFER_SIZE 42
 #define StructureNotifyMask	(1L<<17)
 #define DestroyNotify	17
-#define NAF M_E
+#define NAF 42
 
 t_color			cal_col(t_cam, t_rtx rtx);
 t_color     	cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist);
