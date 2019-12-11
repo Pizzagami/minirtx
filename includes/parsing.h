@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:36:32 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/11 11:06:58 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/11 17:00:56 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ int				clear_buff(int x, int fd, char ***buf);
 
 char			*pars_a(char **buf, t_rtx *rtx); //OK
 char			*pars_r(char **buf, t_rtx *rtx); 
-char			*pars_c(char **buf, t_rtx *rtx); //OG
-char			*pars_l(char **buf, t_rtx *rtx); //KO
+char			*pars_c(char **buf, t_rtx *rtx); //OK
+char			*pars_l(char **buf, t_rtx *rtx); //OK
 char			*pars_s(char **buf, t_rtx *rtx); 
-char 			*pars_sq(char **buf, t_rtx *rtx); //KO
+char 			*pars_sq(char **buf, t_rtx *rtx); //OK
 char			*pars_tr(char **buf, t_rtx *rtx); 
-char			*pars_cy(char **buf, t_rtx *rtx); //KO
+char			*pars_cy(char **buf, t_rtx *rtx); //OK
 char			*pars_ce(char **buf, t_rtx *rtx); //KO
 char			*pars_py(char **buf, t_rtx *rtx); 
 char			*pars_cu(char **buf, t_rtx *rtx); 
