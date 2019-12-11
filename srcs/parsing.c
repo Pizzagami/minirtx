@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/11 10:54:06 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/11 14:24:14 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_rtx		parsing(int fd)
 	t_rtx	rtx;
 	char *str;
 	int i;
+	int x;
 	
 	i = 0;
 	rtx.res.x = -1;
@@ -66,7 +67,6 @@ t_rtx		parsing(int fd)
 
 void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 {	
-	int x;
 	char *err;
 	char **buf;
 
@@ -85,6 +85,7 @@ void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 	err = (ft_strcmp(buf[0], "cu") == 0) ? pars_sq(buf, rtx) : err;
 	err = (ft_strcmp(buf[0], "py") == 0) ? pars_py(buf, rtx) : err;
 	err = (ft_strcmp(buf[0], "ce") == 0) ? pars_cu(buf, rtx) : err;
+	err = join(err, check_ligne(str));
 	if (err)
 	{
 		ft_putstr(join(err, " (line : "));

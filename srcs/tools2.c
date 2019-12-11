@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:13:56 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/11 10:50:25 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/11 14:18:41 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,22 +116,4 @@ void	init_lst(int fd, t_rtx *rtx)
 	rtx->shape = NULL;
 	rtx->cam = NULL;
 	rtx->light = NULL;
-}
-
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	unsigned int i;
-
-	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0')
-	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - s2[i]);
-		i++;
-	}
-	if (((s1[i] == '\0' && s2[i] != '\0') ||
-				(s2[i] == '\0' && s1[i] != '\0')))
-		return ((unsigned char)s1[i] - s2[i]);
-	return (0);
 }
