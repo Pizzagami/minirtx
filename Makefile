@@ -6,7 +6,7 @@
 #    By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:50:27 by selgrabl          #+#    #+#              #
-#    Updated: 2019/12/09 15:29:33 by selgrabl         ###   ########.fr        #
+#    Updated: 2019/12/11 17:15:26 by selgrabl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ fclean	:  clean
 	${RM} ${NAME}
 
 re: fclean all
+	${RM}	${OBJS}
 
 .PHONY: all clean fclean re
 
