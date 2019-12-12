@@ -6,7 +6,7 @@
 #    By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:50:27 by selgrabl          #+#    #+#              #
-#    Updated: 2019/12/11 17:15:26 by selgrabl         ###   ########.fr        #
+#    Updated: 2019/12/12 13:32:42 by selgrabl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,10 +39,10 @@ ${NAME}	:	${OBJS}
 
 all:  ${NAME}
 
-clean	:	
+clean:	
 	${RM}	${OBJS}
 
-fclean	:  clean
+fclean:  clean
 	${RM} ${NAME}
 
 re: fclean all

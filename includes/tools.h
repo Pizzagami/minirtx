@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/09 18:54:17 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/12 13:32:46 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ int				ft_strcmp(char *s1, char *s2);
 int				second_degre(float a, float b, float c, float *x1, float *x2);
 int     		distsqr(t_vec   dot, t_vec center, float hi, t_vec vec, t_rtx rtx);
 
+char			*check_ligne(char *str);
 char			*join(char *s1, char *s2);
+char			*ultimate_join(int nbr, char *s1, ...);
 char			*read_vec(char *buf, t_vec *vec, char *id);
 char			*read_pos(char *buf, t_vec *vec, char *id);
 char			*read_color(char *buf, t_color *color,char *str);

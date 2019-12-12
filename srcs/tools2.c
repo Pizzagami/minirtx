@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:13:56 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/11 10:50:25 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/12 13:33:25 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,22 @@ char	*read_vec(char *str, t_vec *vec, char *id)
 	if (str[ft_strlen(str) - 1] < '0' || str[ft_strlen(str) - 1] > '9')
 		return (join("Invalid format for vector ", id));
 	return (NULL);
+}
+
+char			*ultimate_join(int nbr, char *s1, ...)
+{
+	va_list(ap);
+	char *str;
+
+	va_start(ap, s1);
+	str = s1;
+	while(nbr > 2)
+	{
+		str = join(str, va_arg(ap, char *));
+		nbr--;
+	}
+	va_end(ap);
+	return(str);
 }
 
 char	*join(char *s1, char *s2)
