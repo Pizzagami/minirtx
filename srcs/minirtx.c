@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/09 18:36:09 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/11 18:13:00 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ t_color		cal_col(t_cam cam, t_rtx rtx)
 		rtx.shape->vec = (rtx.shape->type == 3) ? normalize(cross(min(rtx.shape->p2, rtx.shape->p1),
    		min(rtx.shape->p3, rtx.shape->p1))) : rtx.shape->vec;
 		ldist = find_dist(cam.origin, cam.ray, *rtx.shape, rtx);
+		if (ldist != -1)
+		printf("%f\n", ldist);
 		if (ldist != - 1 && (dist == - 1 || ldist < dist))
 		{
 			dist = ldist;
@@ -112,7 +114,7 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 }
 
 
-int main2(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	void	*mlx_ptr;
 	void	*mlx_win;
