@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/11 16:28:10 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/11 17:19:19 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 	}
 }
 
-int main(int argc, char **argv)
+int main2(int argc, char **argv)
 {
 	t_rtx 	rtx;
 	int		i;
