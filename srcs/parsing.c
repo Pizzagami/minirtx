@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/12 15:21:19 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/12 17:18:37 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,19 @@ t_rtx		parsing(int fd)
 	i = 0;
 	rtx.res.x = -1;
 	rtx.amb.color.b = -1;
-	init_lst(fd,&rtx);
+	init_lst(&rtx);
 	while (get_next_line(fd, &str) != 0)
 	{
 		ft_switch(str, &rtx, fd, i);
 		i++;
 	}
-	/*if (rtx.res.x < 0 || rtx.amb.color.b < 0)
+	ft_switch(str, &rtx, fd, i);
+	if (rtx.res.x < 0 || rtx.amb.color.b < 0)
 	{
 		write(2 , "Error : Resolution or/and Ambiant light undefined\n", 50);
 		close(fd);
 		exit(EXIT_FAILURE);
-	}*/
+	}
 	return(rtx);
 }
 
@@ -84,6 +85,7 @@ void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 	err = (ft_strcmp(buf[0], "cu") == 0) ? pars_sq(buf, rtx) : err;
 	err = (ft_strcmp(buf[0], "py") == 0) ? pars_py(buf, rtx) : err;
 	err = (ft_strcmp(buf[0], "ce") == 0) ? pars_cu(buf, rtx) : err;
+	err = (ft_strcmp(buf[0], "pl") == 0) ? pars_pl(buf, rtx) : err;
 	err = join(err, check_ligne(str));
 	if (err)
 	{
@@ -130,7 +132,10 @@ int main2(int argc, char **argv)
 			printf("shape %d : square : pos : %f %f %f vec : %f %f %f hight : %f color : %d %d %d\n", i, shape->center.x, shape->center.y, shape->center.z, shape->vec.x, shape->vec.y, shape->vec.z, shape->hi, shape->color.r, shape->color.g, shape->color.b);
 		if (shape->type == 2)
 			printf("shape %d : cylinder : pos : %f %f %f vec : %f %f %f hight : %f dia = %f color : %d %d %d\n", i, shape->center.x, shape->center.y, shape->center.z, shape->vec.x, shape->vec.y, shape->vec.z, shape->hi, shape->dia, shape->color.r, shape->color.g, shape->color.b);
+		if (shape->type == 0)
+			printf("shape %d : plane : pos : %f %f %f vec : %f %f %f color : %d %d %d\n", i, shape->center.x, shape->center.y, shape->center.z, shape->vec.x, shape->vec.y, shape->vec.z, shape->color.r, shape->color.g, shape->color.b);
 		shape = shape->next;
+
 	}
 	return (0);
 }

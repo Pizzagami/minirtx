@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/12 14:37:37 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/12 18:19:43 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,22 @@ char 		*pars_a(char **buf, t_rtx *rtx)
 
 char		*pars_r(char **buf, t_rtx *rtx)
 {
+	if (!buf[1] || !buf[2])
+		return("Missing argument(s) on declaraton of resolution");
+	if (buf[3] != NULL)
+		return("Too many arguments on declaration of resolution");
+	rtx->res.x = ft_atoi(buf[1]);
+	rtx->res.y = ft_atoi(buf[1]);
+	if (rtx->res.x == -42)
+		return("Invalid number for x of resolution");
+	if (rtx->res.x < 0)
+		return("Value out of range for x of resolution");
+	if (rtx->res.y == -42)
+		return("Invalid number for y of resolution");
+	if (rtx->res.y < 0)
+		return("Value out of range for y of resolution");
+	if (rtx->res.x < rtx->res.y)
+		return("X/Y must be supperior to 1");
 	return(NULL);
 }
 
@@ -45,23 +61,61 @@ char 		*pars_sq(char **buf, t_rtx *rtx)
 	rtx->shape = shape;
 	rtx->shape->type = 4;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
-		return("Missing argument(s) on declaraton of square");
+		return("Missing argument(s) on declaraton of a square");
 	if (buf[5] != NULL)
-		return("Too many arguments on declaration of square");
-	ret = read_pos(buf[1], &(rtx->shape->center), " of square");
-	ret = join(ret, read_vec(buf[2], &(rtx->shape->vec), " of square"));
+		return("Too many arguments on declaration of a square");
+	ret = read_pos(buf[1], &(rtx->shape->center), " of a square");
+	ret = join(ret, read_vec(buf[2], &(rtx->shape->vec), " of a square"));
 	rtx->shape->hi = ft_atof(buf[3]);
 	if (isnan(rtx->shape->hi))
-		return("Invalid number for high of square");
+		return("Invalid number for height of a square");
 	if (rtx->shape->hi < 0)
-		return("Value out of range for high of square");
-	ret = join(ret, read_color(buf[4], &(rtx->shape->color), " of square"));
+		return("Value out of range for height of a square");
+	ret = join(ret, read_color(buf[4], &(rtx->shape->color), " of a square"));
+	return(ret);
+}
+
+char 		*pars_pl(char **buf, t_rtx *rtx)
+{
+	char *ret;
+	t_tg *shape;
+
+	shape = malloc(sizeof(t_tg));
+	shape->next = rtx->shape;
+	rtx->shape = shape;
+	rtx->shape->type = 0;
+	if (!buf[1] || !buf[2] || !buf[3])
+		return("Missing argument(s) on declaraton of a plane");
+	if (buf[4] != NULL)
+		return("Too many arguments on declaration of a plane");
+	ret = read_pos(buf[1], &(rtx->shape->center), " of a plane");
+	ret = join(ret, read_vec(buf[2], &(rtx->shape->vec), " of a plane"));
+	ret = join(ret, read_color(buf[3], &(rtx->shape->color), " of a plane"));
 	return(ret);
 }
 
 char		*pars_s(char **buf, t_rtx *rtx)
 {
-	return NULL;
+	char *ret;
+	t_tg *shape;
+
+	shape = malloc(sizeof(t_tg));
+	shape->next = rtx->shape;
+	rtx->shape = shape;
+	rtx->shape->type = 1;
+	if (!(buf[1] || buf[2] || buf[3]))
+		return("Missing argument(s) on declaraton of a sphere");
+	if (buf[4] != NULL)
+		return("Too many arguments on declaration of a sphere");
+	ret = read_pos(buf[1], &(rtx->shape->center), " of a sphere");
+	rtx->shape->dia = ft_atof(buf[2]);
+	if (isnan(rtx->shape->dia))
+		return("Invalid number for diameter of a sphere");
+	if (rtx->shape->dia < 0)
+		return("Value out of range for diameter of a sphere");
+	ret = join(ret, read_color(buf[3], &(rtx->shape->color), " of a sphere"));
+	printf("sphere %f %f\n",shape->center.x, shape->dia);
+	return(ret);
 }
 
 char		*pars_tr(char **buf, t_rtx *rtx)
@@ -182,10 +236,14 @@ char		*pars_ce(char **buf, t_rtx *rtx)
 
 char		*pars_py(char **buf, t_rtx *rtx)
 {
+	buf = buf + 1;
+	rtx = rtx + 1;
 	return NULL;
 }
 
 char		*pars_cu(char **buf, t_rtx *rtx)
 {
+	buf = buf + 1;
+	rtx = rtx + 1;
 	return NULL;
 }

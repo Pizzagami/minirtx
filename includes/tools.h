@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/12 14:37:25 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/12 15:35:37 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				rgbtoon(t_color color);
 int     		distri(t_tg tri, t_vec p);
 int				ft_strcmp(char *s1, char *s2);
 int				second_degre(float a, float b, float c, float *x1, float *x2);
-int     		distsqr(t_vec   dot, t_vec center, float hi, t_vec vec, t_rtx rtx);
+int     		distsqr(t_vec   dot, t_vec center, float hi, t_vec vec);
 
 char			*check_ligne(char *str);
 char			*join(char *s1, char *s2);
@@ -32,11 +32,11 @@ char			*read_color(char *buf, t_color *color,char *str);
 
 float      		ft_atof(char *buf);
 float			dot(t_vec machin, t_vec bidule);
-float			find_dist(t_vec origin, t_vec ray, t_tg shape, t_rtx rtx);
+float			find_dist(t_vec origin, t_vec ray, t_tg shape);
 
 void			ft_putnbr(int nb);
 void			ft_putstr(char *str);
-void			init_lst(int fd, t_rtx *rtx);
+void			init_lst(t_rtx *rtx);
 
 t_vec			normalize(t_vec vect);
 t_vec			fois(t_vec truc, float a);

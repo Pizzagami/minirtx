@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4vector.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 19:18:20 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/08 14:09:04 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/12 18:08:03 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ t_vec	fois(t_vec truc, float a)
 
 t_vec	xfois(t_vec truc, float a)
 {
-	truc.x = a * (1 - truc.x) * truc.z;
-	truc.y = a * (1 - truc.y) * truc.z;
-	truc.z = a * (1 - truc.z);
+	truc.x = a - truc.x;
+	truc.y = a - truc.y;
+	truc.z = a - truc.z;
 	return (truc);
 }

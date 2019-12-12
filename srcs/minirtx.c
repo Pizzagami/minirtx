@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/12 15:20:00 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/12 18:34:02 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,12 @@ t_color		cal_col(t_cam cam, t_rtx rtx)
 	color.g = 0;
 	color.b = 0;
 	dist = -1;
-	while (rtx.shape->next != NULL)
+	while (rtx.shape)
 	{
 		rtx.shape->vec = (rtx.shape->type == 3) ? normalize(cross(min(rtx.shape->p2, rtx.shape->p1),
    		min(rtx.shape->p3, rtx.shape->p1))) : rtx.shape->vec;
-		ldist = find_dist(cam.origin, cam.ray, *rtx.shape, rtx);
+		ldist = find_dist(cam.origin, cam.ray, *rtx.shape);
+		if (ldist != -1)
 		if (ldist != - 1 && (dist == - 1 || ldist < dist))
 		{
 			dist = ldist;
@@ -82,10 +83,10 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 	color.r = 0;
 	color.g = 0;
 	color.b = 0;
-	while (rtx.light != NULL)
+	while (rtx.light)
 	{
+			printf("encule tes morts\n");
 		sh = rtx.shape;
-
 		point = plus(cam.origin, fois(cam.ray, dist));
 		light = normalize(min(rtx.light->pos, point));
 		if (shape.type == 0 || shape.type == 4 || shape.type == 3)
@@ -95,11 +96,11 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 		c = dot(light, normal);
 		if (c < 0)
 			c = 0;
-		ldist = find_dist(rtx.light->pos, min(point, light), shape, rtx);
-		while (sh->next)
+		ldist = find_dist(rtx.light->pos, min(point, light), shape);
+		while (sh)
 		{
-			if (find_dist(rtx.light->pos, min(point, light), *sh, rtx) < ldist &&
-				find_dist(rtx.light->pos, min(point, light), *sh, rtx) > 0)
+			if (find_dist(rtx.light->pos, min(point, light), *sh) < ldist &&
+				find_dist(rtx.light->pos, min(point, light), *sh) > 0)
 				c = 0;
 			sh = sh->next;
 		}
@@ -147,4 +148,5 @@ int main(int argc, char **argv)
 	mlx_hook(mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, r);
 	mlx_key_hook(mlx_win, key_hook, r);
 	mlx_loop(mlx_ptr);
+	return(EXIT_SUCCESS);
 }

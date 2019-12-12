@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/08 17:39:15 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/12 18:07:26 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int     distri(t_tg tri, t_vec p)
     return(x);
 }
 
-int     distsqr(t_vec   dot, t_vec center, float hi, t_vec vec, t_rtx rtx)
+int     distsqr(t_vec   dot, t_vec center, float hi, t_vec vec)
 {
     int x;
 
@@ -57,10 +57,11 @@ int     distsqr(t_vec   dot, t_vec center, float hi, t_vec vec, t_rtx rtx)
     x = 0;
     x = ((dot.x <= (center.x + vec.x)) && (dot.x >= (center.x - vec.x)))? x: 1;
     x = ((dot.y <= (center.y + vec.y)) && (dot.y >= (center.y - vec.y)))? x: 1;
+  //  x = ((dot.z <= (center.z + vec.z)) && (dot.y >= (center.z - vec.z)))? x: 1;
     return (x);
 }
 
-float find_dist(t_vec origin, t_vec ray, t_tg shape, t_rtx rtx)
+float find_dist(t_vec origin, t_vec ray, t_tg shape)
 {
     float x1;
     float x2;
@@ -78,7 +79,7 @@ float find_dist(t_vec origin, t_vec ray, t_tg shape, t_rtx rtx)
         shape.vec)/ dot(ray, shape.vec)) : 0;
     if (shape.type == 4)
         x1 = (distsqr(plus(origin, fois(ray, x1)), shape.center,
-        shape.hi, shape.vec, rtx) > 0) ? 0: x1;
+        shape.hi, shape.vec) > 0) ? 0: x1;
     if (shape.type == 3)
         x1 = (distri(shape, plus(origin, fois(ray, x1))) == 1) ? x1 : 0;
 	if (s == 1 && x1 > 0.0)
