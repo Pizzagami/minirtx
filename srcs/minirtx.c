@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/09 18:36:09 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/12 15:20:00 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_color		cal_col(t_cam cam, t_rtx rtx)
 	t_color color;
 	float dist;
 	float ldist;
-	float c;
+	//float c;
 	t_tg shape;
 	
 	color.r = 0;
@@ -112,13 +112,15 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 }
 
 
-int main2(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	void	*mlx_ptr;
 	void	*mlx_win;
+	void	*r;
 	float	aspect_ratio;
 	t_rtx	rtx;
 
+	r = NULL;
 	rtx = parseke(argc, argv);
 	mlx_ptr = mlx_init();
 	mlx_win = mlx_new_window(mlx_ptr, rtx.res.x, rtx.res.y, "miniRTX");
@@ -142,7 +144,6 @@ int main2(int argc, char **argv)
 		}
 		rtx.coor.x++;
 	}
-	void *r;
 	mlx_hook(mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, r);
 	mlx_key_hook(mlx_win, key_hook, r);
 	mlx_loop(mlx_ptr);
