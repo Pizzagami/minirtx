@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:53:33 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/12 15:22:38 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/13 10:53:54 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,11 @@ int		key_hook(int key)
 	if (key == 53)
 		exit(0);
 	return(EXIT_SUCCESS);
+}
+
+void	mlx_put_pixel_img(int x, int y, char **id, int sl, t_color color)
+{
+	(*id)[(x * sl + y ) * 4] = (char)color.r;
+	(*id)[(x * sl + y ) * 4 + 1] = (char)color.g;
+	(*id)[(x * sl + y ) * 4 + 2] = (char)color.b;
 }

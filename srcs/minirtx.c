@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/12 18:54:29 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/13 10:55:04 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,12 @@ int main(int argc, char **argv)
 {
 	void	*mlx_ptr;
 	void	*mlx_win;
+	void	*img;
+	char	*id;
 	void	*r;
+	int		bpp;
+	int		sl;
+	int		endian;
 	float	aspect_ratio;
 	t_rtx	rtx;
 
@@ -128,6 +133,9 @@ int main(int argc, char **argv)
 	rtx = parseke(argc, argv);
 	mlx_ptr = mlx_init();
 	mlx_win = mlx_new_window(mlx_ptr, rtx.res.x, rtx.res.y, "miniRTX");
+	img = mlx_new_image(mlx_ptr, 1600, 900);
+	id = mlx_get_data_addr(img, &bpp, &sl, &endian);
+	printf("%d %d %d\n", bpp, sl, endian);
 	rtx.coor.x = 0;
 	rtx.shape->vec.x = 1;
 	while(rtx.coor.x < rtx.res.x)
@@ -142,14 +150,16 @@ int main(int argc, char **argv)
 			tan((float)rtx.cam->fov /2 /180 * M_PI);
 			rtx.cam->ray.z = -1;
 			rtx.cam->ray = normalize(rtx.cam->ray);
-			mlx_pixel_put(mlx_ptr, mlx_win, rtx.coor.x, rtx.coor.y,
-			rgbtoon(cal_col(*(rtx.cam), rtx)));
+			//mlx_pixel_put(mlx_ptr, mlx_win, rtx.coor.x, rtx.coor.y,
+			//rgbtoon(cal_col(*(rtx.cam), rtx)));
+			mlx_put_pixel_img(rtx.coor.x, rtx.coor.y, &id, 900, cal_col(*(rtx.cam), rtx));
 			rtx.coor.y++;
 		}
 		rtx.coor.x++;
 	}
 	mlx_hook(mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, r);
 	mlx_key_hook(mlx_win, key_hook, r);
+	mlx_put_image_to_window(mlx_ptr, mlx_win, img, 0, 0);
 	mlx_loop(mlx_ptr);
 	return(EXIT_SUCCESS);
 }

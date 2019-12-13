@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/12 15:35:37 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/13 10:32:50 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ float			find_dist(t_vec origin, t_vec ray, t_tg shape);
 void			ft_putnbr(int nb);
 void			ft_putstr(char *str);
 void			init_lst(t_rtx *rtx);
+void			mlx_put_pixel_img(int x, int y, char **id, int sl, t_color color);
+
 
 t_vec			normalize(t_vec vect);
 t_vec			fois(t_vec truc, float a);
