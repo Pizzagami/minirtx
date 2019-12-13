@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/12 18:19:43 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/13 11:26:02 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char		*pars_r(char **buf, t_rtx *rtx)
 	if (buf[3] != NULL)
 		return("Too many arguments on declaration of resolution");
 	rtx->res.x = ft_atoi(buf[1]);
-	rtx->res.y = ft_atoi(buf[1]);
+	rtx->res.y = ft_atoi(buf[2]);
 	if (rtx->res.x == -42)
 		return("Invalid number for x of resolution");
 	if (rtx->res.x < 0)

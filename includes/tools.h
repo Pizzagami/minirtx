@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/13 10:32:50 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/13 12:05:30 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,7 @@ t_color			lfois(t_color color, float a);
 t_color			color_init(int r, int g, int b);
 t_color			color_cap(t_color color, t_color max);
 t_color			color_add(t_color base, t_color add, float coef);
+
+void	multi(t_send *send);
 
 #endif

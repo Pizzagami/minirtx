@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/13 10:55:04 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/13 12:34:11 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,9 +150,7 @@ int main(int argc, char **argv)
 			tan((float)rtx.cam->fov /2 /180 * M_PI);
 			rtx.cam->ray.z = -1;
 			rtx.cam->ray = normalize(rtx.cam->ray);
-			//mlx_pixel_put(mlx_ptr, mlx_win, rtx.coor.x, rtx.coor.y,
-			//rgbtoon(cal_col(*(rtx.cam), rtx)));
-			mlx_put_pixel_img(rtx.coor.x, rtx.coor.y, &id, 900, cal_col(*(rtx.cam), rtx));
+			mlx_put_pixel_img(rtx.coor.x, rtx.coor.y, &id, 1600, cal_col(*(rtx.cam), rtx));
 			rtx.coor.y++;
 		}
 		rtx.coor.x++;

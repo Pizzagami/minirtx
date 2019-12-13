@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/04 12:35:10 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/13 12:03:44 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,14 @@ typedef struct	s_all
 	t_tg	*shape;
 	int		save;
 }				t_rtx;
+
+typedef struct		s_send
+{
+	int				i;
+	char			*id;
+	void			*img;
+	int				tiny_x;
+	t_rtx			rtx;
+}					t_send;
 
 #endif

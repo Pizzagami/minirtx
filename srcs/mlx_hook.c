@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:53:33 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/13 10:53:54 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/13 12:33:15 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		key_hook(int key)
 
 void	mlx_put_pixel_img(int x, int y, char **id, int sl, t_color color)
 {
-	(*id)[(x * sl + y ) * 4] = (char)color.r;
-	(*id)[(x * sl + y ) * 4 + 1] = (char)color.g;
-	(*id)[(x * sl + y ) * 4 + 2] = (char)color.b;
+	(*id)[(x + (y * sl)) * 4] = (char)color.r;
+	(*id)[((x + (y * sl)) * 4) + 1] = (char)color.g;
+	(*id)[((x + (y * sl)) * 4 )+ 2] = (char)color.b;
 }

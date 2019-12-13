@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 14:19:00 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/11 14:22:05 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/13 11:55:08 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,3 +42,4 @@ char	*check_ligne(char *str)
 	}
 	return(NULL);
 }
+
