@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+         #
+#    By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:50:27 by selgrabl          #+#    #+#              #
-#    Updated: 2019/12/13 10:36:52 by braimbau         ###   ########.fr        #
+#    Updated: 2019/12/13 14:11:13 by selgrabl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS = 	./srcs/minirtx.c		\
 		./srcs/tools4math.c		\
 		./srcs/ft_split.c		\
 		./srcs/get_next_line.c	\
+		./srcs/tools4dist.c		\
 
 
 OBJS = ${SRCS:.c=.o}

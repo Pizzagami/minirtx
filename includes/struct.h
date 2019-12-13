@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/13 12:03:44 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/13 14:07:37 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,3 +100,11 @@ typedef struct		s_send
 }					t_send;
 
 #endif
+
+/*	0 = plan 
+	1 = sphere
+	2 = cylindre
+	3 = triangle
+	4 = carre
+	5 = cercle
+*/

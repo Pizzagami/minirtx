@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/13 12:34:11 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/13 16:28:09 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 	float c;
 	t_tg *sh;
 	t_light *li;
-	float ldist;	
-	
+	float ldist;
 	color.r = 0;
 	color.g = 0;
 	color.b = 0;
@@ -92,13 +91,13 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 		sh = rtx.shape;
 		point = plus(cam.origin, fois(cam.ray, dist));
 		light = normalize(min(li->pos, point));
-		if (shape.type == 0 || shape.type == 4 || shape.type == 3)
+		if (shape.type == 0 || shape.type == 3 || shape.type == 4 || shape.type == 5)
 			normal = shape.vec;
 		else
 			normal = normalize(min(point, shape.center));
 		c = dot(light, normal);
 		if (c < 0)
-			c = 0;
+			c = -c;
 		ldist = find_dist(li->pos, min(point, light), shape);
 		while (sh)
 		{
@@ -131,13 +130,12 @@ int main(int argc, char **argv)
 
 	r = NULL;
 	rtx = parseke(argc, argv);
+			printf("|%d %3f %3f %3f|\n",rtx.shape->type,rtx.shape->vec.x, rtx.shape->vec.y, rtx.shape->vec.z);
 	mlx_ptr = mlx_init();
 	mlx_win = mlx_new_window(mlx_ptr, rtx.res.x, rtx.res.y, "miniRTX");
-	img = mlx_new_image(mlx_ptr, 1600, 900);
+	img = mlx_new_image(mlx_ptr, rtx.res.x, rtx.res.y);
 	id = mlx_get_data_addr(img, &bpp, &sl, &endian);
-	printf("%d %d %d\n", bpp, sl, endian);
 	rtx.coor.x = 0;
-	rtx.shape->vec.x = 1;
 	while(rtx.coor.x < rtx.res.x)
 	{
 		rtx.coor.y = 0;
@@ -150,7 +148,8 @@ int main(int argc, char **argv)
 			tan((float)rtx.cam->fov /2 /180 * M_PI);
 			rtx.cam->ray.z = -1;
 			rtx.cam->ray = normalize(rtx.cam->ray);
-			mlx_put_pixel_img(rtx.coor.x, rtx.coor.y, &id, 1600, cal_col(*(rtx.cam), rtx));
+			printf("|%d %3f %3f %3f|\n",rtx.shape->type,rtx.shape->vec.x, rtx.shape->vec.y, rtx.shape->vec.z);
+			mlx_put_pixel_img(rtx.coor.x, rtx.coor.y, &id, rtx.res.x, cal_col(*(rtx.cam), rtx));
 			rtx.coor.y++;
 		}
 		rtx.coor.x++;

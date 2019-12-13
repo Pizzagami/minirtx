@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/13 11:26:02 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/13 16:02:10 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ char 		*pars_sq(char **buf, t_rtx *rtx)
 	if (rtx->shape->hi < 0)
 		return("Value out of range for height of a square");
 	ret = join(ret, read_color(buf[4], &(rtx->shape->color), " of a square"));
+	printf("%f %f %f\n", rtx->shape->vec.x, rtx->shape->vec.y, rtx->shape->vec.z);
 	return(ret);
 }
 
@@ -135,7 +136,8 @@ char		*pars_tr(char **buf, t_rtx *rtx)
 	ret = join(ret, read_pos(buf[2], &(rtx->shape->p2), "of triangle"));
 	ret = join(ret, read_pos(buf[3], &(rtx->shape->p3), "of triangle"));
 	ret = join(ret, read_color(buf[4], &(rtx->shape->color), " of triangle"));
-	return(ret);}
+	return(ret);
+}
 
 char		*pars_c(char **buf, t_rtx *rtx)
 {
@@ -212,13 +214,14 @@ char		*pars_cy(char **buf, t_rtx *rtx)
 
 char		*pars_ce(char **buf, t_rtx *rtx)
 {
+	printf("catzo\n");
 	char *ret;
 	t_tg *shape;
 
 	shape = malloc(sizeof(t_tg));
 	shape->next = rtx->shape;
 	rtx->shape = shape;
-	rtx->shape->type = 7;
+	rtx->shape->type = 5;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
 		return("Missing argument(s) on declaraton of cercle");
 	if (buf[5] != NULL)
@@ -228,8 +231,8 @@ char		*pars_ce(char **buf, t_rtx *rtx)
 	rtx->shape->dia = ft_atof(buf[3]);
 	if (isnan(rtx->shape->dia))
 		return("Invalid number for diameter of cercle");
-	if (rtx->shape->hi < 0)
-		return("Value out of range for high of cercle");
+	if (rtx->shape->dia < 0)
+		return("Value out of range for diameter of cercle");
 	ret = join(ret, read_color(buf[4], &(rtx->shape->color), " of cercle"));
 	return(ret);
 }
@@ -243,7 +246,12 @@ char		*pars_py(char **buf, t_rtx *rtx)
 
 char		*pars_cu(char **buf, t_rtx *rtx)
 {
-	buf = buf + 1;
-	rtx = rtx + 1;
+	
+	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
+		return("Missing argument(s) on declaraton of a cube");
+	if (buf[5] != NULL)
+		return("Too many arguments on declaration of a cube");
+	
+rtx = rtx + 1;
 	return NULL;
 }
