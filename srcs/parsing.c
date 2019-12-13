@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/12 17:18:37 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/13 15:05:57 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 	err = (ft_strcmp(buf[0], "sq") == 0) ? pars_sq(buf, rtx) : err;
 	err = (ft_strcmp(buf[0], "tr") == 0) ? pars_tr(buf, rtx) : err;
 	err = (ft_strcmp(buf[0], "cy") == 0) ? pars_cy(buf, rtx) : err;
-	err = (ft_strcmp(buf[0], "cu") == 0) ? pars_sq(buf, rtx) : err;
+	err = (ft_strcmp(buf[0], "cu") == 0) ? pars_cu(buf, rtx) : err;
 	err = (ft_strcmp(buf[0], "py") == 0) ? pars_py(buf, rtx) : err;
-	err = (ft_strcmp(buf[0], "ce") == 0) ? pars_cu(buf, rtx) : err;
+	err = (ft_strcmp(buf[0], "ce") == 0) ? pars_ce(buf, rtx) : err;
 	err = (ft_strcmp(buf[0], "pl") == 0) ? pars_pl(buf, rtx) : err;
 	err = join(err, check_ligne(str));
 	if (err)

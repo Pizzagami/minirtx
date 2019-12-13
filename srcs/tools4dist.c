@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_hook.c                                         :+:      :+:    :+:   */
+/*   tools4dist.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/27 19:53:33 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/13 12:38:33 by selgrabl         ###   ########.fr       */
+/*   Created: 2019/12/13 14:10:01 by selgrabl          #+#    #+#             */
+/*   Updated: 2019/12/13 16:20:30 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirtx.h"
+#include "tools.h"
 
-int		exit_hook(void *param)
+float find_dist(t_vec origin, t_vec ray, t_tg shape)
 {
-	(void)param;
-	exit(0);
-	return(EXIT_SUCCESS);
-}
-
-int		key_hook(int key)
-{
-	if (key == 53)
-		exit(0);
-	return(EXIT_SUCCESS);
-}
-
-void	mlx_put_pixel_img(int x, int y, char **id, int sl, t_color color)
-{
-	(*id)[(x + (y * sl)) * 4] = (char)color.b;
-	(*id)[((x + (y * sl)) * 4) + 1] = (char)color.g;
-	(*id)[((x + (y * sl)) * 4 )+ 2] = (char)color.r;
+    if (shape.type == 1)
+        return(find_dist_sp(origin, ray, shape));
+    if (shape.type == 2)
+        return(find_dist_cy(origin, ray, shape));
+    if (shape.type == 5)
+        return(find_dist_ce(origin, ray, shape));
+		return(find_dist_stp(origin, ray, shape));
 }
