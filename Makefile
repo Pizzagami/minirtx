@@ -6,7 +6,7 @@
 #    By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:50:27 by selgrabl          #+#    #+#              #
-#    Updated: 2019/12/11 15:59:59 by braimbau         ###   ########.fr        #
+#    Updated: 2019/12/13 10:36:52 by braimbau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,22 +31,23 @@ OBJS = ${SRCS:.c=.o}
 
 CC  = gcc
 
-CFLAGS =  -fsanitize=address -g3 -Lincludes/minilibx -lmlx -framework OpenGL -framework Appkit -Wall -Wextra -I./includes/
-
+FLAGS =   -L includes/minilibx -lmlx -framework OpenGL -framework Appkit -fsanitize=address -g3
+CFLAGS =  -Wall -Wextra -Werror -I includes/ -I includes/minilibx
 RM  = rm -f
 
 ${NAME}	:	${OBJS}
-	${CC}	${CFLAGS} -o ${NAME} ${OBJS}
+	${CC}	 -o ${NAME}  ${FLAGS} ${OBJS}
 
 all:  ${NAME}
 
-clean	:	
+clean:	
 	${RM}	${OBJS}
 
-fclean	:  clean
+fclean:  clean
 	${RM} ${NAME}
 
-re: all clean
+re: fclean all
+	${RM}	${OBJS}
 
 .PHONY: all clean fclean re
 

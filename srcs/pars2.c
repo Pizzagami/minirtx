@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/11 18:07:53 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/13 11:26:02 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char		*pars_r(char **buf, t_rtx *rtx)
 	if (buf[3] != NULL)
 		return("Too many arguments on declaration of resolution");
 	rtx->res.x = ft_atoi(buf[1]);
-	rtx->res.y = ft_atoi(buf[1]);
+	rtx->res.y = ft_atoi(buf[2]);
 	if (rtx->res.x == -42)
 		return("Invalid number for x of resolution");
 	if (rtx->res.x < 0)
@@ -75,6 +75,25 @@ char 		*pars_sq(char **buf, t_rtx *rtx)
 	return(ret);
 }
 
+char 		*pars_pl(char **buf, t_rtx *rtx)
+{
+	char *ret;
+	t_tg *shape;
+
+	shape = malloc(sizeof(t_tg));
+	shape->next = rtx->shape;
+	rtx->shape = shape;
+	rtx->shape->type = 0;
+	if (!buf[1] || !buf[2] || !buf[3])
+		return("Missing argument(s) on declaraton of a plane");
+	if (buf[4] != NULL)
+		return("Too many arguments on declaration of a plane");
+	ret = read_pos(buf[1], &(rtx->shape->center), " of a plane");
+	ret = join(ret, read_vec(buf[2], &(rtx->shape->vec), " of a plane"));
+	ret = join(ret, read_color(buf[3], &(rtx->shape->color), " of a plane"));
+	return(ret);
+}
+
 char		*pars_s(char **buf, t_rtx *rtx)
 {
 	char *ret;
@@ -83,18 +102,19 @@ char		*pars_s(char **buf, t_rtx *rtx)
 	shape = malloc(sizeof(t_tg));
 	shape->next = rtx->shape;
 	rtx->shape = shape;
-	rtx->shape->type = 4;
+	rtx->shape->type = 1;
 	if (!(buf[1] || buf[2] || buf[3]))
 		return("Missing argument(s) on declaraton of a sphere");
 	if (buf[4] != NULL)
 		return("Too many arguments on declaration of a sphere");
 	ret = read_pos(buf[1], &(rtx->shape->center), " of a sphere");
-	rtx->shape->hi = ft_atof(buf[2]);
-	if (isnan(rtx->shape->hi))
+	rtx->shape->dia = ft_atof(buf[2]);
+	if (isnan(rtx->shape->dia))
 		return("Invalid number for diameter of a sphere");
-	if (rtx->shape->hi < 0)
+	if (rtx->shape->dia < 0)
 		return("Value out of range for diameter of a sphere");
 	ret = join(ret, read_color(buf[3], &(rtx->shape->color), " of a sphere"));
+	printf("sphere %f %f\n",shape->center.x, shape->dia);
 	return(ret);
 }
 
@@ -216,10 +236,14 @@ char		*pars_ce(char **buf, t_rtx *rtx)
 
 char		*pars_py(char **buf, t_rtx *rtx)
 {
+	buf = buf + 1;
+	rtx = rtx + 1;
 	return NULL;
 }
 
 char		*pars_cu(char **buf, t_rtx *rtx)
 {
+	buf = buf + 1;
+	rtx = rtx + 1;
 	return NULL;
 }
