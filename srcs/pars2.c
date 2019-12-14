@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/13 16:02:10 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/14 14:32:24 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,8 @@ char		*pars_cy(char **buf, t_rtx *rtx)
 	if (rtx->shape->hi < 0)
 		return("Value out of range for high of cylinder");
 	ret = join(ret, read_color(buf[5], &(rtx->shape->color), " of cylinder"));
-	return(ret);}
+	return(ret);
+}
 
 char		*pars_ce(char **buf, t_rtx *rtx)
 {
@@ -246,12 +247,37 @@ char		*pars_py(char **buf, t_rtx *rtx)
 
 char		*pars_cu(char **buf, t_rtx *rtx)
 {
-	
+	char *ret;
+	//float tmp;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
 		return("Missing argument(s) on declaraton of a cube");
 	if (buf[5] != NULL)
 		return("Too many arguments on declaration of a cube");
-	
-rtx = rtx + 1;
-	return NULL;
+	ret = pars_sq(buf, rtx);
+	if(ret)
+	return(ret);
+	rtx->shape->center.x += xfois(rtx->shape->vec, rtx->shape->hi / 2).x;
+	ret = pars_sq(buf, rtx);
+	rtx->shape->center.x -= xfois(rtx->shape->vec, rtx->shape->hi / 2).x;
+	/*ret = pars_sq(buf, rtx);
+	rtx->shape->center.y += xfois(rtx->shape->vec, rtx->shape->hi / 2).y;
+	tmp = rtx->shape->vec.x;
+	rtx->shape->vec.x = - rtx->shape->vec.y;
+	rtx->shape->vec.y = tmp;
+	ret = pars_sq(buf, rtx);
+	rtx->shape->center.y -= xfois(rtx->shape->vec, rtx->shape->hi / 2).y;
+	tmp = rtx->shape->vec.x;
+	rtx->shape->vec.x = - rtx->shape->vec.y;
+	rtx->shape->vec.y = tmp;
+	ret = pars_sq(buf, rtx);
+	rtx->shape->center.z += xfois(rtx->shape->vec, rtx->shape->hi / 2).z;
+	tmp = rtx->shape->vec.x;
+	rtx->shape->vec.x = - rtx->shape->vec.z;
+	rtx->shape->vec.z = tmp;
+	ret = pars_sq(buf, rtx);
+	rtx->shape->center.z -= xfois(rtx->shape->vec, rtx->shape->hi / 2).z;
+	tmp = rtx->shape->vec.x;
+	rtx->shape->vec.x = - rtx->shape->vec.z;
+	rtx->shape->vec.z = tmp;*/
+	return(ret);
 }

@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 14:19:00 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/13 11:55:08 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/14 13:19:43 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,3 +43,57 @@ char	*check_ligne(char *str)
 	return(NULL);
 }
 
+int	nb_char(long n)
+{
+	long	c;
+	int		r;
+
+	c = 10;
+	r = 1;
+	if (n < 0)
+	{
+		r++;
+		n *= -1;
+	}
+	while (n >= c)
+	{
+		c = c * 10;
+		r++;
+	}
+	return (r);
+}
+
+char		*ft_itoa(int n)
+{
+	char	*na;
+	int		i;
+	int		max;
+	long	nl;
+
+	nl = n;
+	i = 0;
+	max = nb_char(nl);
+	if (!(na = malloc((max + 1) * sizeof(char))))
+		return (NULL);
+	if (nl < 0)
+	{
+		na[0] = '-';
+		nl *= -1;
+		i++;
+	}
+	na[max] = 0;
+	while (max > i)
+	{
+		na[max - 1] = (nl % 10) + 48;
+		nl /= 10;
+		max--;
+	}
+	return (na);
+}
+
+void	init_lst(t_rtx *rtx)
+{
+	rtx->shape = NULL;
+	rtx->cam = NULL;
+	rtx->light = NULL;
+}

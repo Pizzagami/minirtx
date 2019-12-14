@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/13 15:30:39 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/14 13:20:02 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "minirtx.h"
 
+int	            nb_char(long n);
 int				ft_atoi(char *str);
 int				ft_strlen(char *str);
 int				rgbtoon(t_color color);
@@ -23,6 +24,7 @@ int				ft_strcmp(char *s1, char *s2);
 int				second_degre(float a, float b, float c, float *x1, float *x2);
 int     		distsqr(t_vec   dot, t_vec center, float hi, t_vec vec);
 
+char		    *ft_itoa(int n);
 char			*check_ligne(char *str);
 char			*join(char *s1, char *s2);
 char			*strjoin(int nbr, char *s1, ...);
@@ -57,6 +59,6 @@ t_color			color_init(int r, int g, int b);
 t_color			color_cap(t_color color, t_color max);
 t_color			color_add(t_color base, t_color add, float coef);
 
-void	multi(t_send *send);
+void            multi(void *arg);
 
 #endif

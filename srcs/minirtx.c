@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/13 16:28:09 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/14 14:35:02 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 			normal = normalize(min(point, shape.center));
 		c = dot(light, normal);
 		if (c < 0)
-			c = -c;
+			c = 0;
 		ldist = find_dist(li->pos, min(point, light), shape);
 		while (sh)
 		{
@@ -130,7 +130,6 @@ int main(int argc, char **argv)
 
 	r = NULL;
 	rtx = parseke(argc, argv);
-			printf("|%d %3f %3f %3f|\n",rtx.shape->type,rtx.shape->vec.x, rtx.shape->vec.y, rtx.shape->vec.z);
 	mlx_ptr = mlx_init();
 	mlx_win = mlx_new_window(mlx_ptr, rtx.res.x, rtx.res.y, "miniRTX");
 	img = mlx_new_image(mlx_ptr, rtx.res.x, rtx.res.y);
@@ -148,7 +147,6 @@ int main(int argc, char **argv)
 			tan((float)rtx.cam->fov /2 /180 * M_PI);
 			rtx.cam->ray.z = -1;
 			rtx.cam->ray = normalize(rtx.cam->ray);
-			printf("|%d %3f %3f %3f|\n",rtx.shape->type,rtx.shape->vec.x, rtx.shape->vec.y, rtx.shape->vec.z);
 			mlx_put_pixel_img(rtx.coor.x, rtx.coor.y, &id, rtx.res.x, cal_col(*(rtx.cam), rtx));
 			rtx.coor.y++;
 		}

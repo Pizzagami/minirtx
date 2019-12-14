@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:13:56 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/12 15:30:55 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/14 13:19:49 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,4 @@ char	*read_pos(char *str, t_vec *vec, char *id)
 	if (str[ft_strlen(str) - 1] < '0' || str[ft_strlen(str) - 1] > '9')
 		return (join("Invalid format for position ", id));
 	return (NULL);
-}
-
-void	init_lst(t_rtx *rtx)
-{
-	rtx->shape = NULL;
-	rtx->cam = NULL;
-	rtx->light = NULL;
 }
