@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/13 15:56:42 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/15 19:27:44 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,26 @@ int			distri(t_tg tri, t_vec p)
     return(x);
 }
 
-int			distsqr(t_vec   dot, t_vec center, float hi, t_vec vec)
+int			distsqr(t_vec   dot, t_tg shape)
 {
     int x;
+	t_vec v1;
 
-    hi /= 2;
-    vec = xfois(vec, hi);
+    v1 = corners(&shape);
     x = 0;
-    x = ((dot.x <= (center.x + vec.x)) && (dot.x >= (center.x - vec.x)))? x: 1;
-    x = ((dot.y <= (center.y + vec.y)) && (dot.y >= (center.y - vec.y)))? x: 1;
-    x = ((dot.z <= (center.z + vec.z)) && (dot.y >= (center.z - vec.z)))? x: 1;
+	v1.x = v1.x;
+    if(shape.p1.x > shape.p2.x)
+		x = (dot.x <= shape.p1.x && dot.x >= shape.p2.x) ? x: 1;
+    else
+		x = (dot.x >= shape.p1.x && dot.x <= shape.p2.x) ? x: 1;
+    if(shape.p1.y > shape.p2.y)
+		x = (dot.y <= shape.p1.y && dot.y >= shape.p2.y) ? x: 1;
+    else
+		x = (dot.y >= shape.p1.y && dot.y <= shape.p2.y) ? x: 1;
+	if(shape.p1.z > shape.p2.z)
+		x = (dot.z <= shape.p1.z && dot.z >= shape.p2.z) ? x: 1;
+    else
+		x = (dot.z >= shape.p1.z && dot.z <= shape.p2.z) ? x: 1;
     return (x);
 }
 
@@ -90,8 +100,7 @@ float		find_dist_stp(t_vec   origin, t_vec ray, t_tg shape)
     x = (dot(ray, shape.vec) != 0) ?(dot(min(shape.center, origin),
         shape.vec)/ dot(ray, shape.vec)) : 0;
     if (shape.type == 4)
-        x = (distsqr(plus(origin, fois(ray, x)), shape.center,
-        shape.hi, shape.vec) > 0) ? 0: x;
+        x = (distsqr(plus(origin, fois(ray, x)), shape) > 0) ? 0: x;
     if (shape.type == 3)
         x = (distri(shape, plus(origin, fois(ray, x))) == 1) ? x : 0;
     return((x > 0.0) ? x : -1.0);

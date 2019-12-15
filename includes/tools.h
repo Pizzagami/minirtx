@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/13 15:30:39 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/15 19:07:00 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int				ft_strlen(char *str);
 int				rgbtoon(t_color color);
 int     		distri(t_tg tri, t_vec p);
 int				ft_strcmp(char *s1, char *s2);
+int     		distsqr(t_vec   dot, t_tg shape);
 int				second_degre(float a, float b, float c, float *x1, float *x2);
-int     		distsqr(t_vec   dot, t_vec center, float hi, t_vec vec);
 
 char			*check_ligne(char *str);
 char			*join(char *s1, char *s2);
@@ -45,9 +45,9 @@ void			init_lst(t_rtx *rtx);
 void			mlx_put_pixel_img(int x, int y, char **id, int sl, t_color color);
 
 
+t_vec			corners(t_tg *shape);
 t_vec			normalize(t_vec vect);
 t_vec			fois(t_vec truc, float a);
-t_vec			xfois(t_vec truc, float a);
 t_vec			min(t_vec truc, t_vec machin);
 t_vec			plus(t_vec truc, t_vec machin);
 t_vec			cross(t_vec machin, t_vec bidule);
