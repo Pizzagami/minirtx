@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/12/16 17:11:40 by selgrabl         ###   ########.fr       */
+=======
+/*   Updated: 2019/12/16 17:23:56 by braimbau         ###   ########.fr       */
+>>>>>>> 4009f7da10d6ae47eee8f5a15af5b6daa301d3e1
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +101,17 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 			normal = normalize(min(point, shape.center));
 		c = dot(light, normal);
 		if (c < 0)
-			c = -c;
-		ldist = find_dist(li->pos, min(point, light), shape);
+		{
+			if (shape.type == 0 || shape.type == 3 || shape.type == 4 || shape.type == 5)
+				c = -c;
+			else
+				c = 0;
+		}
+		ldist = find_dist(li->pos, min(point, li->pos), shape);
 		while (sh)
 		{
-			if (find_dist(li->pos, min(point, light), *sh) < ldist &&
-				find_dist(li->pos, min(point, light), *sh) > 0)
+			if (find_dist(li->pos, min(point, li->pos), *sh) < ldist &&
+				find_dist(li->pos, min(point, li->pos), *sh) > 0)
 				c = 0;
 			sh = sh->next;
 		}
