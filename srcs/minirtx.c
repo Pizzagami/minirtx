@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/16 15:40:04 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/16 17:11:40 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 			normal = normalize(min(point, shape.center));
 		c = dot(light, normal);
 		if (c < 0)
-			c = 0;
+			c = -c;
 		ldist = find_dist(li->pos, min(point, light), shape);
 		while (sh)
 		{
