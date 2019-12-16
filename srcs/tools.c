@@ -6,13 +6,13 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 19:34:04 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/11 12:48:29 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/14 13:15:23 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tools.h"
 
-int		ft_atoi(char *str)
+int			ft_atoi(char *str)
 {
 	int i;
 	int nb;
@@ -48,7 +48,7 @@ int 		ft_strlen(char *str)
 	return (i);
 }
 
-void	ft_putstr(char *str)
+void		ft_putstr(char *str)
 {
 	int i;
 
@@ -89,7 +89,7 @@ float		ft_atof(char *buf)
     return((d + f) * signe);
 }
 
-void	ft_putnbr(int nb)
+void		ft_putnbr(int nb)
 {
 	unsigned int	nbr;
 	char			a;

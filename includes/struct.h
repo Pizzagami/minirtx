@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/13 14:07:37 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/16 16:45:40 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef	struct s_obj
 	t_vec	p1;
 	t_vec	p2;
 	t_vec	p3;
+	t_vec	p4;
 	t_vec	vec;
 	t_color	color;
 	float	dia;

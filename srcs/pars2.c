@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/13 16:02:10 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/16 16:44:39 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ char 		*pars_sq(char **buf, t_rtx *rtx)
 	if (rtx->shape->hi < 0)
 		return("Value out of range for height of a square");
 	ret = join(ret, read_color(buf[4], &(rtx->shape->color), " of a square"));
-	printf("%f %f %f\n", rtx->shape->vec.x, rtx->shape->vec.y, rtx->shape->vec.z);
 	return(ret);
 }
 
@@ -115,7 +114,6 @@ char		*pars_s(char **buf, t_rtx *rtx)
 	if (rtx->shape->dia < 0)
 		return("Value out of range for diameter of a sphere");
 	ret = join(ret, read_color(buf[3], &(rtx->shape->color), " of a sphere"));
-	printf("sphere %f %f\n",shape->center.x, shape->dia);
 	return(ret);
 }
 
@@ -136,8 +134,7 @@ char		*pars_tr(char **buf, t_rtx *rtx)
 	ret = join(ret, read_pos(buf[2], &(rtx->shape->p2), "of triangle"));
 	ret = join(ret, read_pos(buf[3], &(rtx->shape->p3), "of triangle"));
 	ret = join(ret, read_color(buf[4], &(rtx->shape->color), " of triangle"));
-	return(ret);
-}
+	return(ret);}
 
 char		*pars_c(char **buf, t_rtx *rtx)
 {
@@ -210,18 +207,18 @@ char		*pars_cy(char **buf, t_rtx *rtx)
 	if (rtx->shape->hi < 0)
 		return("Value out of range for high of cylinder");
 	ret = join(ret, read_color(buf[5], &(rtx->shape->color), " of cylinder"));
-	return(ret);}
+	return(ret);
+}
 
 char		*pars_ce(char **buf, t_rtx *rtx)
 {
-	printf("catzo\n");
 	char *ret;
 	t_tg *shape;
 
 	shape = malloc(sizeof(t_tg));
 	shape->next = rtx->shape;
 	rtx->shape = shape;
-	rtx->shape->type = 5;
+	rtx->shape->type = 7;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
 		return("Missing argument(s) on declaraton of cercle");
 	if (buf[5] != NULL)
@@ -231,27 +228,95 @@ char		*pars_ce(char **buf, t_rtx *rtx)
 	rtx->shape->dia = ft_atof(buf[3]);
 	if (isnan(rtx->shape->dia))
 		return("Invalid number for diameter of cercle");
-	if (rtx->shape->dia < 0)
-		return("Value out of range for diameter of cercle");
+	if (rtx->shape->hi < 0)
+		return("Value out of range for high of cercle");
 	ret = join(ret, read_color(buf[4], &(rtx->shape->color), " of cercle"));
 	return(ret);
 }
 
 char		*pars_py(char **buf, t_rtx *rtx)
 {
-	buf = buf + 1;
-	rtx = rtx + 1;
-	return NULL;
+	t_tg *shape;
+	t_vec	v1;
+	t_vec	v2;
+	t_vec	n;
+	float	hi;
+	float	si;
+
+	shape = malloc(sizeof(t_tg));
+	shape->next = rtx->shape;
+	rtx->shape = shape;
+	rtx->shape->type = 3;
+	read_pos(buf[1], &(shape->center), "test");
+	read_vec(buf[2], &n, "test");
+	si = atof(buf[3]);
+	hi = atof(buf[4]);
+	read_color(buf[5], &(shape->color), "test");
+	v1.x = n.y;
+	v1.y = n.z;
+	v1.z = n.x;
+	v2 = cross(n, v1);
+	shape->p1 = plus(shape->center, fois(n, hi));
+	shape->p2 = min(min(shape->center, fois(v1, si / 2)), fois(v2, si / 2));
+	shape->p3 = min(plus(shape->center, fois(v1, si / 2)), fois(v2, si / 2));
+	printf("|%f %f %f|\n", shape->p1.x, shape->p1.y, shape->p1.z);
+	printf("|%f %f %f|\n", shape->p2.x, shape->p2.y, shape->p2.z);
+	printf("|%f %f %f|\n\n", shape->p3.x, shape->p3.y, shape->p3.z);
+
+
+	shape = malloc(sizeof(t_tg));
+	shape->center = rtx->shape->center;
+	shape->color = rtx->shape->color;
+	shape->p1 = plus(shape->center, fois(n, hi));
+	shape->p2 = min(plus(shape->center, fois(v1, si / 2)), fois(v2, si / 2));
+	shape->p3 = plus(plus(shape->center, fois(v1, si / 2)), fois(v2, si / 2));
+	printf("|%f %f %f|\n", shape->p1.x, shape->p1.y, shape->p1.z);
+	printf("|%f %f %f|\n", shape->p2.x, shape->p2.y, shape->p2.z);
+	printf("|%f %f %f|\n\n", shape->p3.x, shape->p3.y, shape->p3.z);
+	shape->next = rtx->shape;
+	rtx->shape = shape;
+	rtx->shape->type = 3;
+
+	shape = malloc(sizeof(t_tg));
+	shape->center = rtx->shape->center;
+	shape->color = rtx->shape->color;
+	printf("**%d**\n", shape->color.r);
+	shape->p1 = plus(shape->center, fois(n, hi));
+	shape->p2 = plus(min(shape->center, fois(v1, si / 2)), fois(v2, si / 2));
+	shape->p3 = plus(plus(shape->center, fois(v1, si / 2)), fois(v2, si / 2));
+	printf("|%f %f %f|\n", shape->p1.x, shape->p1.y, shape->p1.z);
+	printf("|%f %f %f|\n", shape->p2.x, shape->p2.y, shape->p2.z);
+	printf("|%f %f %f|\n\n", shape->p3.x, shape->p3.y, shape->p3.z);
+	shape->next = rtx->shape;
+	rtx->shape = shape;
+	rtx->shape->type = 3;
+
+	shape = malloc(sizeof(t_tg));
+	shape->center = rtx->shape->center;
+	shape->color = rtx->shape->color;
+	shape->p1 = plus(shape->center, fois(n, hi));
+	shape->p2 = plus(min(shape->center, fois(v1, si / 2)), fois(v2, si / 2));
+	shape->p3 = min(min(shape->center, fois(v1, si / 2)), fois(v2, si / 2));
+	printf("|%f %f %f|\n", shape->p1.x, shape->p1.y, shape->p1.z);
+	printf("|%f %f %f|\n", shape->p2.x, shape->p2.y, shape->p2.z);
+	printf("|%f %f %f|\n\n", shape->p3.x, shape->p3.y, shape->p3.z);
+	shape->next = rtx->shape;
+	rtx->shape = shape;
+	rtx->shape->type = 3;
+	return(NULL);
 }
 
 char		*pars_cu(char **buf, t_rtx *rtx)
 {
-	
+	char *ret;
+	//float tmp;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
 		return("Missing argument(s) on declaraton of a cube");
 	if (buf[5] != NULL)
 		return("Too many arguments on declaration of a cube");
+	ret = pars_sq(buf, rtx);
+	if(ret)
+	return(ret);
 	
-rtx = rtx + 1;
-	return NULL;
+	return(ret);
 }
