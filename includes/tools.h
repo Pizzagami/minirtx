@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/13 12:05:30 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/13 15:30:39 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@ char			*read_color(char *buf, t_color *color,char *str);
 
 float      		ft_atof(char *buf);
 float			dot(t_vec machin, t_vec bidule);
+float   		dist_dot(t_vec machin, t_vec bidule);
 float			find_dist(t_vec origin, t_vec ray, t_tg shape);
+float			find_dist_sp(t_vec   origin, t_vec ray, t_tg shape);
+float			find_dist_ce(t_vec   origin, t_vec ray, t_tg shape);
+float			find_dist_cy(t_vec   origin, t_vec ray, t_tg shape);
+float			find_dist_stp(t_vec   origin, t_vec ray, t_tg shape);
 
 void			ft_putnbr(int nb);
 void			ft_putstr(char *str);
