@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/13 15:30:39 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/16 15:39:55 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,16 @@
 
 #include "minirtx.h"
 
+int	            nb_char(long n);
 int				ft_atoi(char *str);
 int				ft_strlen(char *str);
 int				rgbtoon(t_color color);
 int     		distri(t_tg tri, t_vec p);
 int				ft_strcmp(char *s1, char *s2);
+int     		distsqr(t_vec   dot, t_tg shape);
 int				second_degre(float a, float b, float c, float *x1, float *x2);
-int     		distsqr(t_vec   dot, t_vec center, float hi, t_vec vec);
 
+char		    *ft_itoa(int n);
 char			*check_ligne(char *str);
 char			*join(char *s1, char *s2);
 char			*strjoin(int nbr, char *s1, ...);
@@ -45,9 +47,9 @@ void			init_lst(t_rtx *rtx);
 void			mlx_put_pixel_img(int x, int y, char **id, int sl, t_color color);
 
 
+t_vec			corners(t_tg *shape);
 t_vec			normalize(t_vec vect);
 t_vec			fois(t_vec truc, float a);
-t_vec			xfois(t_vec truc, float a);
 t_vec			min(t_vec truc, t_vec machin);
 t_vec			plus(t_vec truc, t_vec machin);
 t_vec			cross(t_vec machin, t_vec bidule);
@@ -57,6 +59,6 @@ t_color			color_init(int r, int g, int b);
 t_color			color_cap(t_color color, t_color max);
 t_color			color_add(t_color base, t_color add, float coef);
 
-void	multi(t_send *send);
+void            multi(void *arg);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:13:56 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/12 15:30:55 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/16 16:44:12 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,20 @@ char	*read_pos(char *str, t_vec *vec, char *id)
 	return (NULL);
 }
 
-void	init_lst(t_rtx *rtx)
+void	print_vec(t_vec vec)
 {
-	rtx->shape = NULL;
-	rtx->cam = NULL;
-	rtx->light = NULL;
+	printf("x : %f y : %f z : %f\n",vec.x, vec.y, vec.z);
+}
+
+void			print_vecs(int nbr,...)
+{
+	va_list(ap);
+
+	va_start(ap, nbr);
+	while(nbr > 0)
+	{
+		print_vec(va_arg(ap, t_vec));
+		nbr--;
+	}
+	va_end(ap);
 }
