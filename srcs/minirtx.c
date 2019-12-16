@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/13 12:34:11 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/16 13:28:12 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,9 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 	float c;
 	t_tg *sh;
 	t_light *li;
-	float ldist;	
-	
+	float ldist;
+	t_send	send;
+			
 	color.r = 0;
 	color.g = 0;
 	color.b = 0;
