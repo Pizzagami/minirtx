@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 19:18:20 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/16 16:40:04 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/16 17:42:46 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ t_vec	corners(t_tg *shape)
 	normalize(v1);
 	v2 = cross(shape->vec, v1);
 	normalize(v2);
-	//print_vecs(2,v1,v2);
 	v1 = plus(v1,v2);
 	normalize(v1);
 	shape->p1.x = sqrt(2 * pow(shape->hi, 2)) * v1.x + shape->center.x;
