@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/13 16:02:10 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/16 15:58:17 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ char 		*pars_sq(char **buf, t_rtx *rtx)
 	if (rtx->shape->hi < 0)
 		return("Value out of range for height of a square");
 	ret = join(ret, read_color(buf[4], &(rtx->shape->color), " of a square"));
-	printf("%f %f %f\n", rtx->shape->vec.x, rtx->shape->vec.y, rtx->shape->vec.z);
 	return(ret);
 }
 
@@ -210,7 +209,8 @@ char		*pars_cy(char **buf, t_rtx *rtx)
 	if (rtx->shape->hi < 0)
 		return("Value out of range for high of cylinder");
 	ret = join(ret, read_color(buf[5], &(rtx->shape->color), " of cylinder"));
-	return(ret);}
+	return(ret);
+}
 
 char		*pars_ce(char **buf, t_rtx *rtx)
 {
@@ -246,12 +246,15 @@ char		*pars_py(char **buf, t_rtx *rtx)
 
 char		*pars_cu(char **buf, t_rtx *rtx)
 {
-	
+	char *ret;
+	//float tmp;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
 		return("Missing argument(s) on declaraton of a cube");
 	if (buf[5] != NULL)
 		return("Too many arguments on declaration of a cube");
+	ret = pars_sq(buf, rtx);
+	if(ret)
+	return(ret);
 	
-rtx = rtx + 1;
-	return NULL;
+	return(ret);
 }
