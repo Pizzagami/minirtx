@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/14 14:32:24 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/17 12:11:17 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,9 +240,27 @@ char		*pars_ce(char **buf, t_rtx *rtx)
 
 char		*pars_py(char **buf, t_rtx *rtx)
 {
-	buf = buf + 1;
-	rtx = rtx + 1;
-	return NULL;
+	char *ret;
+	t_tg *shape;
+
+	shape = malloc(sizeof(t_tg));
+	shape->next = rtx->shape;
+	rtx->shape = shape;
+	rtx->shape->type = 4;
+	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
+		return("Missing argument(s) on declaraton of a square");
+	if (buf[5] != NULL)
+		return("Too many arguments on declaration of a square");
+	ret = read_pos(buf[1], &(rtx->shape->center), " of a square");
+	ret = join(ret, read_vec(buf[2], &(rtx->shape->vec), " of a square"));
+	rtx->shape->hi = ft_atof(buf[3]);
+	if (isnan(rtx->shape->hi))
+		return("Invalid number for height of a square");
+	if (rtx->shape->hi < 0)
+		return("Value out of range for height of a square");
+	ret = join(ret, read_color(buf[4], &(rtx->shape->color), " of a square"));
+	printf("%f %f %f\n", rtx->shape->vec.x, rtx->shape->vec.y, rtx->shape->vec.z);
+	return(ret);
 }
 
 char		*pars_cu(char **buf, t_rtx *rtx)
