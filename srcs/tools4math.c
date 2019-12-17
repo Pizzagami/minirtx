@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/16 16:24:17 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/17 17:03:34 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,28 @@ int			distri(t_tg tri, t_vec p)
 int			distsqr(t_vec   dot, t_tg shape)
 {
     int x;
-	t_vec v1;
+    t_vec v1;
+	t_vec v2;
 
-    v1 = corners(&shape);
-    x = 0;
-    //print_vecs(2,shape.p1,shape.p2);
-    if(shape.p1.x > shape.p2.x)
-		x = (dot.x > shape.p1.x || dot.x < shape.p2.x) ? 1: x;
-    else
-		x = (dot.x < shape.p1.x || dot.x > shape.p2.x) ? 1: x;
-    //printf("x : %d\n",x);
+	v1.y = 0;
+	v1.x = (shape.vec.z == 0) ? 0 : 1;
+	v1.z = (shape.vec.x == 0 && v1.x == 1) ? 0 : 1;
+	v1.z = (shape.vec.x && shape.vec.z)? -shape.vec.x / shape.vec.z: v1.z;
+	v1 = normalize(v1);
+	v2 = normalize(cross(shape.vec, v1));
+    corners(&shape);
     if(shape.p1.y > shape.p2.y)
-		x = (dot.y > shape.p1.y || dot.y < shape.p2.y) ? 1: x;
+		x = between(v1,shape.p1,shape.p2,dot);
     else
-		x = (dot.y < shape.p1.y || dot.y > shape.p2.y) ? 1: x;
-      //  printf("y : %d\n",x);
+		x = between(v1,shape.p2,shape.p1,dot);
+    if(shape.p1.y > shape.p2.y)
+		x = (dot.y <= shape.p1.y && dot.y >= shape.p2.y) ? x: 1;
+    else
+		x = (dot.y >= shape.p1.y && dot.y <= shape.p2.y) ? x: 1;
 	if(shape.p1.z > shape.p2.z)
-		x = (dot.z > shape.p1.z || dot.z < shape.p2.z) ? 1: x;
+		x = (dot.z <= shape.p1.z && dot.z >= shape.p2.z) ? x: 1;
     else
-		x = (dot.z < shape.p1.z || dot.z > shape.p2.z) ? 1: x;
-        //printf("z : %d\n",x);
+		x = (dot.z >= shape.p1.z && dot.z <= shape.p2.z) ? x: 1;
     return (x);
 }
 

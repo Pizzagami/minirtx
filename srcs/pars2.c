@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/16 18:08:47 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/17 14:31:51 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,36 +295,40 @@ char		*pars_cu(char **buf, t_rtx *rtx)
 	char *ret;
 	t_vec v1;
 	t_vec v2;
+	t_rtx inf;
 
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
 		return("Missing argument(s) on declaraton of a cube");
 	if (buf[5] != NULL)
 		return("Too many arguments on declaration of a cube");
-	ret = pars_sq(buf, rtx);
+	ret = pars_sq(buf, &inf);
 	if(ret)
 		return(ret);
-	rtx->shape->hi /= 2;
 	v1.y = 0;
-	v1.x = (rtx->shape->vec.z == 0) ? 0 : 1;
-	v1.z = (rtx->shape->vec.x == 0) ? 0 : 1;
-	v1.z = (rtx->shape->vec.x && rtx->shape->vec.z)? -rtx->shape->vec.x / rtx->shape->vec.z: v1.z;
-	normalize(v1);
-	v2 = cross(rtx->shape->vec, v1);
-	normalize(v2);
-	
-	
+	v1.x = (inf.shape->vec.z == 0) ? 0 : 1;
+	v1.z = (inf.shape->vec.x == 0) ? 0 : 1;
+	v1.z = (inf.shape->vec.x && inf.shape->vec.z)? -inf.shape->vec.x / inf.shape->vec.z: v1.z;
+	v1 = normalize(v1);
+	v2 = normalize(cross(inf.shape->vec, v1));
+	pars_sqr(inf.shape->vec, *(inf.shape), rtx);
+	pars_sqr(fois(inf.shape->vec, -1), *(inf.shape), rtx);
+	pars_sqr(v1, *(inf.shape), rtx);
+	pars_sqr(fois(v1, -1), *(inf.shape), rtx);
+	pars_sqr(v2, *(inf.shape), rtx);
+	pars_sqr(fois(v2, -1), *(inf.shape), rtx);
 	return(ret);
 }
 
-char 		*pars_sqr(t_vec vec, t_tg info, t_rtx *rtx)
+void		pars_sqr(t_vec vec, t_tg info, t_rtx *rtx)
 {
-	char *ret;
 	t_tg *shape;
 
 	shape = malloc(sizeof(t_tg));
 	shape->next = rtx->shape;
 	rtx->shape = shape;
-	rtx->shape->type = 4;
-	//ez win
-	return(ret);
+	shape->type = 4;
+	shape->center = plus(info.center, fois(vec, info.hi / 2));
+	shape->hi = info.hi;
+	shape->color = info.color;
+	shape->vec = vec;
 }
