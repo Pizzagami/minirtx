@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 19:18:20 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/17 16:54:44 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/20 05:50:13 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,21 @@ void	corners(t_tg *shape)
 	v1.z = (shape->vec.x && shape->vec.z)? -shape->vec.x / shape->vec.z: v1.z;
 	v1 = normalize(v1);
 	v2 = normalize(cross(shape->vec, v1));
-	//print_vecs(2, v1,v2);
-	shape->p1.x = sqrt(2 * pow(shape->hi, 2)) * plus(v2, v1).x + shape->center.x;
-	shape->p1.y = sqrt(2 * pow(shape->hi, 2)) * plus(v2, v1).y + shape->center.y;
-	shape->p1.z = sqrt(2 * pow(shape->hi, 2)) * plus(v2, v1).z + shape->center.z;
-	shape->p2.x = sqrt(2 * pow(shape->hi, 2)) * -plus(v2, v1).x + shape->center.x;
-	shape->p2.y = sqrt(2 * pow(shape->hi, 2)) * -plus(v2, v1).y + shape->center.y;
-	shape->p2.z = sqrt(2 * pow(shape->hi, 2)) * -plus(v2, v1).z + shape->center.z;
+
+	shape->p1.x = shape->hi * (v1.x + v2.x) + shape->center.x;
+	shape->p1.y = shape->hi * (v1.y + v2.y) + shape->center.y;
+	shape->p1.z = shape->hi * (v1.z + v2.z) + shape->center.z;
+	shape->p2.x = shape->hi * (v1.x - v2.x) + shape->center.x;
+	shape->p2.y = shape->hi * (v1.y - v2.y) + shape->center.y;
+	shape->p2.z = shape->hi * (v1.z - v2.z) + shape->center.z;
+	shape->p3.x = shape->hi * -(v1.x + v2.x) + shape->center.x;
+	shape->p3.y = shape->hi * -(v1.y + v2.y) + shape->center.y;
+	shape->p3.z = shape->hi * -(v1.z + v2.z) + shape->center.z;
+	shape->p4.x = shape->hi * (-v1.x + v2.x) + shape->center.x;
+	shape->p4.y = shape->hi * (-v1.y + v2.y) + shape->center.y;
+	shape->p4.z = shape->hi * (-v1.z + v2.z) + shape->center.z;
+//	printf("-----------\n");
+//	print_vecs(4, shape->p1, shape->p2, shape->p3, shape->p4);
+//	printf("-----------\n");
+
 }

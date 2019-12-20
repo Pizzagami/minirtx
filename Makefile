@@ -6,7 +6,7 @@
 #    By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:50:27 by selgrabl          #+#    #+#              #
-#    Updated: 2019/12/13 14:11:13 by selgrabl         ###   ########.fr        #
+#    Updated: 2019/12/18 15:53:27 by selgrabl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ CFLAGS =  -Wall -Wextra -Werror -I includes/ -I includes/minilibx
 RM  = rm -f
 
 ${NAME}	:	${OBJS}
-	${CC}	 -o ${NAME}  ${FLAGS} ${OBJS}
+	@${CC}	 -o ${NAME}  ${FLAGS} ${OBJS}
 
 all:  ${NAME}
 

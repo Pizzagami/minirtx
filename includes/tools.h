@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/17 16:51:47 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/20 04:49:36 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define TOOLS_H
 
 #include "minirtx.h"
-int		between(t_vec vec, t_vec p1, t_vec p2, t_vec dot);
+int		between(t_vec vec, t_vec p1, t_vec p2, t_vec dot, int x);
 int	            nb_char(long n);
 int				ft_atoi(char *str);
 int				ft_strlen(char *str);
