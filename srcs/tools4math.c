@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/04 19:06:30 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/04 20:00:57 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int			distri(t_tg tri, t_vec p)
     int x;
 
     x = 1;
-    x = (dot(tri.vec, cross(min(tri.p2, tri.p1), min(p, tri.p1))) > 0) ? x: 0;
-    x = (dot(tri.vec, cross(min(tri.p3, tri.p2), min(p, tri.p2))) > 0) ? x: 0;
-    x = (dot(tri.vec, cross(min(tri.p1, tri.p3), min(p, tri.p3))) > 0) ? x: 0;
+    x = (dot(tri.vec, cross(min(tri.p2, tri.p1), min(p, tri.p1))) >= 0) ? x: 0;
+    x = (dot(tri.vec, cross(min(tri.p3, tri.p2), min(p, tri.p2))) >= 0) ? x: 0;
+    x = (dot(tri.vec, cross(min(tri.p1, tri.p3), min(p, tri.p3))) >= 0) ? x: 0;
     return(x);
 }
 

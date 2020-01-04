@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/04 19:27:43 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/04 23:47:28 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char 		*pars_sq(char **buf, t_rtx *rtx)
 	if (rtx->shape->hi < 0)
 		return("Value out of range for height of a square");
 	ret = join(ret, read_color(buf[4], &(rtx->shape->color), " of a square"));
+	shape->vec = normalize(shape->vec);
 	find_vecs(shape);
 	corners(shape);
 	return(ret);
@@ -314,13 +315,14 @@ char		*pars_cu(char **buf, t_rtx *rtx)
 	pars_sqr(-2, *(inf.shape), rtx);
 	pars_sqr(3, *(inf.shape), rtx);
 	pars_sqr(-3, *(inf.shape), rtx);
+
 	return(ret);
 }
 
 void		pars_sqr(int x, t_tg info, t_rtx *rtx)
 {
 	t_tg *shape;
-
+	
 	shape = malloc(sizeof(t_tg));
 	shape->next = rtx->shape;
 	rtx->shape = shape;
@@ -330,13 +332,13 @@ void		pars_sqr(int x, t_tg info, t_rtx *rtx)
 	shape->vec = info.vec;
 	shape->v1 = info.v1;
 	shape->v2 = info.v2;
-	if (x == 2 || x == -2)
+	if (abs(x) == 2)
 	{
 		shape->vec = info.v1;
 		shape->v1 = info.vec;
 		shape->v2 = info.v2;
 	}
-	if (x == 3 || x == -3)
+	if (abs(x) == 3)
 	{
 		shape->vec = info.v2;
 		shape->v1 = info.vec;
@@ -345,8 +347,9 @@ void		pars_sqr(int x, t_tg info, t_rtx *rtx)
 	shape->center = (x > 0)? plus(info.center, fois(shape->vec, info.hi / 2)):
 	plus(info.center, fois(shape->vec, -info.hi / 2));
 	corners(shape);
-	print_vecs(8,shape->vec,shape->v1,shape->v2,shape->center,shape->p1,shape->p2,shape->p3,shape->p4);
+	print_vecs(2,shape->vec,shape->center);
 	shape->vec = normalize(cross(min(shape->p2, shape->p1),
 		min(shape->p3, shape->p1)));
-	printf("\n");
+	//printf("%d %f %f %f %f \n\n",x,sqrt(dot(shape->p1,shape->p2)),sqrt(dot(shape->p3,shape->p4)),sqrt(dot(shape->p3,shape->p2)),sqrt(dot(shape->p1,shape->p4)));
+	printf("\n*%f*\n",sqrt(pow(3.53553- (-3.535534), 2) + pow(0 - (0),2) + pow(-53.535534 - (-46.464466), 2)));
 }

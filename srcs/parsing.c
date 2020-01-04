@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/04 19:55:19 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/04 23:47:42 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,9 +142,12 @@ int main2(int argc, char **argv)
 
 void	corners(t_tg *shape)
 {
-	//FAUX
 	shape->hi /= 2;
-	shape->p1.x = shape->hi * (shape->v1.x + shape->v2.x) + shape->center.x;
+	shape->p1 = plus(fois(plus(shape->v1,shape->v2),shape->hi),shape->center);
+	shape->p2 = plus(fois(min(shape->v1,shape->v2),shape->hi),shape->center);
+	shape->p3 = plus(fois(plus(shape->v1,shape->v2),-shape->hi),shape->center);
+	shape->p4 = plus(fois(min(shape->v2,shape->v1),shape->hi),shape->center);
+	/*shape->p1.x = shape->hi * (shape->v1.x + shape->v2.x) + shape->center.x;
 	shape->p1.y = shape->hi * (shape->v1.y + shape->v2.y) + shape->center.y;
 	shape->p1.z = shape->hi * (shape->v1.z + shape->v2.z) + shape->center.z;
 	shape->p2.x = shape->hi * (shape->v1.x - shape->v2.x) + shape->center.x;
@@ -155,39 +158,52 @@ void	corners(t_tg *shape)
 	shape->p3.z = shape->hi * -(shape->v1.z + shape->v2.z) + shape->center.z;
 	shape->p4.x = shape->hi * (-shape->v1.x + shape->v2.x) + shape->center.x;
 	shape->p4.y = shape->hi * (-shape->v1.y + shape->v2.y) + shape->center.y;
-	shape->p4.z = shape->hi * (-shape->v1.z + shape->v2.z) + shape->center.z;
+	shape->p4.z = shape->hi * (-shape->v1.z + shape->v2.z) + shape->center.z;*/
 	/*shape->p1.x = (sqrt(pow(2,shape->hi * shape->v1.x) + pow(2,shape->hi * shape->v2.x))) + shape->center.x;
 	shape->p1.y = (sqrt(pow(2,shape->hi * shape->v1.y) + pow(2,shape->hi * shape->v2.y))) + shape->center.y;
 	shape->p1.z = (sqrt(pow(2,shape->hi * shape->v1.z) + pow(2,shape->hi * shape->v2.z))) + shape->center.z;
-	shape->p2.x = (sqrt(pow(2,shape->hi * shape->v1.x) - pow(2,shape->hi * shape->v2.x))) + shape->center.x;
-	shape->p2.y = (sqrt(pow(2,shape->hi * shape->v1.y) - pow(2,shape->hi * shape->v2.y))) + shape->center.y;
-	shape->p2.z = (sqrt(pow(2,shape->hi * shape->v1.z) - pow(2,shape->hi * shape->v2.z))) + shape->center.z;
+	shape->p2.x = (pow(2,shape->hi * shape->v1.x) - pow(2,shape->hi * shape->v2.x) > 0) ?
+	(sqrt(pow(2,shape->hi * shape->v1.x) - pow(2,shape->hi * shape->v2.x))) + shape->center.x:
+	(-sqrt(fabs(pow(2,shape->hi * shape->v1.x) - pow(2,shape->hi * shape->v2.x)))) + shape->center.x;
+	shape->p2.y = (pow(2,shape->hi * shape->v1.y) - pow(2,shape->hi * shape->v2.y) > 0) ?
+	(sqrt(pow(2,shape->hi * shape->v1.y) - pow(2,shape->hi * shape->v2.y))) + shape->center.y:
+	(-sqrt(fabs(pow(2,shape->hi * shape->v1.y) - pow(2,shape->hi * shape->v2.y)))) + shape->center.y;
+	shape->p2.z = (pow(2,shape->hi * shape->v1.z) - pow(2,shape->hi * shape->v2.z) > 0) ?
+	(sqrt(pow(2,shape->hi * shape->v1.z) - pow(2,shape->hi * shape->v2.z))) + shape->center.z:
+	(-sqrt(fabs(pow(2,shape->hi * shape->v1.z) - pow(2,shape->hi * shape->v2.z)))) + shape->center.z;
 	shape->p3.x = (-sqrt(pow(2,shape->hi * shape->v1.x) + pow(2,shape->hi * shape->v2.x))) + shape->center.x;
 	shape->p3.y = (-sqrt(pow(2,shape->hi * shape->v1.y) + pow(2,shape->hi * shape->v2.y))) + shape->center.y;
 	shape->p3.z = (-sqrt(pow(2,shape->hi * shape->v1.z) + pow(2,shape->hi * shape->v2.z))) + shape->center.z;
-	shape->p4.x = (sqrt(-pow(2,shape->hi * shape->v1.x) + pow(2,shape->hi * shape->v2.x))) + shape->center.x;
-	shape->p4.y = (sqrt(-pow(2,shape->hi * shape->v1.y) + pow(2,shape->hi * shape->v2.y))) + shape->center.y;
-	shape->p4.z = (sqrt(-pow(2,shape->hi * shape->v1.z) + pow(2,shape->hi * shape->v2.z))) + shape->center.z;*/
+	shape->p4.x = (-pow(2,shape->hi * shape->v1.x) + pow(2,shape->hi * shape->v2.x) > 0) ?
+	(sqrt(-pow(2,shape->hi * shape->v1.x) + pow(2,shape->hi * shape->v2.x))) + shape->center.x:
+	(-sqrt(fabs(-pow(2,shape->hi * shape->v1.x) + pow(2,shape->hi * shape->v2.x)))) + shape->center.x;
+	shape->p4.y = (-pow(2,shape->hi * shape->v1.y) + pow(2,shape->hi * shape->v2.y) > 0) ?
+	(sqrt(-pow(2,shape->hi * shape->v1.y) + pow(2,shape->hi * shape->v2.y))) + shape->center.y:
+	(-sqrt(fabs(-pow(2,shape->hi * shape->v1.y) + pow(2,shape->hi * shape->v2.y)))) + shape->center.y;
+	shape->p4.z = (-pow(2,shape->hi * shape->v1.z) + pow(2,shape->hi * shape->v2.z) > 0) ?
+	(sqrt(-pow(2,shape->hi * shape->v1.z) + pow(2,shape->hi * shape->v2.z))) + shape->center.z:
+	(-sqrt(fabs(-pow(2,shape->hi * shape->v1.z) + pow(2,shape->hi * shape->v2.z)))) + shape->center.z;*/
+	shape->hi *= 2;
 }
 
 void	find_vecs(t_tg *shape)
 {
-if (fabsf(shape->vec.x) >= fabsf(shape->vec.y) &&
-		(fabsf(shape->vec.x) >= fabsf(shape->vec.z)))
+if (fabsf(shape->vec.x) <= fabsf(shape->vec.y) &&
+		(fabsf(shape->vec.x) <= fabsf(shape->vec.z)))
 	{
 		shape->v1.x = 1;
 		shape->v1.y = 0;
 		shape->v1.z = (shape->vec.z != 0)? -shape->vec.x / shape->vec.z : 0;
 	}
-	else if (fabsf(shape->vec.z) >= fabsf(shape->vec.y) &&
-		(fabsf(shape->vec.z) >= fabsf(shape->vec.x)))
+	else if (fabsf(shape->vec.z) <= fabsf(shape->vec.y) &&
+		(fabsf(shape->vec.z) <= fabsf(shape->vec.x)))
 	{
 		shape->v1.z = 1;
 		shape->v1.y = 0;
 		shape->v1.x = (shape->vec.x != 0)? -shape->vec.z / shape->vec.x : 0;
 	}
-	else if (fabsf(shape->vec.y) >= fabsf(shape->vec.x) &&
-		(fabsf(shape->vec.x) >= fabsf(shape->vec.z)))
+	else if (fabsf(shape->vec.y) <= fabsf(shape->vec.x) &&
+		(fabsf(shape->vec.x) <= fabsf(shape->vec.z)))
 	{
 		shape->v1.y = 1;
 		shape->v1.x = 0;
