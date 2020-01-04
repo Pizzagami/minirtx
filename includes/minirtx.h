@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/16 16:04:45 by selgrabl         ###   ########.fr       */
+/*   Updated: 2019/12/17 14:03:35 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_color     	cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist);
 int				key_hook(int key);
 int				exit_hook(void *param);
 
-void	print_vec(t_vec vec);
+void			print_vec(t_vec vec);
 void			print_vecs(int nbr,...);
 
 

@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/16 15:39:55 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/04 17:56:36 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void			init_lst(t_rtx *rtx);
 void			mlx_put_pixel_img(int x, int y, char **id, int sl, t_color color);
 
 
-t_vec			corners(t_tg *shape);
 t_vec			normalize(t_vec vect);
 t_vec			fois(t_vec truc, float a);
 t_vec			min(t_vec truc, t_vec machin);
@@ -60,5 +59,6 @@ t_color			color_cap(t_color color, t_color max);
 t_color			color_add(t_color base, t_color add, float coef);
 
 void            multi(void *arg);
+void			tri_vecs(t_tg *shape);
 
 #endif
