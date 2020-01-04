@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/20 04:49:36 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/04 17:56:36 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define TOOLS_H
 
 #include "minirtx.h"
-int		between(t_vec vec, t_vec p1, t_vec p2, t_vec dot, int x);
+
 int	            nb_char(long n);
 int				ft_atoi(char *str);
 int				ft_strlen(char *str);
@@ -42,7 +42,6 @@ float			find_dist_cy(t_vec   origin, t_vec ray, t_tg shape);
 float			find_dist_stp(t_vec   origin, t_vec ray, t_tg shape);
 
 void			ft_putnbr(int nb);
-void			corners(t_tg *shape);
 void			ft_putstr(char *str);
 void			init_lst(t_rtx *rtx);
 void			mlx_put_pixel_img(int x, int y, char **id, int sl, t_color color);
@@ -60,5 +59,6 @@ t_color			color_cap(t_color color, t_color max);
 t_color			color_add(t_color base, t_color add, float coef);
 
 void            multi(void *arg);
+void			tri_vecs(t_tg *shape);
 
 #endif
