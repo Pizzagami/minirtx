@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:13:56 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/14 13:19:49 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/16 16:44:12 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,22 @@ char	*read_pos(char *str, t_vec *vec, char *id)
 	if (str[ft_strlen(str) - 1] < '0' || str[ft_strlen(str) - 1] > '9')
 		return (join("Invalid format for position ", id));
 	return (NULL);
+}
+
+void	print_vec(t_vec vec)
+{
+	printf("x : %f y : %f z : %f\n",vec.x, vec.y, vec.z);
+}
+
+void			print_vecs(int nbr,...)
+{
+	va_list(ap);
+
+	va_start(ap, nbr);
+	while(nbr > 0)
+	{
+		print_vec(va_arg(ap, t_vec));
+		nbr--;
+	}
+	va_end(ap);
 }

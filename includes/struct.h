@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/15 16:49:56 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/17 12:14:06 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef	struct s_obj
 	t_vec	p1;
 	t_vec	p2;
 	t_vec	p3;
+	t_vec	p4;
 	t_vec	vec;
 	t_color	color;
 	float	dia;

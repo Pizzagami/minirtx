@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 19:17:07 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/07 19:18:03 by braimbau         ###   ########.fr       */
+/*   Updated: 2019/12/19 19:10:01 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,13 @@ t_color color_add(t_color base, t_color add, float coef)
    base.g += add.g * coef;
    base.b += add.b * coef;
    return (base);
+}
+
+t_color cosha(float ratio, t_color light, t_color shape)
+{
+    t_color color;
+		color.r = ratio * light.r / 255 * shape.r;
+		color.g = ratio * light.g / 255 * shape.g;
+		color.b = ratio * light.b / 255 * shape.b;
+    return(color);
 }
