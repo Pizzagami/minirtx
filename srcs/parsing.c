@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/15 19:28:07 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/04 18:16:38 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 	char *err;
 	char **buf;
 
-	if (str[0] == '\0')
-		return;
 	err = NULL;
 	buf = ft_split(str, " ");
+	if (str[0] == '\0')
+		return;
 	err = (ft_strcmp(buf[0], "A") == 0) ? pars_a(buf, rtx) : err;
 	err = (ft_strcmp(buf[0], "R") == 0) ? pars_r(buf, rtx) : err;
 	err = (ft_strcmp(buf[0], "c") == 0) ? pars_c(buf, rtx) : err;
@@ -95,47 +95,4 @@ void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 		close(fd);
 		exit(EXIT_FAILURE);
 	}
-}
-
-int main2(int argc, char **argv)
-{
-	t_rtx 	rtx;
-	int		i;
-	t_cam	*cam;
-	t_light	*light;
-	t_tg	*shape;
-
-	rtx = parseke(argc, argv);
-	printf("amb : ratio : %5f color : %3d %3d %3d \n", rtx.amb.ratio, rtx.amb.color.r, rtx.amb.color.g, rtx.amb.color.b);
-	i = 0;
-	cam = rtx.cam;
-	while(cam)
-	{
-		i++;
-		printf("cam %d : pos : %3f %3f %3f vec : %3f %3f %3f fov = %d\n", i, cam->origin.x, cam->origin.y, cam->origin.z, cam->vec.x, cam->vec.y, cam->vec.z, cam->fov);
-		cam = cam->next;
-	}
-	i = 0;
-	light = rtx.light;
-	while(light)
-	{
-		i++;
-		printf("light %d : pos : %3f %3f %3f ratio : %f color : %d %d %d\n", i, light->pos.x, light->pos.y, light->pos.z, light->ratio, light->color.r, light->color.g, light->color.b);
-		light = light->next;
-	}
-	i = 0;
-	shape = rtx.shape;
-	while(shape)
-	{
-		i++;
-		if (shape->type == 4)
-			printf("shape %d : square : pos : %f %f %f vec : %f %f %f hight : %f color : %d %d %d\n", i, shape->center.x, shape->center.y, shape->center.z, shape->vec.x, shape->vec.y, shape->vec.z, shape->hi, shape->color.r, shape->color.g, shape->color.b);
-		if (shape->type == 2)
-			printf("shape %d : cylinder : pos : %f %f %f vec : %f %f %f hight : %f dia = %f color : %d %d %d\n", i, shape->center.x, shape->center.y, shape->center.z, shape->vec.x, shape->vec.y, shape->vec.z, shape->hi, shape->dia, shape->color.r, shape->color.g, shape->color.b);
-		if (shape->type == 0)
-			printf("shape %d : plane : pos : %f %f %f vec : %f %f %f color : %d %d %d\n", i, shape->center.x, shape->center.y, shape->center.z, shape->vec.x, shape->vec.y, shape->vec.z, shape->color.r, shape->color.g, shape->color.b);
-		shape = shape->next;
-
-	}
-	return (0);
 }

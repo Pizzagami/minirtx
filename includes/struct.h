@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/17 12:14:06 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/04 16:57:38 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef	struct s_obj
 	float	dia;
 	float	hi;
 	int		type;
+	float	refl;
+	float	trans;
 	struct s_obj	*next;
 
 }				t_tg;

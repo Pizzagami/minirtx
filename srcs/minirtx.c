@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/04 15:16:23 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/04 18:32:41 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ t_color		cal_col(t_cam cam, t_rtx rtx)
 	if (dist != -1.0)
 		color = color_add(cosha(rtx.amb.ratio, rtx.amb.color, shape.color),
 		cal_lit(cam, shape, rtx, dist), 1);
+	if (shape.trans)
+	{
+		cam.origin = plus(cam.origin, fois(cam.ray, dist));
+		color = color_mix(color, cal_col(cam, rtx), 1 - shape.trans, shape.trans);
+	}
 	return (color_cap(color, shape.color));
 }
 
@@ -83,13 +88,12 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 		c = dot(light, normal);
 		if (c < 0)
 			c = 0;
-			//c = (shape.type == 1 || shape.type == 2 || shape.type == 0) ? 0 : -c;
 		ldist = find_dist(li->pos, min(point, li->pos), shape);
 		while (sh)
 		{
 			if (find_dist(li->pos, min(point, li->pos), *sh) < ldist &&
 			find_dist(li->pos, min(point, li->pos), *sh) > 0)
-				c = 0;
+				c = sh->trans * c;
 			sh = sh->next;
 		}
 		color = color_add(color, cosha(c, li->color, shape.color), 1);

@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/19 18:35:56 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/04 18:16:59 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,18 @@ char 		*pars_sq(char **buf, t_rtx *rtx)
 	shape->next = rtx->shape;
 	rtx->shape = shape;
 	rtx->shape->type = 4;
+	rtx->shape->trans = 0;
+	rtx->shape->refl = 0;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
 		return("Missing argument(s) on declaraton of a square");
-	if (buf[5] != NULL)
+	if (buf[5] != NULL && buf[6] != NULL && buf[7] != NULL)
 		return("Too many arguments on declaration of a square");
 	ret = read_pos(buf[1], &(rtx->shape->center), " of a square");
 	ret = join(ret, read_vec(buf[2], &(rtx->shape->vec), " of a square"));
-	rtx->shape->hi = ft_atof(buf[3]);
-	if (isnan(rtx->shape->hi))
-		return("Invalid number for height of a square");
-	if (rtx->shape->hi < 0)
-		return("Value out of range for height of a square");
+	ret = join(ret, read_float(buf[3], &(rtx->shape->hi), "height of a square", -1));
 	ret = join(ret, read_color(buf[4], &(rtx->shape->color), " of a square"));
+	if (buf[5])
+		ret = join(ret, read_float(buf[5], &(rtx->shape->trans), "transparence of a square", 1));
 	return(ret);
 }
 
@@ -84,6 +84,8 @@ char 		*pars_pl(char **buf, t_rtx *rtx)
 	shape->next = rtx->shape;
 	rtx->shape = shape;
 	rtx->shape->type = 0;
+	rtx->shape->trans = 0;
+	rtx->shape->refl = 0;
 	if (!buf[1] || !buf[2] || !buf[3])
 		return("Missing argument(s) on declaraton of a plane");
 	if (buf[4] != NULL)
@@ -103,6 +105,8 @@ char		*pars_s(char **buf, t_rtx *rtx)
 	shape->next = rtx->shape;
 	rtx->shape = shape;
 	rtx->shape->type = 1;
+	rtx->shape->trans = 0;
+	rtx->shape->refl = 0;
 	if (!(buf[1] || buf[2] || buf[3]))
 		return("Missing argument(s) on declaraton of a sphere");
 	if (buf[4] != NULL)
@@ -126,6 +130,8 @@ char		*pars_tr(char **buf, t_rtx *rtx)
 	shape->next = rtx->shape;
 	rtx->shape = shape;
 	rtx->shape->type = 3;
+	rtx->shape->trans = 0;
+	rtx->shape->refl = 0;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
 		return("Missing argument(s) on declaraton of triangle");
 	if (buf[5] != NULL)
@@ -190,6 +196,8 @@ char		*pars_cy(char **buf, t_rtx *rtx)
 	shape->next = rtx->shape;
 	rtx->shape = shape;
 	rtx->shape->type = 2;
+	rtx->shape->trans = 0;
+	rtx->shape->refl = 0;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4] || !buf[5])
 		return("Missing argument(s) on declaraton of cylinder");
 	if (buf[6] != NULL)
@@ -219,6 +227,8 @@ char		*pars_ce(char **buf, t_rtx *rtx)
 	shape->next = rtx->shape;
 	rtx->shape = shape;
 	rtx->shape->type = 7;
+	rtx->shape->trans = 0;
+	rtx->shape->refl = 0;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
 		return("Missing argument(s) on declaraton of cercle");
 	if (buf[5] != NULL)
@@ -247,6 +257,8 @@ char		*pars_py(char **buf, t_rtx *rtx)
 	shape->next = rtx->shape;
 	rtx->shape = shape;
 	rtx->shape->type = 3;
+	rtx->shape->trans = 0;
+	rtx->shape->refl = 0;
 	read_pos(buf[1], &(shape->center), "test");
 	read_vec(buf[2], &n, "test");
 	si = atof(buf[3]);

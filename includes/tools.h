@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/19 19:10:08 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/04 17:33:28 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char			*strjoin(int nbr, char *s1, ...);
 char			*read_vec(char *buf, t_vec *vec, char *id);
 char			*read_pos(char *buf, t_vec *vec, char *id);
 char			*read_color(char *buf, t_color *color,char *str);
+char            *read_float(char *str, float *value, char *id, float max);
 
 float      		ft_atof(char *buf);
 float			dot(t_vec machin, t_vec bidule);
@@ -59,6 +60,8 @@ t_color			color_init(int r, int g, int b);
 t_color			color_cap(t_color color, t_color max);
 t_color         cosha(float ratio, t_color light, t_color shape);
 t_color			color_add(t_color base, t_color add, float coef);
+t_color         color_mix(t_color c1, t_color c2, float r1, float r2);
+
 
 void            multi(void *arg);
 
