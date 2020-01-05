@@ -12,15 +12,15 @@
 
 #include "tools.h"
 
-t_vec	normalize(t_vec vect)
+t_vec	normalize(t_vec vec)
 {
 	t_vec tmp;
 
-	tmp = vect;
-	vect.x = vect.x / sqrtf(pow(tmp.x,2) + pow(tmp.y, 2) + pow(tmp.z, 2));
-	vect.y = vect.y / sqrtf(pow(tmp.x,2) + pow(tmp.y, 2) + pow(tmp.z, 2));
-	vect.z = vect.z / sqrtf(pow(tmp.x,2) + pow(tmp.y, 2) + pow(tmp.z, 2));
-	return(vect);
+	tmp = vec;
+	vec.x /= sqrtf(dot(tmp, tmp));
+	vec.y /= sqrtf(dot(tmp, tmp));
+	vec.z /= sqrtf(dot(tmp, tmp));
+	return(vec);
 }
 
 t_vec	min(t_vec truc, t_vec machin)
@@ -48,27 +48,26 @@ t_vec	fois(t_vec truc, float a)
 	return (truc);
 }
 
-t_vec	corners(t_tg *shape)
+void	tri_vecs(t_tg *shape)
 {
-	t_vec v1;
-	t_vec v2;
-
-	shape->hi /= 2;
-	v1.y = 0;
-	v1.x = (shape->vec.z == 0) ? 0 : 1;
-	v1.z = (shape->vec.x == 0) ? 0 : 1;
-	v1.z = (shape->vec.x && shape->vec.z)? -shape->vec.x / shape->vec.z: v1.z;
-	v1 = normalize(v1);
-	v2 = cross(shape->vec, v1);
-	v2 = normalize(v2);
-	//print_vecs(2,v1,v2);
-	v1 = plus(v1,v2);
-	v1 = normalize(v1);
-	shape->p1.x = sqrt(2 * pow(shape->hi, 2)) * v1.x + shape->center.x;
-	shape->p1.y = sqrt(2 * pow(shape->hi, 2)) * v1.y + shape->center.y;
-	shape->p1.z = sqrt(2 * pow(shape->hi, 2)) * v1.z + shape->center.z;
-	shape->p2.x = sqrt(2 * pow(shape->hi, 2)) * -v1.x + shape->center.x;
-	shape->p2.y = sqrt(2 * pow(shape->hi, 2)) * -v1.y + shape->center.y;
-	shape->p2.z = sqrt(2 * pow(shape->hi, 2)) * -v1.z + shape->center.z;
-	return(v1);
+	t_vec tmp;
+	
+	if (shape->v1.z >= shape->vec.z)
+	{
+		tmp = shape->vec;
+		shape->vec = shape->v1;
+		shape->v1 = tmp;
+	}
+	if (shape->v2.z >= shape->vec.z)
+	{
+		tmp = shape->vec;
+		shape->vec = shape->v2;
+		shape->v2 = tmp;
+	}
+	if (shape->v2.x >= shape->v1.x)
+	{
+		tmp = shape->v1;
+		shape->v1 = shape->v2;
+		shape->v2 = tmp;
+	}
 }

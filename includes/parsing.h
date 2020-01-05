@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:36:32 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/12 16:39:16 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/04 18:19:20 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,26 @@ int				get_next_line(int fd, char **line);
 int				count_words(char *str, char *charset);
 int				clear_buff(int x, int fd, char ***buf);
 
-char			*pars_a(char **buf, t_rtx *rtx); //OK
+char			*pars_a(char **buf, t_rtx *rtx);
 char			*pars_r(char **buf, t_rtx *rtx); 
-char			*pars_c(char **buf, t_rtx *rtx); //OK
-char			*pars_l(char **buf, t_rtx *rtx); //OK
+char			*pars_c(char **buf, t_rtx *rtx); 
+char			*pars_l(char **buf, t_rtx *rtx); 
 char			*pars_s(char **buf, t_rtx *rtx);
 char 			*pars_pl(char **buf, t_rtx *rtx);
-char 			*pars_sq(char **buf, t_rtx *rtx); //OK
+char 			*pars_sq(char **buf, t_rtx *rtx); 
 char			*pars_tr(char **buf, t_rtx *rtx); 
-char			*pars_cy(char **buf, t_rtx *rtx); //OK
-char			*pars_ce(char **buf, t_rtx *rtx); //KO
+char			*pars_cy(char **buf, t_rtx *rtx); 
+char			*pars_ce(char **buf, t_rtx *rtx); 
 char			*pars_py(char **buf, t_rtx *rtx); 
 char			*pars_cu(char **buf, t_rtx *rtx); 
 
+char			*ft_strcpy(char *dest, char *src);
 char			**ft_split(char *str, char *charset);
 
-char			*ft_strcpy(char *dest, char *src);
+void			corners(t_tg *shape);
+void			find_vecs(t_tg *shape);
 void			join2(char **line, char **buf, int x);
+void			pars_sqr(int x, t_tg info, t_rtx *rtx);
 void			ft_switch(char *buf, t_rtx *rtx, int fd, int i);
 void			alloc_word(char *str, char *charset, char **ptr);
 

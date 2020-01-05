@@ -48,7 +48,6 @@ void			init_lst(t_rtx *rtx);
 void			mlx_put_pixel_img(int x, int y, char **id, int sl, t_color color);
 
 
-t_vec			corners(t_tg *shape);
 t_vec			normalize(t_vec vect);
 t_vec			fois(t_vec truc, float a);
 t_vec			min(t_vec truc, t_vec machin);
@@ -64,5 +63,6 @@ t_color         color_mix(t_color c1, t_color c2, float r1, float r2);
 
 
 void            multi(void *arg);
+void			tri_vecs(t_tg *shape);
 
 #endif

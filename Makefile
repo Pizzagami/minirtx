@@ -38,7 +38,7 @@ CFLAGS =  -Wall -Wextra -Werror -I includes/ -I includes/minilibx
 RM  = rm -f
 
 ${NAME}	:	${OBJS}
-	${CC}	 -o ${NAME}  ${FLAGS} ${OBJS}
+	@${CC}	 -o ${NAME}  ${FLAGS} ${OBJS}
 
 all:  ${NAME}
 

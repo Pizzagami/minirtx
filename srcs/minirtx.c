@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
 /*   Updated: 2020/01/04 23:04:43 by braimbau         ###   ########.fr       */
@@ -41,8 +41,6 @@ t_color		cal_col(t_cam cam, t_rtx rtx)
 	dist = -1;
 	while (sh)
 	{
-		sh->vec = (sh->type == 3) ? normalize(cross(min(sh->p2, sh->p1),
-   		min(sh->p3, sh->p1))) : sh->vec;
 		ldist = find_dist(cam.origin, cam.ray, *sh);
 		if (ldist != - 1 && (dist == - 1 || ldist < dist))
 		{
