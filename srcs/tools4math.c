@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/04 20:00:57 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/05 16:42:06 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			distri(t_tg tri, t_vec p)
     return(x);
 }
 
-int			distsqr(t_vec   dot, t_tg shape)
+int			distsqr(t_tg shape, t_vec   dot)
 {
     int x;
 
@@ -60,4 +60,9 @@ int			distsqr(t_vec   dot, t_tg shape)
 		x = distri(shape,dot);
 	}
     return (x);
+}
+
+int		distce(t_tg shape, t_vec dot)
+{
+	return ((dist_dot(dot, shape.center) > shape.dia / 2) ? 0: 1);
 }

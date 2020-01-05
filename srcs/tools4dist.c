@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:10:01 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/21 16:43:11 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/05 16:42:13 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,27 +44,19 @@ float		find_dist_sp(t_vec   origin, t_vec ray, t_tg shape)
      return (-1.0);
 }
 
-float		find_dist_stp(t_vec   origin, t_vec ray, t_tg shape)
+float		find_dist_stcp(t_vec   origin, t_vec ray, t_tg shape)
 {
     float x;
 
     x = (dot(ray, shape.vec) != 0) ?(dot(min(shape.center, origin),
         shape.vec)/ dot(ray, shape.vec)) : 0;
-    if (shape.type == 4)
-        x = (distsqr(plus(origin, fois(ray, x)), shape) == 1) ? x: 0;
-    if (shape.type == 3)
+    if (shape.type == 5)
+        x = (distce(shape, plus(origin, fois(ray, x))) == 1) ? x: 0;
+    else if (shape.type == 4)
+        x = (distsqr(shape, plus(origin, fois(ray, x))) == 1) ? x: 0;
+    else if (shape.type == 3)
         x = (distri(shape, plus(origin, fois(ray, x))) == 1) ? x: 0;
     return((x > 0) ? x : -1.0);
-}
-
-float		find_dist_ce(t_vec   origin, t_vec ray, t_tg shape)
-{
-	float x;
-
-	x = find_dist_stp(origin, ray, shape);
-	x = (dist_dot(plus(origin, fois(ray, x)), shape.center) >
-	shape.dia / 2)? 0: x;
-    return((x > 0.0) ? x : -1.0);
 }
 
 float		find_dist_cy(t_vec   origin, t_vec ray, t_tg shape)

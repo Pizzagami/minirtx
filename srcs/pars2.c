@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/04 23:47:28 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/05 16:27:25 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ char 		*pars_sq(char **buf, t_rtx *rtx)
 		return("Too many arguments on declaration of a square");
 	ret = read_pos(buf[1], &(rtx->shape->center), " of a square");
 	ret = join(ret, read_vec(buf[2], &(rtx->shape->vec), " of a square"));
-//	print_vec(rtx->shape->vec);
 	rtx->shape->hi = ft_atof(buf[3]);
 	if (isnan(rtx->shape->hi))
 		return("Invalid number for height of a square");

@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/04 17:56:36 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/05 16:42:52 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int				ft_strlen(char *str);
 int				rgbtoon(t_color color);
 int     		distri(t_tg tri, t_vec p);
 int				ft_strcmp(char *s1, char *s2);
-int     		distsqr(t_vec   dot, t_tg shape);
+int				distce(t_tg shape, t_vec dot);
+int     		distsqr(t_tg shape, t_vec   dot);
 int				second_degre(float a, float b, float c, float *x1, float *x2);
 
 char		    *ft_itoa(int n);
@@ -37,9 +38,8 @@ float			dot(t_vec machin, t_vec bidule);
 float   		dist_dot(t_vec machin, t_vec bidule);
 float			find_dist(t_vec origin, t_vec ray, t_tg shape);
 float			find_dist_sp(t_vec   origin, t_vec ray, t_tg shape);
-float			find_dist_ce(t_vec   origin, t_vec ray, t_tg shape);
 float			find_dist_cy(t_vec   origin, t_vec ray, t_tg shape);
-float			find_dist_stp(t_vec   origin, t_vec ray, t_tg shape);
+float			find_dist_stcp(t_vec   origin, t_vec ray, t_tg shape);
 
 void			ft_putnbr(int nb);
 void			ft_putstr(char *str);
