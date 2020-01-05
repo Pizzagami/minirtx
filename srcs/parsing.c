@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/04 23:47:42 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/04 18:16:38 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 	char *err;
 	char **buf;
 
-	if (str[0] == '\0')
-		return;
 	err = NULL;
 	buf = ft_split(str, " ");
+	if (str[0] == '\0')
+		return;
 	err = (ft_strcmp(buf[0], "A") == 0) ? pars_a(buf, rtx) : err;
 	err = (ft_strcmp(buf[0], "R") == 0) ? pars_r(buf, rtx) : err;
 	err = (ft_strcmp(buf[0], "c") == 0) ? pars_c(buf, rtx) : err;
@@ -95,121 +95,4 @@ void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 		close(fd);
 		exit(EXIT_FAILURE);
 	}
-}
-
-int main2(int argc, char **argv)
-{
-	t_rtx 	rtx;
-	int		i;
-	t_cam	*cam;
-	t_light	*light;
-	t_tg	*shape;
-
-	rtx = parseke(argc, argv);
-	printf("amb : ratio : %5f color : %3d %3d %3d \n", rtx.amb.ratio, rtx.amb.color.r, rtx.amb.color.g, rtx.amb.color.b);
-	i = 0;
-	cam = rtx.cam;
-	while(cam)
-	{
-		i++;
-		printf("cam %d : pos : %3f %3f %3f vec : %3f %3f %3f fov = %d\n", i, cam->origin.x, cam->origin.y, cam->origin.z, cam->vec.x, cam->vec.y, cam->vec.z, cam->fov);
-		cam = cam->next;
-	}
-	i = 0;
-	light = rtx.light;
-	while(light)
-	{
-		i++;
-		printf("light %d : pos : %3f %3f %3f ratio : %f color : %d %d %d\n", i, light->pos.x, light->pos.y, light->pos.z, light->ratio, light->color.r, light->color.g, light->color.b);
-		light = light->next;
-	}
-	i = 0;
-	shape = rtx.shape;
-	while(shape)
-	{
-		i++;
-		if (shape->type == 4)
-			printf("shape %d : square : pos : %f %f %f vec : %f %f %f hight : %f color : %d %d %d\n", i, shape->center.x, shape->center.y, shape->center.z, shape->vec.x, shape->vec.y, shape->vec.z, shape->hi, shape->color.r, shape->color.g, shape->color.b);
-		if (shape->type == 2)
-			printf("shape %d : cylinder : pos : %f %f %f vec : %f %f %f hight : %f dia = %f color : %d %d %d\n", i, shape->center.x, shape->center.y, shape->center.z, shape->vec.x, shape->vec.y, shape->vec.z, shape->hi, shape->dia, shape->color.r, shape->color.g, shape->color.b);
-		if (shape->type == 0)
-			printf("shape %d : plane : pos : %f %f %f vec : %f %f %f color : %d %d %d\n", i, shape->center.x, shape->center.y, shape->center.z, shape->vec.x, shape->vec.y, shape->vec.z, shape->color.r, shape->color.g, shape->color.b);
-		shape = shape->next;
-
-	}
-	return (0);
-}
-
-void	corners(t_tg *shape)
-{
-	shape->hi /= 2;
-	shape->p1 = plus(fois(plus(shape->v1,shape->v2),shape->hi),shape->center);
-	shape->p2 = plus(fois(min(shape->v1,shape->v2),shape->hi),shape->center);
-	shape->p3 = plus(fois(plus(shape->v1,shape->v2),-shape->hi),shape->center);
-	shape->p4 = plus(fois(min(shape->v2,shape->v1),shape->hi),shape->center);
-	/*shape->p1.x = shape->hi * (shape->v1.x + shape->v2.x) + shape->center.x;
-	shape->p1.y = shape->hi * (shape->v1.y + shape->v2.y) + shape->center.y;
-	shape->p1.z = shape->hi * (shape->v1.z + shape->v2.z) + shape->center.z;
-	shape->p2.x = shape->hi * (shape->v1.x - shape->v2.x) + shape->center.x;
-	shape->p2.y = shape->hi * (shape->v1.y - shape->v2.y) + shape->center.y;
-	shape->p2.z = shape->hi * (shape->v1.z - shape->v2.z) + shape->center.z;
-	shape->p3.x = shape->hi * -(shape->v1.x + shape->v2.x) + shape->center.x;
-	shape->p3.y = shape->hi * -(shape->v1.y + shape->v2.y) + shape->center.y;
-	shape->p3.z = shape->hi * -(shape->v1.z + shape->v2.z) + shape->center.z;
-	shape->p4.x = shape->hi * (-shape->v1.x + shape->v2.x) + shape->center.x;
-	shape->p4.y = shape->hi * (-shape->v1.y + shape->v2.y) + shape->center.y;
-	shape->p4.z = shape->hi * (-shape->v1.z + shape->v2.z) + shape->center.z;*/
-	/*shape->p1.x = (sqrt(pow(2,shape->hi * shape->v1.x) + pow(2,shape->hi * shape->v2.x))) + shape->center.x;
-	shape->p1.y = (sqrt(pow(2,shape->hi * shape->v1.y) + pow(2,shape->hi * shape->v2.y))) + shape->center.y;
-	shape->p1.z = (sqrt(pow(2,shape->hi * shape->v1.z) + pow(2,shape->hi * shape->v2.z))) + shape->center.z;
-	shape->p2.x = (pow(2,shape->hi * shape->v1.x) - pow(2,shape->hi * shape->v2.x) > 0) ?
-	(sqrt(pow(2,shape->hi * shape->v1.x) - pow(2,shape->hi * shape->v2.x))) + shape->center.x:
-	(-sqrt(fabs(pow(2,shape->hi * shape->v1.x) - pow(2,shape->hi * shape->v2.x)))) + shape->center.x;
-	shape->p2.y = (pow(2,shape->hi * shape->v1.y) - pow(2,shape->hi * shape->v2.y) > 0) ?
-	(sqrt(pow(2,shape->hi * shape->v1.y) - pow(2,shape->hi * shape->v2.y))) + shape->center.y:
-	(-sqrt(fabs(pow(2,shape->hi * shape->v1.y) - pow(2,shape->hi * shape->v2.y)))) + shape->center.y;
-	shape->p2.z = (pow(2,shape->hi * shape->v1.z) - pow(2,shape->hi * shape->v2.z) > 0) ?
-	(sqrt(pow(2,shape->hi * shape->v1.z) - pow(2,shape->hi * shape->v2.z))) + shape->center.z:
-	(-sqrt(fabs(pow(2,shape->hi * shape->v1.z) - pow(2,shape->hi * shape->v2.z)))) + shape->center.z;
-	shape->p3.x = (-sqrt(pow(2,shape->hi * shape->v1.x) + pow(2,shape->hi * shape->v2.x))) + shape->center.x;
-	shape->p3.y = (-sqrt(pow(2,shape->hi * shape->v1.y) + pow(2,shape->hi * shape->v2.y))) + shape->center.y;
-	shape->p3.z = (-sqrt(pow(2,shape->hi * shape->v1.z) + pow(2,shape->hi * shape->v2.z))) + shape->center.z;
-	shape->p4.x = (-pow(2,shape->hi * shape->v1.x) + pow(2,shape->hi * shape->v2.x) > 0) ?
-	(sqrt(-pow(2,shape->hi * shape->v1.x) + pow(2,shape->hi * shape->v2.x))) + shape->center.x:
-	(-sqrt(fabs(-pow(2,shape->hi * shape->v1.x) + pow(2,shape->hi * shape->v2.x)))) + shape->center.x;
-	shape->p4.y = (-pow(2,shape->hi * shape->v1.y) + pow(2,shape->hi * shape->v2.y) > 0) ?
-	(sqrt(-pow(2,shape->hi * shape->v1.y) + pow(2,shape->hi * shape->v2.y))) + shape->center.y:
-	(-sqrt(fabs(-pow(2,shape->hi * shape->v1.y) + pow(2,shape->hi * shape->v2.y)))) + shape->center.y;
-	shape->p4.z = (-pow(2,shape->hi * shape->v1.z) + pow(2,shape->hi * shape->v2.z) > 0) ?
-	(sqrt(-pow(2,shape->hi * shape->v1.z) + pow(2,shape->hi * shape->v2.z))) + shape->center.z:
-	(-sqrt(fabs(-pow(2,shape->hi * shape->v1.z) + pow(2,shape->hi * shape->v2.z)))) + shape->center.z;*/
-	shape->hi *= 2;
-}
-
-void	find_vecs(t_tg *shape)
-{
-if (fabsf(shape->vec.x) <= fabsf(shape->vec.y) &&
-		(fabsf(shape->vec.x) <= fabsf(shape->vec.z)))
-	{
-		shape->v1.x = 1;
-		shape->v1.y = 0;
-		shape->v1.z = (shape->vec.z != 0)? -shape->vec.x / shape->vec.z : 0;
-	}
-	else if (fabsf(shape->vec.z) <= fabsf(shape->vec.y) &&
-		(fabsf(shape->vec.z) <= fabsf(shape->vec.x)))
-	{
-		shape->v1.z = 1;
-		shape->v1.y = 0;
-		shape->v1.x = (shape->vec.x != 0)? -shape->vec.z / shape->vec.x : 0;
-	}
-	else if (fabsf(shape->vec.y) <= fabsf(shape->vec.x) &&
-		(fabsf(shape->vec.x) <= fabsf(shape->vec.z)))
-	{
-		shape->v1.y = 1;
-		shape->v1.x = 0;
-		shape->v1.z = (shape->vec.z != 0)? -shape->vec.y / shape->vec.z : 0;
-	}
-	shape->v1 = normalize(shape->v1);
-	shape->v2 = normalize(cross(shape->vec, shape->v1));
-	tri_vecs(shape);
 }

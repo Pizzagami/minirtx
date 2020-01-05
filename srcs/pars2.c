@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/04 23:47:28 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/04 18:45:28 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,11 @@ char 		*pars_sq(char **buf, t_rtx *rtx)
 	shape->next = rtx->shape;
 	rtx->shape = shape;
 	rtx->shape->type = 4;
+	rtx->shape->trans = 0;
+	rtx->shape->refl = 0;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
 		return("Missing argument(s) on declaraton of a square");
-	if (buf[5] != NULL)
+	if (buf[5] != NULL && buf[6] != NULL && buf[7] != NULL)
 		return("Too many arguments on declaration of a square");
 	ret = read_pos(buf[1], &(rtx->shape->center), " of a square");
 	ret = join(ret, read_vec(buf[2], &(rtx->shape->vec), " of a square"));
@@ -88,13 +90,19 @@ char 		*pars_pl(char **buf, t_rtx *rtx)
 	shape->next = rtx->shape;
 	rtx->shape = shape;
 	rtx->shape->type = 0;
+	rtx->shape->trans = 0;
+	rtx->shape->refl = 0;
 	if (!buf[1] || !buf[2] || !buf[3])
 		return("Missing argument(s) on declaraton of a plane");
-	if (buf[4] != NULL)
+	if (buf[4] != NULL && buf[5] != NULL && buf[6] != NULL)
 		return("Too many arguments on declaration of a plane");
 	ret = read_pos(buf[1], &(rtx->shape->center), " of a plane");
 	ret = join(ret, read_vec(buf[2], &(rtx->shape->vec), " of a plane"));
 	ret = join(ret, read_color(buf[3], &(rtx->shape->color), " of a plane"));
+	if (buf[4])
+		ret = join(ret, read_float(buf[4], &(rtx->shape->trans), "transparence of a plane", 1));
+	if (buf[5])
+		ret = join(ret, read_float(buf[5], &(rtx->shape->refl), "reflection of a plane", 1));
 	return(ret);
 }
 
@@ -107,6 +115,8 @@ char		*pars_s(char **buf, t_rtx *rtx)
 	shape->next = rtx->shape;
 	rtx->shape = shape;
 	rtx->shape->type = 1;
+	rtx->shape->trans = 0;
+	rtx->shape->refl = 0;
 	if (!(buf[1] || buf[2] || buf[3]))
 		return("Missing argument(s) on declaraton of a sphere");
 	if (buf[4] != NULL)
@@ -130,6 +140,8 @@ char		*pars_tr(char **buf, t_rtx *rtx)
 	shape->next = rtx->shape;
 	rtx->shape = shape;
 	rtx->shape->type = 3;
+	rtx->shape->trans = 0;
+	rtx->shape->refl = 0;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
 		return("Missing argument(s) on declaraton of triangle");
 	if (buf[5] != NULL)
@@ -198,6 +210,8 @@ char		*pars_cy(char **buf, t_rtx *rtx)
 	shape->next = rtx->shape;
 	rtx->shape = shape;
 	rtx->shape->type = 2;
+	rtx->shape->trans = 0;
+	rtx->shape->refl = 0;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4] || !buf[5])
 		return("Missing argument(s) on declaraton of cylinder");
 	if (buf[6] != NULL)
@@ -227,6 +241,8 @@ char		*pars_ce(char **buf, t_rtx *rtx)
 	shape->next = rtx->shape;
 	rtx->shape = shape;
 	rtx->shape->type = 7;
+	rtx->shape->trans = 0;
+	rtx->shape->refl = 0;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
 		return("Missing argument(s) on declaraton of cercle");
 	if (buf[5] != NULL)
@@ -255,15 +271,21 @@ char		*pars_py(char **buf, t_rtx *rtx)
 	shape->next = rtx->shape;
 	rtx->shape = shape;
 	rtx->shape->type = 3;
+	rtx->shape->trans = 0;
+	rtx->shape->refl = 0;
 	read_pos(buf[1], &(shape->center), "test");
 	read_vec(buf[2], &n, "test");
 	si = atof(buf[3]);
 	hi = atof(buf[4]);
 	read_color(buf[5], &(shape->color), "test");
-	v1.x = n.y;
-	v1.y = n.z;
-	v1.z = n.x;
-	v2 = cross(n, v1);
+	n = normalize(n);
+	v1.y = 0;
+	v1.x = (n.z == 0) ? 0 : 1;
+	v1.z = (n.x == 0 && v1.x == 1) ? 0 : 1;
+	v1.z = (n.x && n.z)? -n.x / n.z: v1.z;
+	v1 = normalize(v1);
+	v2 = normalize(cross(n, v1));
+	printf("|PUTAIN DE DOT = %f %f %f\n", dot(v1,v2), dot(v1,n), dot(v2,n));
 	shape->p1 = plus(shape->center, fois(n, hi));
 	shape->p2 = min(min(shape->center, fois(v1, si / 2)), fois(v2, si / 2));
 	shape->p3 = min(plus(shape->center, fois(v1, si / 2)), fois(v2, si / 2));
@@ -294,6 +316,15 @@ char		*pars_py(char **buf, t_rtx *rtx)
 	shape->next = rtx->shape;
 	rtx->shape = shape;
 	rtx->shape->type = 3;
+
+	shape = malloc(sizeof(t_tg));
+	shape->center = rtx->shape->center;
+	shape->color = rtx->shape->color;
+	shape->vec = n;
+	shape->hi = hi;
+	shape->next = rtx->shape;
+	rtx->shape = shape;
+	rtx->shape->type = 4;
 	return(NULL);
 }
 
