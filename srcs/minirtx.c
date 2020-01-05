@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/04 18:32:41 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/04 23:04:43 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ t_color		cal_col(t_cam cam, t_rtx rtx)
 	t_tg *sh;
 	
 	sh = rtx.shape;
-	color = color_init(0,0,0);
 	dist = -1;
 	while (sh)
 	{
@@ -55,11 +54,13 @@ t_color		cal_col(t_cam cam, t_rtx rtx)
 	if (dist != -1.0)
 		color = color_add(cosha(rtx.amb.ratio, rtx.amb.color, shape.color),
 		cal_lit(cam, shape, rtx, dist), 1);
-	if (shape.trans)
+	if (shape.trans && dist != -1.0)
 	{
 		cam.origin = plus(cam.origin, fois(cam.ray, dist));
 		color = color_mix(color, cal_col(cam, rtx), 1 - shape.trans, shape.trans);
 	}
+	if (dist == -1)
+		return(color_init(0,0,0));
 	return (color_cap(color, shape.color));
 }
 

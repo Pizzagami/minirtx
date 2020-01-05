@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/04 18:16:59 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/04 18:45:28 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ char 		*pars_sq(char **buf, t_rtx *rtx)
 	ret = join(ret, read_color(buf[4], &(rtx->shape->color), " of a square"));
 	if (buf[5])
 		ret = join(ret, read_float(buf[5], &(rtx->shape->trans), "transparence of a square", 1));
+	if (buf[6])
+		ret = join(ret, read_float(buf[6], &(rtx->shape->refl), "reflection of a square", 1));
 	return(ret);
 }
 
@@ -88,11 +90,15 @@ char 		*pars_pl(char **buf, t_rtx *rtx)
 	rtx->shape->refl = 0;
 	if (!buf[1] || !buf[2] || !buf[3])
 		return("Missing argument(s) on declaraton of a plane");
-	if (buf[4] != NULL)
+	if (buf[4] != NULL && buf[5] != NULL && buf[6] != NULL)
 		return("Too many arguments on declaration of a plane");
 	ret = read_pos(buf[1], &(rtx->shape->center), " of a plane");
 	ret = join(ret, read_vec(buf[2], &(rtx->shape->vec), " of a plane"));
 	ret = join(ret, read_color(buf[3], &(rtx->shape->color), " of a plane"));
+	if (buf[4])
+		ret = join(ret, read_float(buf[4], &(rtx->shape->trans), "transparence of a plane", 1));
+	if (buf[5])
+		ret = join(ret, read_float(buf[5], &(rtx->shape->refl), "reflection of a plane", 1));
 	return(ret);
 }
 
