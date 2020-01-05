@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:10:01 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/05 16:42:13 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/05 19:19:51 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ float       find_dist(t_vec origin, t_vec ray, t_tg shape)
         return(find_dist_sp(origin, ray, shape));
     if (shape.type == 2)
         return(find_dist_cy(origin, ray, shape));
-    if (shape.type == 5)
-        return(find_dist_ce(origin, ray, shape));
-	return(find_dist_stp(origin, ray, shape));
+	return(find_dist_stcp(origin, ray, shape));
 }
 
 float		find_dist_sp(t_vec   origin, t_vec ray, t_tg shape)
@@ -50,7 +48,7 @@ float		find_dist_stcp(t_vec   origin, t_vec ray, t_tg shape)
 
     x = (dot(ray, shape.vec) != 0) ?(dot(min(shape.center, origin),
         shape.vec)/ dot(ray, shape.vec)) : 0;
-    if (shape.type == 5)
+    if (shape.type == 7)
         x = (distce(shape, plus(origin, fois(ray, x))) == 1) ? x: 0;
     else if (shape.type == 4)
         x = (distsqr(shape, plus(origin, fois(ray, x))) == 1) ? x: 0;
@@ -61,6 +59,23 @@ float		find_dist_stcp(t_vec   origin, t_vec ray, t_tg shape)
 
 float		find_dist_cy(t_vec   origin, t_vec ray, t_tg shape)
 {
-	origin.x = ray.x + shape.type;
-	return(0.0);
+    t_vec dot;
+    float a;
+    float b;
+    float c;
+    float x;
+    float s1;
+
+    dot = min(origin, shape.center);
+    a = pow(ray.x, 2) + pow(ray.z, 2);
+    b = ray.x * dot.x + ray.z * dot.z;
+    c = pow(dot.x, 2) + pow(dot.z, 2) - pow(shape.dia / 2, 2);
+
+    x = pow(b, 2) - a * c;
+    if( x == 0)
+        return(-1.0);
+    s1 = (-b -sqrtf(x)) / a;
+    if( s1 == 0)
+        return(-1.0);
+    return s1;
 }

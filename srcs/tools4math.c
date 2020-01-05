@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/05 16:42:06 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/05 18:01:24 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int			distsqr(t_tg shape, t_vec   dot)
     return (x);
 }
 
-int		distce(t_tg shape, t_vec dot)
+int			distce(t_tg shape, t_vec dot)
 {
-	return ((dist_dot(dot, shape.center) > shape.dia / 2) ? 0: 1);
+	//printf("%f\n", dist_dot(dot, shape.center));
+	return ((dist_dot(dot, shape.center) > (shape.dia)) ? 0: 1);
 }

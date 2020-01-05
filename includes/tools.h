@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/05 16:42:52 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/05 16:44:13 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ float			find_dist_stcp(t_vec   origin, t_vec ray, t_tg shape);
 void			ft_putnbr(int nb);
 void			ft_putstr(char *str);
 void			init_lst(t_rtx *rtx);
+void			tri_vecs(t_tg *shape);
 void			mlx_put_pixel_img(int x, int y, char **id, int sl, t_color color);
 
 
@@ -57,8 +58,5 @@ t_color			lfois(t_color color, float a);
 t_color			color_init(int r, int g, int b);
 t_color			color_cap(t_color color, t_color max);
 t_color			color_add(t_color base, t_color add, float coef);
-
-void            multi(void *arg);
-void			tri_vecs(t_tg *shape);
 
 #endif

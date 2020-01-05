@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2019/12/21 16:35:34 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/05 17:54:59 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ t_color		cal_col(t_cam cam, t_rtx rtx)
 	t_color color;
 	float dist;
 	float ldist;
-	//float c;
 	t_tg shape;
 	t_tg *sh;
 	
@@ -89,14 +88,16 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 		sh = rtx.shape;
 		point = plus(cam.origin, fois(cam.ray, dist));
 		light = normalize(min(li->pos, point));
-		if (shape.type == 0 || shape.type == 3 || shape.type == 4 || shape.type == 5)
+		if (shape.type == 0 || shape.type == 3 || shape.type == 4 ||
+		shape.type == 5 ||shape.type == 7)
 			normal = shape.vec;
 		else
 			normal = normalize(min(point, shape.center));
 		c = dot(light, normal);
 		if (c < 0)
 		{
-			if (shape.type == 0 || shape.type == 3 || shape.type == 4 || shape.type == 5)
+			if (shape.type == 0 || shape.type == 3 || shape.type == 4 ||
+				shape.type == 5)
 				c = -c;
 			else
 				c = 0;

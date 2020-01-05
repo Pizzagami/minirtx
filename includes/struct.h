@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/02 17:02:02 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/05 18:38:55 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,7 @@ typedef struct		s_send
 	2 = cylindre
 	3 = triangle
 	4 = carre
-	5 = cercle
+	5 = pyramide
+	6 = cube
+	7 = cercle
 */
