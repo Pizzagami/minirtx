@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   tools4vector.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 19:18:20 by braimbau          #+#    #+#             */
 /*   Updated: 2020/01/05 17:56:00 by selgrabl         ###   ########.fr       */

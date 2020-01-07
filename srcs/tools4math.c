@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   tools4math.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
 /*   Updated: 2020/01/06 16:56:54 by selgrabl         ###   ########.fr       */
@@ -71,6 +71,7 @@ int			distsqr(t_tg shape, t_vec   dot)
 {
     int x;
 
+		shape.vec = fois(shape.vec, -1);
 	x = distri(shape, dot);
 	shape.p2 = shape.p4;
 	if (x == 0)
