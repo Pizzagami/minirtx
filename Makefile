@@ -6,7 +6,7 @@
 #    By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:50:27 by selgrabl          #+#    #+#              #
-#    Updated: 2020/01/04 17:26:38 by braimbau         ###   ########.fr        #
+#    Updated: 2020/01/07 18:31:04 by braimbau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS = 	./srcs/minirtx.c		\
 		./srcs/tools4vector.c	\
 		./srcs/tools4vector2.c	\
 		./srcs/tools4math.c		\
+		./srcs/tools4lite.c		\
 		./srcs/ft_split.c		\
 		./srcs/get_next_line.c	\
 		./srcs/tools4dist.c		\

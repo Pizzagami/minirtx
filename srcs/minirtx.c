@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/04 23:04:43 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/07 18:29:41 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,29 @@ t_color		cal_col(t_cam cam, t_rtx rtx)
 		sh = sh->next;
 	}
 	if (dist != -1.0)
+	{
 		color = color_add(cosha(rtx.amb.ratio, rtx.amb.color, shape.color),
 		cal_lit(cam, shape, rtx, dist), 1);
+		color = color_cap(color, shape.color);
+	}
+	if (shape.refl && dist != -1.0)
+	{
+		if (shape.type == 1)
+			shape.vec = normalize(min(plus(cam.origin, fois(cam.ray, dist)), shape.center));
+		cam.ray = min(cam.ray, fois(shape.vec , 2 * dot(cam.ray, shape.vec)));
+		color = color_mix(color, cal_col(cam, rtx), 1 - shape.refl, shape.refl);
+	}
 	if (shape.trans && dist != -1.0)
 	{
-		cam.origin = plus(cam.origin, fois(cam.ray, dist));
+		if (shape.type == 1)
+			cam.origin = plus(cam.origin, fois(cam.ray, dist + shape.dia));
+		else
+			cam.origin = plus(cam.origin, fois(cam.ray, dist + shape.dia)); 
 		color = color_mix(color, cal_col(cam, rtx), 1 - shape.trans, shape.trans);
 	}
 	if (dist == -1)
 		return(color_init(0,0,0));
-	return (color_cap(color, shape.color));
+	return (color);
 }
 
 t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
@@ -71,7 +84,6 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 	float c;
 	t_tg *sh;
 	t_light *li;
-	float ldist;
 
 	color = color_init(0,0,0);
 	li = rtx.light;
@@ -87,14 +99,8 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 		c = dot(light, normal);
 		if (c < 0)
 			c = 0;
-		ldist = find_dist(li->pos, min(point, li->pos), shape);
-		while (sh)
-		{
-			if (find_dist(li->pos, min(point, li->pos), *sh) < ldist &&
-			find_dist(li->pos, min(point, li->pos), *sh) > 0)
-				c = sh->trans * c;
-			sh = sh->next;
-		}
+		
+		c *= cal_lite_inter(rtx, li, point, shape);		
 		color = color_add(color, cosha(c, li->color, shape.color), 1);
 		li = li->next;
 	}
