@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/05 17:54:59 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/07 18:29:39 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,13 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 		if (shape.type == 0 || shape.type == 3 || shape.type == 4 ||
 		shape.type == 5 ||shape.type == 7)
 			normal = shape.vec;
+		else if(shape.type == 2)
+		{
+			normal = fois(normalize(min(point, plus(shape.center,
+	fois(shape.vec, dot(min(cam.origin, shape.center), shape.vec))))), );
+		}
 		else
-			normal = normalize(min(point, shape.center));
+			normal = (normalize(min(point, shape.center)));
 		c = dot(light, normal);
 		if (c < 0)
 		{

@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:10:01 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/07 17:47:44 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/07 18:28:23 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ float		find_dist_cy(t_vec origin, t_vec ray, t_tg shape, t_vec pos)
 	a = dot(ray, ray) - dot(ray, shape.vec) * dot(ray, shape.vec);
 	b = 2 * (dot(ray, pos) - dot(ray, shape.vec) * dot(pos, shape.vec));
 	c = dot(pos, pos) - pow(dot(pos, shape.vec), 2) - pow(shape.dia / 2, 2);
-	if (x = pow(b, 2) - 4 * a * c <= 0.00001)
+	if ((x = pow(b, 2) - 4 * a * c) <= 0.00001)
 		return (-1.0);
 	if ((c = (-b - sqrtf(x)) / (2 * a)) == 0 &&
 	(a = (-b + sqrtf(x)) / (2 * a)) == 0)

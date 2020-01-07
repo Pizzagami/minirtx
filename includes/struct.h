@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/05 18:38:55 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/07 18:27:00 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,16 @@ typedef struct	s_res
 	int y;
 }				t_res;
 
+typedef struct	s_nor
+{
+	t_vec	norm;
+	float	dist;
+}				t_nor;
+
 typedef struct	s_all
 {
 	t_res	res;
+	t_nor	nor;
 	t_amb	amb;
 	t_vec	vec;
 	t_color	color;
