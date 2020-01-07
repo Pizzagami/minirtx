@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/05 16:44:13 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/07 17:35:41 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ float			dot(t_vec machin, t_vec bidule);
 float   		dist_dot(t_vec machin, t_vec bidule);
 float			find_dist(t_vec origin, t_vec ray, t_tg shape);
 float			find_dist_sp(t_vec   origin, t_vec ray, t_tg shape);
-float			find_dist_cy(t_vec   origin, t_vec ray, t_tg shape);
 float			find_dist_stcp(t_vec   origin, t_vec ray, t_tg shape);
+float			find_dist_cy(t_vec   origin, t_vec ray, t_tg shape, t_vec pos);
 
 void			ft_putnbr(int nb);
 void			ft_putstr(char *str);
