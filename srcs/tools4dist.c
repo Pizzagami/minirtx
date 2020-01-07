@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:10:01 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/05 19:19:51 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/07 17:26:13 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,23 +59,38 @@ float		find_dist_stcp(t_vec   origin, t_vec ray, t_tg shape)
 
 float		find_dist_cy(t_vec   origin, t_vec ray, t_tg shape)
 {
-    t_vec dot;
+    t_vec pos; //PROJETER ORTHO SUR LE LA DROITE PUIS CERCLE EXTE
     float a;
     float b;
     float c;
     float x;
-    float s1;
 
-    dot = min(origin, shape.center);
-    a = pow(ray.x, 2) + pow(ray.z, 2);
-    b = ray.x * dot.x + ray.z * dot.z;
-    c = pow(dot.x, 2) + pow(dot.z, 2) - pow(shape.dia / 2, 2);
-
-    x = pow(b, 2) - a * c;
-    if( x == 0)
+    pos = min(origin, shape.center);
+    a = dot(ray, ray) - dot(ray, shape.vec) * dot(ray, shape.vec);
+    b = 2 * (dot(ray, pos) - dot(ray, shape.vec) * dot(pos, shape.vec));
+    c = dot(pos, pos) - pow(dot(pos, shape.vec), 2) - pow(shape.dia / 2, 2);
+    x = pow(b, 2) - 4 * a * c;
+    if( x <= 0.00001)
         return(-1.0);
-    s1 = (-b -sqrtf(x)) / a;
-    if( s1 == 0)
+    c = (-b - sqrtf(x)) / (2 * a);
+    a = (-b + sqrtf(x)) / (2 * a);
+    if( a == 0 && c == 0)
         return(-1.0);
-    return s1;
+    b = a;
+    if (c > a)
+    {
+       c = a;
+       b = c;
+    }
+    a = dot(ray, shape.vec) * c + dot(pos, shape.vec);
+    x = dot(min(shape.center, origin), shape.vec);
+    if (( fabs(a) > shape.hi / 2) || (fabs(x) > shape.hi / 2 && c < 0))
+    {
+        c = b;
+        a = dot(ray, shape.vec) * c + dot(pos, shape.vec);
+        x = dot(min(shape.center, origin), shape.vec);
+        if (( fabs(a) > shape.hi / 2) || (fabs(x) > shape.hi / 2 && c < 0))
+            return(-1.0);
+    }
+    return a;
 }

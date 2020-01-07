@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/05 18:40:29 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/06 16:32:03 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ char		*pars_cy(char **buf, t_rtx *rtx)
 		return("Too many arguments on declaration of cylinder");
 	ret = read_pos(buf[1], &(shape->center), " of cylinder");
 	ret = join(ret, read_vec(buf[2], &(shape->vec), " of cylinder"));
-	rtx->shape->dia = ft_atof(buf[3]);
+	shape->dia = ft_atof(buf[3]);
 	if (isnan(rtx->shape->dia))
 		return("Invalid number for diameter of cylinder");
 	shape->hi = ft_atof(buf[4]);
@@ -211,9 +211,10 @@ char		*pars_cy(char **buf, t_rtx *rtx)
 		return("Value out of range for diameter of cylinder");
 	if (isnan(shape->hi))
 		return("Invalid number for high of cylinder");
-	if (rtx->shape->hi < 0)
+	if (shape->hi < 0)
 		return("Value out of range for high of cylinder");
 	ret = join(ret, read_color(buf[5], &(shape->color), " of cylinder"));
+	shape->vec = normalize(shape->vec);
 	return(ret);
 }
 
