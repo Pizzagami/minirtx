@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/07 18:31:01 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/05 17:51:37 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,13 @@ void	corners(t_tg *shape)
 	shape->p2 = plus(fois(min(shape->v1,shape->v2),shape->hi),shape->center);
 	shape->p3 = plus(fois(plus(shape->v1,shape->v2),-shape->hi),shape->center);
 	shape->p4 = plus(fois(min(shape->v2,shape->v1),shape->hi),shape->center);
+
 	shape->hi *= 2;
 }
 
 void	find_vecs(t_tg *shape)
 {
-if (fabsf(shape->vec.x) <= fabsf(shape->vec.y) &&
+	if (fabsf(shape->vec.x) <= fabsf(shape->vec.y) &&
 		(fabsf(shape->vec.x) <= fabsf(shape->vec.z)))
 	{
 		shape->v1.x = 1;

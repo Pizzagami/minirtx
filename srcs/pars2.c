@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/07 18:30:05 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/06 16:32:03 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,7 @@ char		*pars_cy(char **buf, t_rtx *rtx)
 	shape = malloc(sizeof(t_tg));
 	shape->next = rtx->shape;
 	rtx->shape = shape;
+
 	rtx->shape->type = 2;
 	rtx->shape->trans = 0;
 	rtx->shape->refl = 0;
@@ -216,19 +217,20 @@ char		*pars_cy(char **buf, t_rtx *rtx)
 		return("Missing argument(s) on declaraton of cylinder");
 	if (buf[6] != NULL)
 		return("Too many arguments on declaration of cylinder");
-	ret = read_pos(buf[1], &(rtx->shape->center), " of cylinder");
-	ret = join(ret, read_vec(buf[2], &(rtx->shape->vec), " of cylinder"));
-	rtx->shape->dia = ft_atof(buf[3]);
+	ret = read_pos(buf[1], &(shape->center), " of cylinder");
+	ret = join(ret, read_vec(buf[2], &(shape->vec), " of cylinder"));
+	shape->dia = ft_atof(buf[3]);
 	if (isnan(rtx->shape->dia))
 		return("Invalid number for diameter of cylinder");
-	rtx->shape->hi = ft_atof(buf[4]);
-	if (rtx->shape->dia < 0)
+	shape->hi = ft_atof(buf[4]);
+	if (shape->dia < 0)
 		return("Value out of range for diameter of cylinder");
-	if (isnan(rtx->shape->hi))
+	if (isnan(shape->hi))
 		return("Invalid number for high of cylinder");
-	if (rtx->shape->hi < 0)
+	if (shape->hi < 0)
 		return("Value out of range for high of cylinder");
-	ret = join(ret, read_color(buf[5], &(rtx->shape->color), " of cylinder"));
+	ret = join(ret, read_color(buf[5], &(shape->color), " of cylinder"));
+	shape->vec = normalize(shape->vec);
 	return(ret);
 }
 
@@ -248,13 +250,13 @@ char		*pars_ce(char **buf, t_rtx *rtx)
 	if (buf[5] != NULL)
 		return("Too many arguments on declaration of cercle");
 	ret = read_pos(buf[1], &(rtx->shape->center), " of cercle");
-	ret = join(ret, read_vec(buf[2], &(rtx->shape->vec), " of cercle"));
-	rtx->shape->dia = ft_atof(buf[3]);
-	if (isnan(rtx->shape->dia))
+	ret = join(ret, read_vec(buf[2], &(shape->vec), " of cercle"));
+	shape->dia = ft_atof(buf[3]);
+	if (isnan(shape->dia))
 		return("Invalid number for diameter of cercle");
-	if (rtx->shape->hi < 0)
-		return("Value out of range for high of cercle");
-	ret = join(ret, read_color(buf[4], &(rtx->shape->color), " of cercle"));
+	if (shape->dia < 0)
+		return("Value out of range for diameter of cercle");
+	ret = join(ret, read_color(buf[4], &(shape->color), " of cercle"));
 	return(ret);
 }
 

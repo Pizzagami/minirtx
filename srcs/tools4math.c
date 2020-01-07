@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/06 17:39:03 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/06 16:56:54 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,25 @@ int			second_degre(float a, float b, float c, float *x1, float *x2)
 		*x2 = (-b - sqrt(d)) / (2 * a);
 		return (2);
 	}
+	/*t_vec dot; POUR GAGNER ARGUMENT FAIRE DOT DEDANS ET AURE AUSSI?
+    float a;
+    float b;
+    float c;
+    float x;
+    float s1;
+
+    dot = min(origin, shape.center);
+    a = pow(ray.x, 2) + pow(ray.z, 2) + pow(ray.y, 2);
+    b = ray.x * dot.x + ray.z * dot.z + ray.y * dot.y;
+    c = pow(dot.x, 2) + pow(dot.z, 2) + pow(dot.y, 2) - pow(shape.dia / 2, 2);
+
+    x = pow(b, 2) - a * c;
+    if( x == 0)
+        return(-1.0);
+    s1 = (-b -sqrtf(x)) / a;
+    if( s1 == 0)
+        return(-1.0);
+    return s1;*/
 }
 
 int			distri(t_tg tri, t_vec p)
@@ -48,7 +67,7 @@ int			distri(t_tg tri, t_vec p)
     return(x);
 }
 
-int			distsqr(t_vec   dot, t_tg shape)
+int			distsqr(t_tg shape, t_vec   dot)
 {
     int x;
 
@@ -61,4 +80,9 @@ int			distsqr(t_vec   dot, t_tg shape)
 		x = distri(shape,dot);
 	}
     return (x);
+}
+
+int			distce(t_tg shape, t_vec dot)
+{
+	return ((dist_dot(dot, shape.center) > (shape.dia)) ? 0: 1);
 }
