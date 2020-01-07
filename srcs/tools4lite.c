@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools4.c                                           :+:      :+:    :+:   */
+/*   tools4lite.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/04 17:26:19 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/07 17:20:56 by braimbau         ###   ########.fr       */
+/*   Created: 2020/01/07 17:21:07 by braimbau          #+#    #+#             */
+/*   Updated: 2020/01/07 17:41:43 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirtx.h"
 
-char	*read_float(char *str, float *value, char *id, float max)
+float	cal_lite_inter(t_rtx rtx, t_light *li, t_vec point, t_tg shape)
 {
-	*value = ft_atof(str);
-	if (isnan(*value))
-		return(join("invalid value for ", id));
-	if (*value < 0)
-		return(join("Value out of range for ", id));
-	if (max > 0 && *value > max)
-		return(join("Value out of range for ", id));
-	return (NULL);
+	t_tg	*sh;
+	float	ldist;
+	float	c;
+
+	sh = rtx.shape;
+	c = 1;
+
+	ldist = find_dist(li->pos, min(point, li->pos), shape);
+	while (sh)
+	{
+		if (find_dist(li->pos, min(point, li->pos), *sh) < ldist &&
+		find_dist(li->pos, min(point, li->pos), *sh) > 0)
+		{
+			c *= sh->trans;
+		}
+		sh = sh->next;
+	}
+	return (c);
 }
