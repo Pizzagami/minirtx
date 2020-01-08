@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/07 18:29:39 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/08 16:15:17 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int rgbtoon(t_color color)
 	return(color.r * 65536 + color.g * 256 + color.b);
 }
 
-t_color		cal_col(t_cam cam, t_rtx rtx)
+t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
 {	
 	t_color color;
 	float dist;
@@ -37,6 +37,8 @@ t_color		cal_col(t_cam cam, t_rtx rtx)
 	t_tg shape;
 	t_tg *sh;
 	
+	if (bound > 10)
+		return(color_init(0,0,0));
 	sh = rtx.shape;
 	dist = -1;
 	while (sh)
@@ -60,15 +62,15 @@ t_color		cal_col(t_cam cam, t_rtx rtx)
 		if (shape.type == 1)
 			shape.vec = normalize(min(plus(cam.origin, fois(cam.ray, dist)), shape.center));
 		cam.ray = min(cam.ray, fois(shape.vec , 2 * dot(cam.ray, shape.vec)));
-		color = color_mix(color, cal_col(cam, rtx), 1 - shape.refl, shape.refl);
+		color = color_mix(color, cal_col(cam, rtx, bound + 1), 1 - shape.refl, shape.refl);
 	}
 	if (shape.trans && dist != -1.0)
 	{
 		if (shape.type == 1)
 			cam.origin = plus(cam.origin, fois(cam.ray, dist + shape.dia));
 		else
-			cam.origin = plus(cam.origin, fois(cam.ray, dist + shape.dia)); 
-		color = color_mix(color, cal_col(cam, rtx), 1 - shape.trans, shape.trans);
+			cam.origin = plus(cam.origin, fois(cam.ray, dist)); 
+		color = color_mix(color, cal_col(cam, rtx, bound + 1), 1 - shape.trans, shape.trans);
 	}
 	if (dist == -1)
 		return(color_init(0,0,0));
@@ -98,7 +100,7 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 		else if(shape.type == 2)
 		{
 			normal = fois(normalize(min(point, plus(shape.center,
-	fois(shape.vec, dot(min(cam.origin, shape.center), shape.vec))))), );
+	fois(shape.vec, dot(min(cam.origin, shape.center), shape.vec))))), 1);
 		}
 		else
 			normal = (normalize(min(point, shape.center)));
@@ -107,7 +109,6 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 		c = dot(light, normal);
 		if (c < 0)
 			c = 0;
-		
 		c *= cal_lite_inter(rtx, li, point, shape);		
 		color = color_add(color, cosha(c, li->color, shape.color), 1);
 		li = li->next;
@@ -148,7 +149,7 @@ int main(int argc, char **argv)
 			tan((float)rtx.cam->fov /2 /180 * M_PI);
 			rtx.cam->ray.z = -1;
 			rtx.cam->ray = normalize(rtx.cam->ray);
-			mlx_put_pixel_img(rtx.coor.x, rtx.coor.y, &id, rtx.res.x, cal_col(*(rtx.cam), rtx));
+			mlx_put_pixel_img(rtx.coor.x, rtx.coor.y, &id, rtx.res.x, cal_col(*(rtx.cam), rtx, 0));
 			rtx.coor.y++;
 		}
 		rtx.coor.x++;

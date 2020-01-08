@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/06 15:39:14 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/08 16:22:44 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,12 @@
 #define DestroyNotify	17
 #define NAF 42
 
-t_color			cal_col(t_cam, t_rtx rtx);
+t_color			cal_col(t_cam, t_rtx rtx, int bound);
 t_color     	cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist);
 int				key_hook(int key);
 int				exit_hook(void *param);
 
 void			print_vec(t_vec vec);
 void			print_vecs(int nbr,...);
-
 
 #endif
