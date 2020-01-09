@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/06 16:32:03 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/09 16:04:26 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ char 		*pars_sq(char **buf, t_rtx *rtx)
 	shape->vec = normalize(shape->vec);
 	find_vecs(shape);
 	corners(shape);
+	shape->vec = normalize(cross(min(shape->p2, shape->p1),
+		min(shape->p3, shape->p1)));
 	return(ret);
 }
 

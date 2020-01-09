@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/08 16:15:17 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/08 17:35:46 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
 	dist = -1;
 	while (sh)
 	{
-		ldist = find_dist(cam.origin, cam.ray, *sh);
+		ldist = find_dist(cam.origin, cam.ray, sh);
 		if (ldist != - 1 && (dist == - 1 || ldist < dist))
 		{
 			dist = ldist;
@@ -79,7 +79,6 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
 
 t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 {
-	t_vec	normal;
 	t_vec	light;
 	t_vec	point;
 	t_color	color;
@@ -96,17 +95,12 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx rtx, float dist)
 		light = normalize(min(li->pos, point));
 		if (shape.type == 0 || shape.type == 3 || shape.type == 4 ||
 		shape.type == 5 ||shape.type == 7)
-			normal = shape.vec;
-		else if(shape.type == 2)
-		{
-			normal = fois(normalize(min(point, plus(shape.center,
-	fois(shape.vec, dot(min(cam.origin, shape.center), shape.vec))))), 1);
-		}
-		else
-			normal = (normalize(min(point, shape.center)));
-		if(dot(normal, cam.ray) > 0)
-			normal = fois(normal, -1);
-		c = dot(light, normal);
+			shape.normal = shape.vec;
+		else if (shape.type == 1)
+			shape.normal = (normalize(min(point, shape.center)));
+		if(dot(shape.normal, cam.ray) > 0)
+			shape.normal = fois(shape.normal, -1);
+		c = dot(light, shape.normal);
 		if (c < 0)
 			c = 0;
 		c *= cal_lite_inter(rtx, li, point, shape);		
