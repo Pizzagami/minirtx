@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/09 16:04:26 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/09 17:20:06 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ char		*pars_s(char **buf, t_rtx *rtx)
 		return("Too many arguments on declaration of a sphere");
 	ret = read_pos(buf[1], &(rtx->shape->center), " of a sphere");
 	ret = join(ret, read_float(buf[2], &(rtx->shape->dia), " diameter of a sphere", -1));
-	ret = join(ret, read_color(buf[3], &(rtx->shape->color), " of a sphere"));
 	ret = join(ret, read_color(buf[3], &(rtx->shape->color), " of a sphere"));
 	if (buf[4])
 		ret = join(ret, read_float(buf[4], &(rtx->shape->trans), " transparence of a sphere", 1));
@@ -338,7 +337,7 @@ char		*pars_cu(char **buf, t_rtx *rtx)
 	t_rtx inf;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
 		return("Missing argument(s) on declaraton of a cube");
-	if (buf[5] != NULL)
+	if (buf[5] != NULL && buf[6] != NULL && buf[7] != NULL)
 		return("Too many arguments on declaration of a cube");
 	ret = pars_sq(buf, &inf);
 	if(ret)
@@ -365,6 +364,8 @@ void		pars_sqr(int x, t_tg info, t_rtx *rtx)
 	shape->vec = info.vec;
 	shape->v1 = info.v1;
 	shape->v2 = info.v2;
+	shape->trans = info.trans;
+	shape->refl = info.refl;
 	if (abs(x) == 2)
 	{
 		shape->vec = info.v1;

@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/08 17:35:46 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/09 17:50:58 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
 		if (shape.type == 1)
 			cam.origin = plus(cam.origin, fois(cam.ray, dist + shape.dia));
 		else
-			cam.origin = plus(cam.origin, fois(cam.ray, dist)); 
+			cam.origin = plus(cam.origin, fois(cam.ray, dist + 0.00001)); 
 		color = color_mix(color, cal_col(cam, rtx, bound + 1), 1 - shape.trans, shape.trans);
 	}
 	if (dist == -1)
