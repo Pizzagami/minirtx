@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/08 17:26:16 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/10 10:08:32 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void			ft_putnbr(int nb);
 void			ft_putstr(char *str);
 void			init_lst(t_rtx *rtx);
 void			tri_vecs(t_tg *shape);
+void            create_tri(t_vec p1, t_vec p2, t_vec p3, t_rtx *rtx);
 void			mlx_put_pixel_img(int x, int y, char **id, int sl, t_color color);
 
 
