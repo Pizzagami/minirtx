@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:10:01 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/11 17:38:30 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/11 18:33:45 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ float		find_dist_sp(t_vec origin, t_vec ray, t_tg shape)
 float		find_dist_stcp(t_vec origin, t_vec ray, t_tg shape)
 {
 	float x;
-
 	x = (dot(ray, shape.normal) != 0) ? (dot(min(shape.center, origin),
 		shape.normal) / dot(ray, shape.normal)) : 0;
 	if (shape.type == 7)
@@ -64,8 +63,8 @@ float		find_dist_cy(t_vec origin, t_vec ray, t_tg *shape, t_vec pos)
 	float c;
 	float x;
 
-	a = dot(ray, ray) - dot(ray, shape->normal) * dot(ray, shape->normal);
-	b = 2 * (dot(ray, pos) - dot(ray, shape->normal) * dot(pos, shape->vec));
+	a = dot(ray, ray) - dot(ray, shape->vec) * dot(ray, shape->vec);
+	b = 2 * (dot(ray, pos) - dot(ray, shape->vec) * dot(pos, shape->vec));
 	c = dot(pos, pos) - pow(dot(pos, shape->vec), 2) - pow(shape->dia / 2, 2);
 	if ((x = pow(b, 2) - 4 * a * c) <= 0.00001)
 		return (-1.0);

@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/11 17:49:08 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/11 18:33:51 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
 		}
 		sh = sh->next;
 	}
+	if (shape.type == 1)
+			shape.normal = normalize(min(plus(cam.origin, fois(cam.ray, dist)), shape.center));
 	if (dist != -1.0)
 	{
 		color = color_add(cosha(rtx.amb.ratio, rtx.amb.color, shape.color),
@@ -59,8 +61,6 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
 	}
 	if (shape.refl && dist != -1.0)
 	{
-		if (shape.type == 1)
-			shape.normal = normalize(min(plus(cam.origin, fois(cam.ray, dist)), shape.center));
 		cam.ray = min(cam.ray, fois(shape.normal , 2 * dot(cam.ray, shape.normal)));
 		color = color_mix(color, cal_col(cam, rtx, bound + 1), 1 - shape.refl, shape.refl);
 	}
@@ -129,7 +129,7 @@ int main(int argc, char **argv)
 	while(rtx.coor.x < rtx.res.x)
 	{
 		rtx.coor.y = 0;
-		aspect_ratio = (float)rtx.res.x / (float)rtx.res.y; // assuming width > height 
+		aspect_ratio = (float)rtx.res.x / (float)rtx.res.y;
 		while (rtx.coor.y < rtx.res.y)
 		{
 			rtx.cam->ray.x = (2 * ((rtx.coor.x + 0.5) / rtx.res.x) - 1) *
