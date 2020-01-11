@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 17:26:19 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/10 10:25:16 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/11 17:37:17 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	create_tri(t_vec p1, t_vec p2, t_vec p3, t_rtx *rtx)
 	rtx->shape->p1 = p1;
 	rtx->shape->p2 = p2;
 	rtx->shape->p3 = p3;
-	shape->vec = normalize(cross(min(shape->p2, shape->p1),
+	shape->normal = normalize(cross(min(shape->p2, shape->p1),
 		min(shape->p3, shape->p1)));
 	shape->center = shape->p1;
 }
