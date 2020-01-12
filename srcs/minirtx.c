@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/10 11:02:32 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/11 18:13:01 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int main(int argc, char **argv)
 {
 	void	*mlx_ptr;
 	void	*mlx_win;
+	void	*mlx_win_load;
 	void	*img;
 	char	*id;
 	void	*r;
@@ -127,9 +128,7 @@ int main(int argc, char **argv)
 	r = NULL;
 	rtx = parseke(argc, argv);
 	mlx_ptr = mlx_init();
-	mlx_win = mlx_new_window(mlx_ptr, rtx.res.x, rtx.res.y, "miniRTX");
-	rtx.res.x /= 2;
-	rtx.res.y /= 2;
+	mlx_win_load = mlx_new_window(mlx_ptr, 550, 50, "Loading ...");
 	img = mlx_new_image(mlx_ptr, rtx.res.x, rtx.res.y);
 	id = mlx_get_data_addr(img, &bpp, &sl, &endian);
 	rtx.coor.x = 0;
@@ -148,10 +147,15 @@ int main(int argc, char **argv)
 			mlx_put_pixel_img(rtx.coor.x, rtx.coor.y, &id, rtx.res.x, cal_col(*(rtx.cam), rtx, 0));
 			rtx.coor.y++;
 		}
+		if ((int)(rtx.coor.x / rtx.res.x * 100) != (int)((rtx.coor.x - 1)/rtx.res.x * 100) || rtx.coor.x == 0)
+			refresh_loading_bar(mlx_ptr, mlx_win_load, rtx.coor.x / rtx.res.x * 100);
 		rtx.coor.x++;
 	}
-	mlx_hook(mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, r);
-	mlx_key_hook(mlx_win, key_hook, r);
+	//anti_aliesing(rtx.res, &id);
+	//mlx_hook(mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, r);
+	//mlx_key_hook(mlx_win, key_hook, r);
+	mlx_destroy_window(mlx_ptr, mlx_win_load);
+	mlx_win = mlx_new_window(mlx_ptr, rtx.res.x, rtx.res.y, "miniRTX");
 	mlx_put_image_to_window(mlx_ptr, mlx_win, img, 0, 0);
 	mlx_loop(mlx_ptr);
 	return(EXIT_SUCCESS);

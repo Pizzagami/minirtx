@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/10 10:08:32 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/11 17:14:38 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char		    *ft_itoa(int n);
 char			*check_ligne(char *str);
 char			*join(char *s1, char *s2);
 char			*strjoin(int nbr, char *s1, ...);
+void            anti_aliesing(t_res res, char **id);
 char			*read_vec(char *buf, t_vec *vec, char *id);
 char			*read_pos(char *buf, t_vec *vec, char *id);
 char			*read_color(char *buf, t_color *color,char *str);
@@ -64,5 +65,6 @@ t_color         cosha(float ratio, t_color light, t_color shape);
 t_color			color_add(t_color base, t_color add, float coef);
 t_color         color_mix(t_color c1, t_color c2, float r1, float r2);
 
+void	refresh_loading_bar(void *mlx_ptr, void	*mlx_win, int pourcentage);
 
 #endif
