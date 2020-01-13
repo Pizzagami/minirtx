@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/11 18:33:51 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/13 21:36:20 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,44 +108,58 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist)
 
 int main(int argc, char **argv)
 {
-	void	*mlx_ptr;
-	void	*mlx_win;
-	void	*img;
-	char	*id;
-	void	*r;
-	int		bpp;
-	int		sl;
-	int		endian;
-	float	aspect_ratio;
+	void	*mlx_win_load;
 	t_rtx	rtx;
+	t_cam	*ca;
 
-	r = NULL;
 	rtx = parseke(argc, argv);
-	mlx_ptr = mlx_init();
-	mlx_win = mlx_new_window(mlx_ptr, rtx.res.x, rtx.res.y, "miniRTX");
-	img = mlx_new_image(mlx_ptr, rtx.res.x, rtx.res.y);
-	id = mlx_get_data_addr(img, &bpp, &sl, &endian);
-	rtx.coor.x = 0;
-	while(rtx.coor.x < rtx.res.x)
+	rtx.cam_num = 0;
+	rtx.mlx_ptr = mlx_init();
+	mlx_win_load = mlx_new_window(rtx.mlx_ptr, 550, 50, "Loading ...");
+	ca = rtx.cam;
+	while (ca)
 	{
-		rtx.coor.y = 0;
-		aspect_ratio = (float)rtx.res.x / (float)rtx.res.y;
-		while (rtx.coor.y < rtx.res.y)
-		{
-			rtx.cam->ray.x = (2 * ((rtx.coor.x + 0.5) / rtx.res.x) - 1) *
-			tan((float)rtx.cam->fov / 2.0 / 180.0 * M_PI) * aspect_ratio;
-			rtx.cam->ray.y = (1 - (2 * ((rtx.coor.y + 0.5) / rtx.res.y))) *
-			tan((float)rtx.cam->fov /2 /180 * M_PI);
-			rtx.cam->ray.z = -1;
-			rtx.cam->ray = normalize(rtx.cam->ray);
-			mlx_put_pixel_img(rtx.coor.x, rtx.coor.y, &id, rtx.res.x, cal_col(*(rtx.cam), rtx, 0));
-			rtx.coor.y++;
-		}
-		rtx.coor.x++;
+		cal_cam(&rtx, rtx.mlx_ptr, mlx_win_load, ca);
+		filter(ca->filter, rtx.res, &(ca->id));
+		ca = ca->next;
 	}
-	mlx_hook(mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, r);
-	mlx_key_hook(mlx_win, key_hook, r);
-	mlx_put_image_to_window(mlx_ptr, mlx_win, img, 0, 0);
-	mlx_loop(mlx_ptr);
+	make_3d(&rtx.cam, rtx.res);
+	mlx_destroy_window(rtx.mlx_ptr, mlx_win_load);
+	rtx.mlx_win = mlx_new_window(rtx.mlx_ptr, rtx.res.x, rtx.res.y, "miniRTX");
+	mlx_hook(rtx.mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, NULL);
+	mlx_key_hook(rtx.mlx_win, key_hook, &rtx);
+	mlx_put_image_to_window(rtx.mlx_ptr, rtx.mlx_win, rtx.cam->img, 0, 0);
+	mlx_loop(rtx.mlx_ptr);
 	return(EXIT_SUCCESS);
+}
+
+void	*cal_cam(t_rtx *rtx, void *mlx_ptr, void *mlx_win_load, t_cam *cam)
+{
+	float	aspect_ratio;
+	int		x;
+
+	cam->img = mlx_new_image(mlx_ptr, rtx->res.x, rtx->res.y);
+	cam->id = mlx_get_data_addr(cam->img, &x, &x, &x);
+	mlx_clear_window(mlx_ptr, mlx_win_load);
+	aspect_ratio = (float)rtx->res.x / (float)rtx->res.y;
+	rtx->coor.x = 0;
+	while(rtx->coor.x < rtx->res.x)
+	{
+		rtx->coor.y = 0;
+		while (rtx->coor.y < rtx->res.y)
+		{
+			cam->ray.x = (2 * ((rtx->coor.x + 0.5) / rtx->res.x) - 1) *
+			tan((float)cam->fov / 2.0 / 180.0 * M_PI) * aspect_ratio;
+			cam->ray.y = (1 - (2 * ((rtx->coor.y + 0.5) / rtx->res.y))) *
+			tan((float)cam->fov /2 /180 * M_PI);
+			cam->ray.z = -1;
+			cam->ray = normalize(cam->ray);
+			mlx_put_pixel_img(rtx->coor.x, rtx->coor.y, &(cam->id), rtx->res.x, cal_col(*(cam), *rtx, 0));
+			rtx->coor.y++;
+		}
+		if ((int)(rtx->coor.x / rtx->res.x * 100) != (int)((rtx->coor.x - 1)/rtx->res.x * 100) || rtx->coor.x == 0)
+			refresh_loading_bar(mlx_ptr, mlx_win_load, rtx->coor.x / rtx->res.x * 100);
+		rtx->coor.x++;
+	}
+	return(cam->img);
 }

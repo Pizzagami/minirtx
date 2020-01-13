@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/10 09:25:33 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/13 22:25:02 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@
 
 t_color			cal_col(t_cam, t_rtx rtx, int bound);
 t_color     	cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist);
-int				key_hook(int key);
+void            *cal_cam(t_rtx *rtx, void *mlx_ptr, void *mlx_win_load, t_cam *cam);
+int				key_hook(int key, void *param);
+
 int				exit_hook(void *param);
 
 void			print_vec(t_vec vec);

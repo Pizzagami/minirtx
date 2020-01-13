@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:21:07 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/13 12:46:32 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/13 22:17:46 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ float	cal_lite_inter(t_rtx rtx, t_light *li, t_vec point, t_tg shape)
 		}
 		sh = sh->next;
 	}
-	return (1);
+	return (c);
 }

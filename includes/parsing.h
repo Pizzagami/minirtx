@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:36:32 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/05 16:24:47 by selgrabl         ###   ########.fr       */
-/*   Updated: 2020/01/05 16:25:45 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/13 22:23:09 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef PARSING_H
 # define PARSING_H

@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/11 17:18:48 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/13 22:23:34 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ typedef struct	s_cam
 	t_vec	origin;
 	t_vec	ray;
 	t_vec	vec;
+	char	*id;
+	void	*img;
 	int		fov;
+	int		num;
+	char	filter;
 	struct s_cam	*next;
 }				t_cam;
 
@@ -101,6 +105,9 @@ typedef struct	s_all
 	t_light	*light;
 	t_tg	*shape;
 	int		save;
+	int		cam_num;
+	void	*mlx_ptr;
+	void	*mlx_win;
 }				t_rtx;
 
 typedef struct		s_send
@@ -122,4 +129,6 @@ typedef struct		s_send
 	5 = pyramide
 	6 = cube
 	7 = cercle
+	123 = gauch
+	124 = droite
 */
