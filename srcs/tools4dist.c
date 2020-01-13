@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:10:01 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/11 18:33:45 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/13 18:48:54 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ float		find_dist_cy(t_vec origin, t_vec ray, t_tg *shape, t_vec pos)
 	float b;
 	float c;
 	float x;
+	t_vec point;
 
 	a = dot(ray, ray) - dot(ray, shape->vec) * dot(ray, shape->vec);
 	b = 2 * (dot(ray, pos) - dot(ray, shape->vec) * dot(pos, shape->vec));
@@ -72,7 +73,7 @@ float		find_dist_cy(t_vec origin, t_vec ray, t_tg *shape, t_vec pos)
 	a = (-b + sqrtf(x)) / (2 * a);
 	if (a == 0 && c == 0)
 		return (-1.0);
-	shape->p1.x = (c > a) ? -1: 1;
+	shape->p1.x = (c > a) ? -1 : 1;
 	b = (c > a) ? c : a;
 	c = (c > a) ? a : c;
 	a = dot(ray, shape->vec) * c + dot(pos, shape->vec);
@@ -83,7 +84,12 @@ float		find_dist_cy(t_vec origin, t_vec ray, t_tg *shape, t_vec pos)
 		if ((fabs(a) > shape->hi / 2) || (fabs(x) > shape->hi / 2 && b < 0))
 			return (-1.0);
 	}
-	shape->normal = fois(normalize(min(plus(origin, fois(ray, a)), plus(shape->center,
-	fois(shape->vec, dot(min(origin, shape->center), shape->vec))))), shape->p1.x);
-	return (fabsf(a));
+	shape->p1.x = (a < 0 || x < 0) ? -1 : 1;
+	point = plus(origin, fois(ray, a));
+	shape->normal = normalize(plus(origin ,min(point, fois(shape->vec,
+	dot(min(point, shape->center), shape->vec)))));
+	/*shape->normal = normalize(min(origin, plus(shape->center, fois(shape->vec,
+	dot(min(origin, shape->center), shape->vec)))));
+	//print_vecs(1, shape->normal);*/
+	return (a);
 }
