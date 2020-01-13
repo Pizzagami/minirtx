@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/11 17:14:38 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/13 18:26:18 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,11 @@ float			find_dist_cy(t_vec   origin, t_vec ray, t_tg *shape, t_vec pos);
 float	        cal_lite_inter(t_rtx rtx, t_light *li, t_vec point, t_tg shape);
 
 void			ft_putnbr(int nb);
+void            make_3d(t_cam **ca, t_res res);
 void			ft_putstr(char *str);
 void			init_lst(t_rtx *rtx);
 void			tri_vecs(t_tg *shape);
+void            filter(char filter, t_res res, char **id);
 void            create_tri(t_vec p1, t_vec p2, t_vec p3, t_rtx *rtx);
 void			mlx_put_pixel_img(int x, int y, char **id, int sl, t_color color);
 
