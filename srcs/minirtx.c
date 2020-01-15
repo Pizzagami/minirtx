@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/13 18:26:29 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/15 15:52:13 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,10 @@ int main(int argc, char **argv)
 	void	*mlx_win_load;
 	t_rtx	rtx;
 	t_cam	*ca;
+	int		i;
 
+	//export_to_bmp("salut", rtx.res);
+	i = 0;
 	rtx = parseke(argc, argv);
 	rtx.cam_num = 0;
 	rtx.mlx_ptr = mlx_init();
@@ -160,7 +163,7 @@ void	*cal_cam(t_rtx *rtx, void *mlx_ptr, void *mlx_win_load, t_cam *cam)
 			rtx->coor.y++;
 		}
 		if ((int)(rtx->coor.x / rtx->res.x * 100) != (int)((rtx->coor.x - 1)/rtx->res.x * 100) || rtx->coor.x == 0)
-			refresh_loading_bar(mlx_ptr, mlx_win_load, rtx->coor.x / rtx->res.x * 100);
+			refresh_loading_bar(rtx, mlx_win_load, rtx->coor.x / rtx->res.x * 100);
 		rtx->coor.x++;
 	}
 	return(cam->img);
