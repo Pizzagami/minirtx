@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/13 21:36:20 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/15 15:57:44 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,12 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist)
 	t_vec	point;
 	t_color	color;
 	float c;
-	t_tg *sh;
 	t_light *li;
 
 	color = color_init(0,0,0);
 	li = rtx->light;
 	while (li)
 	{
-		sh = rtx->shape;
 		point = plus(cam.origin, fois(cam.ray, dist));
 		light = normalize(min(li->pos, point));
 		if(dot(shape.normal, cam.ray) > 0)
@@ -104,7 +102,6 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist)
 	}
 	return (color);
 }
-
 
 int main(int argc, char **argv)
 {
