@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/15 15:59:42 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/15 16:03:33 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void            make_3d(t_cam **ca, t_res res);
 void			ft_putstr(char *str);
 void			init_lst(t_rtx *rtx);
 void			tri_vecs(t_tg *shape);
+void	        export_to_bmp(char *id, t_res res);
 void            filter(char filter, t_res res, char **id);
 void            create_tri(t_vec p1, t_vec p2, t_vec p3, t_rtx *rtx);
 void			mlx_put_pixel_img(int x, int y, char **id, int sl, t_color color);
@@ -67,6 +68,6 @@ t_color         cosha(float ratio, t_color light, t_color shape);
 t_color			color_add(t_color base, t_color add, float coef);
 t_color         color_mix(t_color c1, t_color c2, float r1, float r2);
 
-void	refresh_loading_bar(void *mlx_ptr, void	*mlx_win, int pourcentage);
+void            refresh_loading_bar(t_rtx *rtx, void	*mlx_win, int pourcentage);
 
 #endif

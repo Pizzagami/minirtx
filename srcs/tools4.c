@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 17:26:19 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/11 17:37:17 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/15 16:03:50 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,16 @@ void	create_tri(t_vec p1, t_vec p2, t_vec p3, t_rtx *rtx)
 	shape->normal = normalize(cross(min(shape->p2, shape->p1),
 		min(shape->p3, shape->p1)));
 	shape->center = shape->p1;
+}
+
+void	export_to_bmp(char *id, t_res res)
+{
+	int fd;
+
+	(void)id;
+	fd = 42;
+	(void)res;
+	printf("test\n");
+//	fd = open("./file", O_CREAT  O_WRONLY), 777);
+	write(fd, "BM", 24);
 }
