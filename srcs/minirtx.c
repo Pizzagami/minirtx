@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/15 15:52:13 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/15 16:03:40 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
 		}
 		sh = sh->next;
 	}
+	if (shape.type == 1)
+			shape.normal = normalize(min(plus(cam.origin, fois(cam.ray, dist)), shape.center));
 	if (dist != -1.0)
 	{
 		color = color_add(cosha(rtx.amb.ratio, rtx.amb.color, shape.color),
@@ -59,9 +61,7 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
 	}
 	if (shape.refl && dist != -1.0)
 	{
-		if (shape.type == 1)
-			shape.vec = normalize(min(plus(cam.origin, fois(cam.ray, dist)), shape.center));
-		cam.ray = min(cam.ray, fois(shape.vec , 2 * dot(cam.ray, shape.vec)));
+		cam.ray = min(cam.ray, fois(shape.normal , 2 * dot(cam.ray, shape.normal)));
 		color = color_mix(color, cal_col(cam, rtx, bound + 1), 1 - shape.refl, shape.refl);
 	}
 	if (shape.trans && dist != -1.0)
@@ -91,11 +91,6 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist)
 	{
 		point = plus(cam.origin, fois(cam.ray, dist));
 		light = normalize(min(li->pos, point));
-		if (shape.type == 0 || shape.type == 3 || shape.type == 4 ||
-		shape.type == 5 ||shape.type == 7)
-			shape.normal = shape.vec;
-		else if (shape.type == 1)
-			shape.normal = (normalize(min(point, shape.center)));
 		if(dot(shape.normal, cam.ray) > 0)
 			shape.normal = fois(shape.normal, -1);
 		c = dot(light, shape.normal);

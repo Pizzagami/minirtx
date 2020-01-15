@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/13 18:04:19 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/15 15:59:40 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,10 @@ typedef struct		s_send
 	5 = pyramide
 	6 = cube
 	7 = cercle
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 	123 = gauch
 	124 = droite
 */
