@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/15 15:59:40 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/16 17:31:50 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef	struct s_obj
 	t_vec	normal;
 	t_color	color;
 	float	dia;
+	float	dam;
 	float	hi;
 	int		type;
 	float	refl;
@@ -129,10 +130,6 @@ typedef struct		s_send
 	5 = pyramide
 	6 = cube
 	7 = cercle
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 	123 = gauch
 	124 = droite
 */

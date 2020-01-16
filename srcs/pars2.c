@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/15 15:57:01 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/16 15:52:37 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ char		*pars_c(char **buf, t_rtx *rtx)
 		return("Missing argument(s) on declaraton of camera");
 	if (buf[4] != NULL && buf[5] != NULL)
 		return("Too many arguments on declaration of camera");
-	ret = read_pos(buf[1], &(rtx->cam->origin), "of camera");
-	ret = join(ret, read_vec(buf[2], &(rtx->cam->vec), "of camera"));
-	rtx->cam->fov = ft_atoi(buf[3]);
-	if (rtx->cam->fov == -42)
+	ret = read_pos(buf[1], &(cam->origin), "of camera");
+	ret = join(ret, read_vec(buf[2], &(cam->vec), "of camera"));
+	cam->fov = ft_atoi(buf[3]);
+	if (cam->fov == -42)
 		return("Invalid number for FOV of camera");
-	if (rtx->cam->fov > 180 || rtx->cam->fov < 0)
+	if (cam->fov > 180 || cam->fov < 0)
 		return ("Value out of range for FOV of camera");
 	if (buf[4])
 	{
@@ -106,14 +106,14 @@ char		*pars_l(char **buf, t_rtx *rtx)
 		return("Missing argument(s) on declaraton of light");
 	if (buf[4] != NULL)
 		return("Too many arguments on declaration of light");
-	ret = read_pos(buf[1], &(rtx->light->pos), "of light");
-	rtx->light->ratio = ft_atof(buf[2]);
-	if (isnan(rtx->light->ratio))
+	ret = read_pos(buf[1], &(light->pos), "of light");
+	light->ratio = ft_atof(buf[2]);
+	if (isnan(light->ratio))
 		return("Invalid number for ratio of light");
-	if (rtx->light->ratio > 1 || rtx->light->ratio < 0)
+	if (light->ratio > 1 || light->ratio < 0)
 		return ("Value out of range for ratio of light");
-	ret = join(ret, read_color(buf[3], &(rtx->light->color), "of light"));
-	rtx->light->color = lfois(rtx->light->color, rtx->light->ratio);
+	ret = join(ret, read_color(buf[3], &(light->color), "of light"));
+	light->color = lfois(light->color, light->ratio);
 	return(ret);
 }
 
@@ -125,20 +125,23 @@ char 		*pars_pl(char **buf, t_rtx *rtx)
 	shape = malloc(sizeof(t_tg));
 	shape->next = rtx->shape;
 	rtx->shape = shape;
-	rtx->shape->type = 0;
-	rtx->shape->trans = 0;
-	rtx->shape->refl = 0;
+	shape->type = 0;
+	shape->trans = 0;
+	shape->refl = 0;
+	shape->dam = 0;
 	if (!buf[1] || !buf[2] || !buf[3])
 		return("Missing argument(s) on declaraton of a plane");
-	if (buf[4] != NULL && buf[5] != NULL && buf[6] != NULL)
+	if (buf[4] != NULL && buf[5] != NULL && buf[6] != NULL && buf[7] != NULL)
 		return("Too many arguments on declaration of a plane");
-	ret = read_pos(buf[1], &(rtx->shape->center), " of a plane");
-	ret = join(ret, read_vec(buf[2], &(rtx->shape->normal), " of a plane"));
-	ret = join(ret, read_color(buf[3], &(rtx->shape->color), " of a plane"));
+	ret = read_pos(buf[1], &(shape->center), " of a plane");
+	ret = join(ret, read_vec(buf[2], &(shape->normal), " of a plane"));
+	ret = join(ret, read_color(buf[3], &(shape->color), " of a plane"));
 	if (buf[4])
-		ret = join(ret, read_float(buf[4], &(rtx->shape->trans), "transparence of a plane", 1));
+		ret = join(ret, read_float(buf[4], &(shape->trans), "transparence of a plane", 1));
 	if (buf[5])
-		ret = join(ret, read_float(buf[5], &(rtx->shape->refl), "reflection of a plane", 1));	
+		ret = join(ret, read_float(buf[5], &(shape->refl), "reflection of a plane", 1));	
+	if (buf[6])
+		ret = join(ret, read_float(buf[6], &(shape->dam), "damier", -1));
 	return(ret);
 }
 
@@ -153,9 +156,10 @@ char		*pars_s(char **buf, t_rtx *rtx)
 	shape->type = 1;
 	shape->trans = 0;
 	shape->refl = 0;
+	shape->dam = 0;
 	if (!(buf[1] || buf[2] || buf[3]))
 		return("Missing argument(s) on declaraton of a sphere");
-	if (buf[4] != NULL && buf[5] != NULL && buf[6] != NULL)
+	if (buf[4] != NULL && buf[5] != NULL && buf[6] != NULL && buf[7] != NULL)
 		return("Too many arguments on declaration of a sphere");
 	ret = read_pos(buf[1], &(rtx->shape->center), " of a sphere");
 	ret = join(ret, read_float(buf[2], &(shape->dia), " diameter of a sphere", -1));
@@ -164,6 +168,8 @@ char		*pars_s(char **buf, t_rtx *rtx)
 		ret = join(ret, read_float(buf[4], &(shape->trans), " transparence of a sphere", 1));
 	if (buf[5])
 	ret = join(ret, read_float(buf[5], &(shape->refl), " reflection of a sphere", 1));
+	if (buf[6])
+		ret = join(ret, read_float(buf[6], &(shape->dam), "damier", -1));
 	return(ret);
 }
 
@@ -178,6 +184,7 @@ char		*pars_tr(char **buf, t_rtx *rtx)
 	shape->type = 3;
 	shape->trans = 0;
 	shape->refl = 0;
+	shape->dam = 0;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
 		return("Missing argument(s) on declaraton of triangle");
 	if (buf[5] != NULL && buf[6] != NULL && buf[7] != NULL)
@@ -205,9 +212,10 @@ char		*pars_cy(char **buf, t_rtx *rtx)
 	shape->next = rtx->shape;
 	rtx->shape = shape;
 
-	rtx->shape->type = 2;
-	rtx->shape->trans = 0;
-	rtx->shape->refl = 0;
+	shape->type = 2;
+	shape->trans = 0;
+	shape->refl = 0;
+	shape->dam = 0;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4] || !buf[5])
 		return("Missing argument(s) on declaraton of cylinder");
 	if (buf[6] != NULL)
@@ -237,14 +245,14 @@ char		*pars_ce(char **buf, t_rtx *rtx)
 	shape = malloc(sizeof(t_tg));
 	shape->next = rtx->shape;
 	rtx->shape = shape;
-	rtx->shape->type = 7;
-	rtx->shape->trans = 0;
-	rtx->shape->refl = 0;
+	shape->type = 7;
+	shape->trans = 0;
+	shape->refl = 0;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
 		return("Missing argument(s) on declaraton of cercle");
 	if (buf[5] != NULL)
 		return("Too many arguments on declaration of cercle");
-	ret = read_pos(buf[1], &(rtx->shape->center), " of cercle");
+	ret = read_pos(buf[1], &(shape->center), " of cercle");
 	ret = join(ret, read_vec(buf[2], &(shape->normal), " of cercle"));
 	shape->dia = ft_atof(buf[3]);
 	if (isnan(shape->dia))
@@ -266,6 +274,7 @@ char		*pars_py(char **buf, t_rtx *rtx)
 	shape->type = 4;
 	shape->trans = 0;
 	shape->refl = 0;
+	shape->dam = 0;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4] || !buf[5])
 		return("Missing argument(s) on declaraton of a pyramide");
 	if (buf[6] != NULL && buf[7] != NULL && buf[8] != NULL)
@@ -303,6 +312,7 @@ char 		*pars_sq(char **buf, t_rtx *rtx)
 	shape->type = 4;
 	shape->trans = 0;
 	shape->refl = 0;
+	shape->dam = 0;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
 		return("Missing argument(s) on declaraton of a square");
 	if (buf[5] != NULL && buf[6] != NULL && buf[7] != NULL)
@@ -352,6 +362,7 @@ void		pars_sqr(int x, t_tg info, t_rtx *rtx)
 	shape->next = rtx->shape;
 	rtx->shape = shape;
 	shape->type = 4;
+	shape->dam = 0;
 	shape->hi = info.hi;
 	shape->color = info.color;
 	shape->vec = info.vec;

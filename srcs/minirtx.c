@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/15 16:03:40 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/16 17:36:44 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
 		sh = sh->next;
 	}
 	if (shape.type == 1)
-			shape.normal = normalize(min(plus(cam.origin, fois(cam.ray, dist)), shape.center));
+			shape.normal = normalize(min(plus(cam.origin, fois(cam.ray, dist)),
+			shape.center));
 	if (dist != -1.0)
 	{
 		color = color_add(cosha(rtx.amb.ratio, rtx.amb.color, shape.color),
@@ -62,7 +63,8 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
 	if (shape.refl && dist != -1.0)
 	{
 		cam.ray = min(cam.ray, fois(shape.normal , 2 * dot(cam.ray, shape.normal)));
-		color = color_mix(color, cal_col(cam, rtx, bound + 1), 1 - shape.refl, shape.refl);
+		color = color_mix(color, cal_col(cam, rtx, bound + 1), 1 - shape.refl,
+		shape.refl);
 	}
 	if (shape.trans && dist != -1.0)
 	{
@@ -70,10 +72,13 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
 			cam.origin = plus(cam.origin, fois(cam.ray, dist + shape.dia));
 		else
 			cam.origin = plus(cam.origin, fois(cam.ray, dist + 0.00001)); 
-		color = color_mix(color, cal_col(cam, rtx, bound + 1), 1 - shape.trans, shape.trans);
+		color = color_mix(color, cal_col(cam, rtx, bound + 1), 1 - shape.trans,
+		shape.trans);
 	}
 	if (dist == -1)
 		return(color_init(0,0,0));
+	if (shape.dam != 0)
+		damier(plus(cam.origin, fois(cam.ray, dist)), &shape, &color);
 	return (color);
 }
 
@@ -157,8 +162,8 @@ void	*cal_cam(t_rtx *rtx, void *mlx_ptr, void *mlx_win_load, t_cam *cam)
 			mlx_put_pixel_img(rtx->coor.x, rtx->coor.y, &(cam->id), rtx->res.x, cal_col(*(cam), *rtx, 0));
 			rtx->coor.y++;
 		}
-		if ((int)(rtx->coor.x / rtx->res.x * 100) != (int)((rtx->coor.x - 1)/rtx->res.x * 100) || rtx->coor.x == 0)
-			refresh_loading_bar(rtx, mlx_win_load, rtx->coor.x / rtx->res.x * 100);
+		//if ((int)(rtx->coor.x / rtx->res.x * 100) != (int)((rtx->coor.x - 1)/rtx->res.x * 100) || rtx->coor.x == 0)
+		//	refresh_loading_bar(rtx, mlx_win_load, rtx->coor.x / rtx->res.x * 100);
 		rtx->coor.x++;
 	}
 	return(cam->img);

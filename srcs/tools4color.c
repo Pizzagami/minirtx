@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 19:17:07 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/11 18:33:46 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/16 17:50:06 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,3 +67,22 @@ t_color color_mix(t_color c1, t_color c2, float r1, float r2)
     color.b = c1.b * r1 + c2.b * r2;
     return (color);
 }
+
+void damier(t_vec point, t_tg *shape, t_color *color)
+{
+    int x;
+    int y;
+    int z;
+
+    x = ((int)((point.x + 3893343) / shape->dam) % 2 == 0) ? 0 : 1;
+    y = ((int)((point.y + 3893343) / shape->dam) % 2 == 0) ? 0 : 1;
+    z = ((int)((point.z + 3893343) / shape->dam) % 2 == 0) ? 0 : 1;
+    
+    if ((shape->type == 0 && (x + y + z == 1 || x + y + z == 3)) ||
+        (shape->type == 1 && (x + y == 1)))
+    {
+      color->r = 255 -  color->r;
+      color->g = 255 -  color->g;
+      color->b = 255 -  color->b;
+    }
+}   
