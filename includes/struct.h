@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/17 17:13:21 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/19 16:42:48 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ typedef struct		s_send
 	5 = pyramide
 	6 = cube
 	7 = cercle
-
 	123 = gauch
 	124 = droite
 */

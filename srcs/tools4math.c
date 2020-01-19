@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4math.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/09 16:08:22 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/15 15:57:12 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,6 @@ int			second_degre(float a, float b, float c, float *x1, float *x2)
 		*x2 = (-b - sqrt(d)) / (2 * a);
 		return (2);
 	}
-	/*t_vec dot; POUR GAGNER ARGUMENT FAIRE DOT DEDANS ET AURE AUSSI?
-    float a;
-    float b;
-    float c;
-    float x;
-    float s1;
-
-    dot = min(origin, shape.center);
-    a = pow(ray.x, 2) + pow(ray.z, 2) + pow(ray.y, 2);
-    b = ray.x * dot.x + ray.z * dot.z + ray.y * dot.y;
-    c = pow(dot.x, 2) + pow(dot.z, 2) + pow(dot.y, 2) - pow(shape.dia / 2, 2);
-
-    x = pow(b, 2) - a * c;
-    if( x == 0)
-        return(-1.0);
-    s1 = (-b -sqrtf(x)) / a;
-    if( s1 == 0)
-        return(-1.0);
-    return s1;*/
 }
 
 int			distri(t_tg tri, t_vec p)
@@ -61,9 +42,9 @@ int			distri(t_tg tri, t_vec p)
     int x;
 
     x = 1;
-    x = (dot(tri.vec, cross(min(tri.p2, tri.p1), min(p, tri.p1))) >= 0) ? x: 0;
-    x = (dot(tri.vec, cross(min(tri.p3, tri.p2), min(p, tri.p2))) >= 0) ? x: 0;
-    x = (dot(tri.vec, cross(min(tri.p1, tri.p3), min(p, tri.p3))) >= 0) ? x: 0;
+    x = (dot(tri.normal, cross(min(tri.p2, tri.p1), min(p, tri.p1))) >= 0) ? x: 0;
+    x = (dot(tri.normal, cross(min(tri.p3, tri.p2), min(p, tri.p2))) >= 0) ? x: 0;
+    x = (dot(tri.normal, cross(min(tri.p1, tri.p3), min(p, tri.p3))) >= 0) ? x: 0;
     return(x);
 }
 
@@ -75,7 +56,7 @@ int			distsqr(t_tg shape, t_vec   dot)
 	shape.p2 = shape.p4;
 	if (x == 0)
 	{
-		shape.vec = fois(shape.vec, -1);
+		shape.normal = fois(shape.normal, -1);
 		x = distri(shape,dot);
 	}
     return (x);

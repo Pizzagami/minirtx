@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/17 14:41:41 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/19 16:42:50 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ char		*pars_c(char **buf, t_rtx *rtx)
 	return(ret);
 }
 
+
 char		*pars_l(char **buf, t_rtx *rtx)
 {
 	char *ret;
@@ -117,37 +118,6 @@ char		*pars_l(char **buf, t_rtx *rtx)
 	return(ret);
 }
 
-char 		*pars_sq(char **buf, t_rtx *rtx)
-{
-	char *ret;
-	t_tg *shape;
-
-	shape = malloc(sizeof(t_tg));
-	shape->next = rtx->shape;
-	rtx->shape = shape;
-	rtx->shape->type = 4;
-	rtx->shape->trans = 0;
-	rtx->shape->refl = 0;
-	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
-		return("Missing argument(s) on declaraton of a square");
-	if (buf[5] != NULL && buf[6] != NULL && buf[7] != NULL)
-		return("Too many arguments on declaration of a square");
-	ret = read_pos(buf[1], &(rtx->shape->center), " of a square");
-	ret = join(ret, read_vec(buf[2], &(rtx->shape->vec), " of a square"));
-	ret = join(ret, read_float(buf[3], &(rtx->shape->hi), "height of a square", -1));
-	ret = join(ret, read_color(buf[4], &(rtx->shape->color), " of a square"));
-	if (buf[5])
-		ret = join(ret, read_float(buf[5], &(rtx->shape->trans), "transparence of a square", 1));
-	if (buf[6])
-		ret = join(ret, read_float(buf[6], &(rtx->shape->refl), "reflection of a square", 1));
-	shape->vec = normalize(shape->vec);
-	find_vecs(shape);
-	corners(shape);
-	shape->vec = normalize(cross(min(shape->p2, shape->p1),
-		min(shape->p3, shape->p1)));
-	return(ret);
-}
-
 char 		*pars_pl(char **buf, t_rtx *rtx)
 {
 	char *ret;
@@ -164,12 +134,12 @@ char 		*pars_pl(char **buf, t_rtx *rtx)
 	if (buf[4] != NULL && buf[5] != NULL && buf[6] != NULL)
 		return("Too many arguments on declaration of a plane");
 	ret = read_pos(buf[1], &(rtx->shape->center), " of a plane");
-	ret = join(ret, read_vec(buf[2], &(rtx->shape->vec), " of a plane"));
+	ret = join(ret, read_vec(buf[2], &(rtx->shape->normal), " of a plane"));
 	ret = join(ret, read_color(buf[3], &(rtx->shape->color), " of a plane"));
 	if (buf[4])
 		ret = join(ret, read_float(buf[4], &(rtx->shape->trans), "transparence of a plane", 1));
 	if (buf[5])
-		ret = join(ret, read_float(buf[5], &(rtx->shape->refl), "reflection of a plane", 1));
+		ret = join(ret, read_float(buf[5], &(rtx->shape->refl), "reflection of a plane", 1));	
 	return(ret);
 }
 
@@ -181,20 +151,20 @@ char		*pars_s(char **buf, t_rtx *rtx)
 	shape = malloc(sizeof(t_tg));
 	shape->next = rtx->shape;
 	rtx->shape = shape;
-	rtx->shape->type = 1;
-	rtx->shape->trans = 0;
-	rtx->shape->refl = 0;
+	shape->type = 1;
+	shape->trans = 0;
+	shape->refl = 0;
 	if (!(buf[1] || buf[2] || buf[3]))
 		return("Missing argument(s) on declaraton of a sphere");
 	if (buf[4] != NULL && buf[5] != NULL && buf[6] != NULL)
 		return("Too many arguments on declaration of a sphere");
 	ret = read_pos(buf[1], &(rtx->shape->center), " of a sphere");
-	ret = join(ret, read_float(buf[2], &(rtx->shape->dia), " diameter of a sphere", -1));
-	ret = join(ret, read_color(buf[3], &(rtx->shape->color), " of a sphere"));
+	ret = join(ret, read_float(buf[2], &(shape->dia), " diameter of a sphere", -1));
+	ret = join(ret, read_color(buf[3], &(shape->color), " of a sphere"));
 	if (buf[4])
-		ret = join(ret, read_float(buf[4], &(rtx->shape->trans), " transparence of a sphere", 1));
+		ret = join(ret, read_float(buf[4], &(shape->trans), " transparence of a sphere", 1));
 	if (buf[5])
-	ret = join(ret, read_float(buf[5], &(rtx->shape->refl), " reflection of a sphere", 1));
+	ret = join(ret, read_float(buf[5], &(shape->refl), " reflection of a sphere", 1));
 	return(ret);
 }
 
@@ -206,20 +176,24 @@ char		*pars_tr(char **buf, t_rtx *rtx)
 	shape = malloc(sizeof(t_tg));
 	shape->next = rtx->shape;
 	rtx->shape = shape;
-	rtx->shape->type = 3;
-	rtx->shape->trans = 0;
-	rtx->shape->refl = 0;
+	shape->type = 3;
+	shape->trans = 0;
+	shape->refl = 0;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
 		return("Missing argument(s) on declaraton of triangle");
-	if (buf[5] != NULL)
+	if (buf[5] != NULL && buf[6] != NULL && buf[7] != NULL)
 		return("Too many arguments on declaration of triangle");
-	ret = read_pos(buf[1], &(rtx->shape->p1), "of triangle");
-	ret = join(ret, read_pos(buf[2], &(rtx->shape->p2), "of triangle"));
-	ret = join(ret, read_pos(buf[3], &(rtx->shape->p3), "of triangle"));
-	ret = join(ret, read_color(buf[4], &(rtx->shape->color), " of triangle"));
-	shape->vec = normalize(cross(min(shape->p2, shape->p1),
+	ret = read_pos(buf[1], &(shape->p1), "of triangle");
+	ret = join(ret, read_pos(buf[2], &(shape->p2), "of triangle"));
+	ret = join(ret, read_pos(buf[3], &(shape->p3), "of triangle"));
+	ret = join(ret, read_color(buf[4], &(shape->color), " of triangle"));
+	shape->normal = normalize(cross(min(shape->p2, shape->p1),
 		min(shape->p3, shape->p1)));
 	shape->center = shape->p1;
+	if (buf[5])
+		ret = join(ret, read_float(buf[5], &(shape->trans), " transparence of a triangle", 1));
+	if (buf[6])
+	ret = join(ret, read_float(buf[6], &(shape->refl), " reflection of a triangle", 1));
 	return(ret);
 }
 
@@ -272,7 +246,7 @@ char		*pars_ce(char **buf, t_rtx *rtx)
 	if (buf[5] != NULL)
 		return("Too many arguments on declaration of cercle");
 	ret = read_pos(buf[1], &(rtx->shape->center), " of cercle");
-	ret = join(ret, read_vec(buf[2], &(shape->vec), " of cercle"));
+	ret = join(ret, read_vec(buf[2], &(shape->normal), " of cercle"));
 	shape->dia = ft_atof(buf[3]);
 	if (isnan(shape->dia))
 		return("Invalid number for diameter of cercle");
@@ -290,22 +264,22 @@ char		*pars_py(char **buf, t_rtx *rtx)
 	shape = malloc(sizeof(t_tg));
 	shape->next = rtx->shape;
 	rtx->shape = shape;
-	rtx->shape->type = 4;
-	rtx->shape->trans = 0;
-	rtx->shape->refl = 0;
+	shape->type = 4;
+	shape->trans = 0;
+	shape->refl = 0;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4] || !buf[5])
 		return("Missing argument(s) on declaraton of a pyramide");
 	if (buf[6] != NULL && buf[7] != NULL && buf[8] != NULL)
 		return("Too many arguments on declaration of a pyramide");
-	ret = read_pos(buf[1], &(rtx->shape->center), " of a pyramide");
-	ret = join(ret, read_vec(buf[2], &(rtx->shape->vec), " of a pyramide"));
-	ret = join(ret, read_float(buf[3], &(rtx->shape->hi), "height of a pyramide", -1));
-	ret = join(ret, read_float(buf[4], &(rtx->shape->dia), "side of a pyramide", -1));
-	ret = join(ret, read_color(buf[5], &(rtx->shape->color), " of a pyramide"));
+	ret = read_pos(buf[1], &(shape->center), " of a pyramide");
+	ret = join(ret, read_vec(buf[2], &(shape->vec), " of a pyramide"));
+	ret = join(ret, read_float(buf[3], &(shape->hi), "height of a pyramide", -1));
+	ret = join(ret, read_float(buf[4], &(shape->dia), "side of a pyramide", -1));
+	ret = join(ret, read_color(buf[5], &(shape->color), " of a pyramide"));
 	if (buf[6])
-		ret = join(ret, read_float(buf[6], &(rtx->shape->trans), "transparence of a pyramide", 1));
+		ret = join(ret, read_float(buf[6], &(shape->trans), "transparence of a pyramide", 1));
 	if (buf[7])
-		ret = join(ret, read_float(buf[7], &(rtx->shape->refl), "reflection of a pyramide", 1));
+		ret = join(ret, read_float(buf[7], &(shape->refl), "reflection of a pyramide", 1));
 	shape->vec = normalize(shape->vec);
 	find_vecs(shape);
 	corners(shape);
@@ -315,6 +289,39 @@ char		*pars_py(char **buf, t_rtx *rtx)
 	create_tri(plus(shape->center, fois(shape->vec, shape->dia)), shape->p2, shape->p3, rtx);
 	create_tri(plus(shape->center, fois(shape->vec, shape->dia)), shape->p3, shape->p4, rtx);
 	create_tri(plus(shape->center, fois(shape->vec, shape->dia)), shape->p4, shape->p1, rtx);
+	shape->normal = shape->vec;
+	return(ret);
+}
+
+char 		*pars_sq(char **buf, t_rtx *rtx)
+{
+	char *ret;
+	t_tg *shape;
+
+	shape = malloc(sizeof(t_tg));
+	shape->next = rtx->shape;
+	rtx->shape = shape;
+	shape->type = 4;
+	shape->trans = 0;
+	shape->refl = 0;
+	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
+		return("Missing argument(s) on declaraton of a square");
+	if (buf[5] != NULL && buf[6] != NULL && buf[7] != NULL)
+		return("Too many arguments on declaration of a square");
+	ret = read_pos(buf[1], &(shape->center), " of a square");
+	ret = join(ret, read_vec(buf[2], &(shape->vec), " of a square"));
+	ret = join(ret, read_float(buf[3], &(shape->hi), "height of a square", -1));
+	ret = join(ret, read_color(buf[4], &(shape->color), " of a square"));
+	if (buf[5])
+		ret = join(ret, read_float(buf[5], &(shape->trans), "transparence of a square", 1));
+	if (buf[6])
+		ret = join(ret, read_float(buf[6], &(shape->refl), "reflection of a square", 1));
+	shape->vec = normalize(shape->vec);
+	find_vecs(shape);
+	corners(shape);
+	shape->vec = normalize(cross(min(shape->p2, shape->p1),
+		min(shape->p3, shape->p1)));
+	shape->normal = shape->vec;
 	return(ret);
 }
 
@@ -371,4 +378,5 @@ void		pars_sqr(int x, t_tg info, t_rtx *rtx)
 	tri_vecs(shape);
 	shape->vec = normalize(cross(min(shape->p2, shape->p1),
 		min(shape->p3, shape->p1)));
+	shape->normal = shape->vec;
 }
