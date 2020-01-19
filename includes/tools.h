@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/15 13:35:05 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/16 17:32:37 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,15 @@ void	        export_to_bmp(char *id, t_res res);
 void            filter(char filter, t_res res, char **id);
 void            create_tri(t_vec p1, t_vec p2, t_vec p3, t_rtx *rtx);
 void			mlx_put_pixel_img(int x, int y, char **id, int sl, t_color color);
-
+void            refresh_loading_bar(t_rtx *rtx, void	*mlx_win, int pourcentage);
 
 t_vec			normalize(t_vec vect);
 t_vec			fois(t_vec truc, float a);
 t_vec			min(t_vec truc, t_vec machin);
 t_vec			plus(t_vec truc, t_vec machin);
+t_vec           vec_matrixed(t_vec v, t_matrix m);
 t_vec			cross(t_vec machin, t_vec bidule);
+t_vec		    init_vec(float x, float y, float z);
 
 t_color			lfois(t_color color, float a);
 t_color			color_init(int r, int g, int b);
@@ -68,6 +70,6 @@ t_color         cosha(float ratio, t_color light, t_color shape);
 t_color			color_add(t_color base, t_color add, float coef);
 t_color         color_mix(t_color c1, t_color c2, float r1, float r2);
 
-void            refresh_loading_bar(t_rtx *rtx, void	*mlx_win, int pourcentage);
+t_matrix        init_matrix(t_vec a, t_vec b, t_vec c);
 
 #endif

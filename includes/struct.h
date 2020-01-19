@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/13 18:04:19 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/17 17:13:21 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct	s_cam
 	t_vec	origin;
 	t_vec	ray;
 	t_vec	vec;
+	t_vec	rot;
 	char	*id;
 	void	*img;
 	int		fov;
@@ -109,6 +110,13 @@ typedef struct	s_all
 	void	*mlx_ptr;
 	void	*mlx_win;
 }				t_rtx;
+
+typedef struct	s_matrix
+{
+	t_vec	a;
+	t_vec	b;
+	t_vec	c;
+}				t_matrix;
 
 typedef struct		s_send
 {

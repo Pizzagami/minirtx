@@ -52,6 +52,6 @@ fclean:  clean
 	${RM} ${NAME}
 
 re: fclean all
-	${RM}	${OBJS}
+	${RM}	${OBJS} file.bmp
 
 .PHONY: all clean fclean re

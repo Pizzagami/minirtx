@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/13 19:06:36 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/17 14:41:41 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ char		*pars_c(char **buf, t_rtx *rtx)
 		else
 			return ("Invalid value for filter of camera");
 	}
+	cam->rot = init_vec(0,0,0);
 	return(ret);
 }
 

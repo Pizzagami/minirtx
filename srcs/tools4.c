@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 17:26:19 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/15 14:56:06 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/16 12:12:09 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,50 @@ void	create_tri(t_vec p1, t_vec p2, t_vec p3, t_rtx *rtx)
 	shape->center = shape->p1;
 }
 
+void	write_number_in_file(int nb, int fd)
+{
+	write(fd, &nb, sizeof(int));
+}
+
 void	export_to_bmp(char *id, t_res res)
 {
 	int fd;
 
-	(void)id;
-	fd = 42;
-	(void)res;
-	printf("test\n");
-//	fd = open("./file", O_CREAT  O_WRONLY), 777);
-	write(fd, "BM", 24);
+	char c;
+	char full = (char)255;
+	fd = open("./file.bmp", O_CREAT | O_WRONLY, 777);
+	write(fd, "BM", 2); //identifier
+	write_number_in_file(54 + 4 * res.x * res.y, fd); //size of file
+	write_number_in_file(0, fd); //reserved
+	write_number_in_file(54, fd); // offset
+	write_number_in_file(40, fd); //size of image header
+	write_number_in_file(res.x, fd); //width of image
+	write_number_in_file(res.y, fd); //height of image
+	write_number_in_file(2097153, fd); //plans + nb bits/pix
+	write_number_in_file(0, fd); //compression
+	write_number_in_file(0, fd); //size of image
+	write_number_in_file(0, fd); // resolution x
+	write_number_in_file(0, fd); // resolution y
+	write_number_in_file(0, fd); //nb colors
+	write_number_in_file(0, fd); //nb important colors
+
+	int y = res.y - 1;
+	while (y >= 0)
+	{
+		int x = 0;
+		while (x < res.x)
+		{
+			c = id[(y * res.x + x) * 4];
+			write(fd, &c, 1);
+			c = id[(y * res.x + x) * 4 + 1];
+			write(fd, &c, 1);
+			c = id[(y * res.x + x) * 4 + 2];
+			write(fd, &c, 1);
+			write(fd, &full, 1);
+			x++;
+		}
+		y--;
+	}
+
+
 }

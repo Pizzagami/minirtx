@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/15 15:52:13 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/17 14:43:01 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ int main(int argc, char **argv)
 	t_cam	*ca;
 	int		i;
 
-	//export_to_bmp("salut", rtx.res);
 	i = 0;
 	rtx = parseke(argc, argv);
 	rtx.cam_num = 0;
@@ -134,6 +133,8 @@ int main(int argc, char **argv)
 	mlx_hook(rtx.mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, NULL);
 	mlx_key_hook(rtx.mlx_win, key_hook, &rtx);
 	mlx_put_image_to_window(rtx.mlx_ptr, rtx.mlx_win, rtx.cam->img, 0, 0);
+	if (rtx.save)
+		export_to_bmp(rtx.cam->id, rtx.res);
 	mlx_loop(rtx.mlx_ptr);
 	return(EXIT_SUCCESS);
 }
@@ -159,11 +160,17 @@ void	*cal_cam(t_rtx *rtx, void *mlx_ptr, void *mlx_win_load, t_cam *cam)
 			tan((float)cam->fov /2 /180 * M_PI);
 			cam->ray.z = -1;
 			cam->ray = normalize(cam->ray);
+			t_matrix rotation_x = init_matrix(init_vec(1,0,0), init_vec(0, cos(cam->rot.x), -sin(cam->rot.x)), init_vec(0, sin(cam->rot.x), cos(cam->rot.x)));
+			t_matrix rotation_y = init_matrix(init_vec(cos(cam->rot.y),0,sin(cam->rot.y)), init_vec(0, 1, 0), init_vec(-sin(cam->rot.y), 0, cos(cam->rot.y)));
+			t_matrix rotation_z = init_matrix(init_vec(cos(cam->rot.z),-sin(cam->rot.z), 0), init_vec(sin(cam->rot.z), cos(cam->rot.z), 0), init_vec(0, 0, 1));
+			cam->ray = vec_matrixed(cam->ray, rotation_x);
+			cam->ray = vec_matrixed(cam->ray, rotation_y);
+			cam->ray = vec_matrixed(cam->ray, rotation_z);
 			mlx_put_pixel_img(rtx->coor.x, rtx->coor.y, &(cam->id), rtx->res.x, cal_col(*(cam), *rtx, 0));
 			rtx->coor.y++;
 		}
-		if ((int)(rtx->coor.x / rtx->res.x * 100) != (int)((rtx->coor.x - 1)/rtx->res.x * 100) || rtx->coor.x == 0)
-			refresh_loading_bar(rtx, mlx_win_load, rtx->coor.x / rtx->res.x * 100);
+		//if ((int)(rtx->coor.x / rtx->res.x * 100) != (int)((rtx->coor.x - 1)/rtx->res.x * 100) || rtx->coor.x == 0)
+			//refresh_loading_bar(rtx, mlx_win_load, rtx->coor.x / rtx->res.x * 100);
 		rtx->coor.x++;
 	}
 	return(cam->img);
