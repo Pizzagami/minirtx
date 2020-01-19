@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/15 15:59:40 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/19 16:42:48 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct	s_cam
 	t_vec	origin;
 	t_vec	ray;
 	t_vec	vec;
+	t_vec	rot;
 	char	*id;
 	void	*img;
 	int		fov;
@@ -110,6 +111,13 @@ typedef struct	s_all
 	void	*mlx_win;
 }				t_rtx;
 
+typedef struct	s_matrix
+{
+	t_vec	a;
+	t_vec	b;
+	t_vec	c;
+}				t_matrix;
+
 typedef struct		s_send
 {
 	int				i;
@@ -129,10 +137,6 @@ typedef struct		s_send
 	5 = pyramide
 	6 = cube
 	7 = cercle
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 	123 = gauch
 	124 = droite
 */

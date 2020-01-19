@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/15 15:57:01 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/19 16:42:50 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ char		*pars_c(char **buf, t_rtx *rtx)
 		else
 			return ("Invalid value for filter of camera");
 	}
+	cam->rot = init_vec(0,0,0);
 	return(ret);
 }
 
