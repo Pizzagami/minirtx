@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/19 16:42:46 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/20 19:11:43 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,37 +136,68 @@ int main(int argc, char **argv)
 
 void	*cal_cam(t_rtx *rtx, void *mlx_ptr, void *mlx_win_load, t_cam *cam)
 {
-	float	aspect_ratio;
 	int		x;
 
+	rtx->ar = (float)rtx->res.x / (float)rtx->res.y;
 	cam->img = mlx_new_image(mlx_ptr, rtx->res.x, rtx->res.y);
 	cam->id = mlx_get_data_addr(cam->img, &x, &x, &x);
 	mlx_clear_window(mlx_ptr, mlx_win_load);
-	aspect_ratio = (float)rtx->res.x / (float)rtx->res.y;
-	rtx->coor.x = 0;
-	while(rtx->coor.x < rtx->res.x)
-	{
-		rtx->coor.y = 0;
-		while (rtx->coor.y < rtx->res.y)
-		{
-			cam->ray.x = (2 * ((rtx->coor.x + 0.5) / rtx->res.x) - 1) *
-			tan((float)cam->fov / 2.0 / 180.0 * M_PI) * aspect_ratio;
-			cam->ray.y = (1 - (2 * ((rtx->coor.y + 0.5) / rtx->res.y))) *
-			tan((float)cam->fov /2 /180 * M_PI);
-			cam->ray.z = -1;
-			cam->ray = normalize(cam->ray);
-			t_matrix rotation_x = init_matrix(init_vec(1,0,0), init_vec(0, cos(cam->rot.x), -sin(cam->rot.x)), init_vec(0, sin(cam->rot.x), cos(cam->rot.x)));
-			t_matrix rotation_y = init_matrix(init_vec(cos(cam->rot.y),0,sin(cam->rot.y)), init_vec(0, 1, 0), init_vec(-sin(cam->rot.y), 0, cos(cam->rot.y)));
-			t_matrix rotation_z = init_matrix(init_vec(cos(cam->rot.z),-sin(cam->rot.z), 0), init_vec(sin(cam->rot.z), cos(cam->rot.z), 0), init_vec(0, 0, 1));
-			cam->ray = vec_matrixed(cam->ray, rotation_x);
-			cam->ray = vec_matrixed(cam->ray, rotation_y);
-			cam->ray = vec_matrixed(cam->ray, rotation_z);
-			mlx_put_pixel_img(rtx->coor.x, rtx->coor.y, &(cam->id), rtx->res.x, cal_col(*(cam), *rtx, 0));
-			rtx->coor.y++;
-		}
-		//if ((int)(rtx->coor.x / rtx->res.x * 100) != (int)((rtx->coor.x - 1)/rtx->res.x * 100) || rtx->coor.x == 0)
-			//refresh_loading_bar(rtx, mlx_win_load, rtx->coor.x / rtx->res.x * 100);
-		rtx->coor.x++;
-	}
+	multi_thread(cam, rtx);
 	return(cam->img);
+}
+
+void            multi_thread(t_cam *cam, t_rtx *rtx)
+{
+	t_thread		tt[CORE];
+	pthread_mutex_t mutex;
+	pthread_t		thread[CORE];
+	int i;
+
+	i = 0;
+	pthread_mutex_init(&mutex, NULL);
+	while (i < CORE)
+	{
+		rtx->coor.x = rtx->res.x / CORE  *  i;
+		tt[i].i = i;
+		tt[i].mutex = &mutex;
+		tt[i].rtx = *rtx;
+		tt[i].cam = *cam;
+		pthread_create(&thread[i], NULL, &show, &tt[i]);
+		i++;
+	}
+	while (i)
+	{
+		pthread_join(thread[i - 1], NULL);
+		i--;
+	}
+}
+
+void *show(void *arg)
+{
+	t_thread	*tt;
+
+	tt = (t_thread*) arg;
+	while(tt->rtx.coor.x < tt->rtx.res.x / CORE  * (tt->i + 1))
+		{
+			tt->rtx.coor.y = 0;
+			while (tt->rtx.coor.y < tt->rtx.res.y)
+			{
+				tt->cam.ray.x = (2 * ((tt->rtx.coor.x + 0.5) / tt->rtx.res.x) - 1) *
+				tan((float)tt->cam.fov / 2.0 / 180.0 * M_PI) * tt->rtx.ar;
+				tt->cam.ray.y = (1 - (2 * ((tt->rtx.coor.y + 0.5) / tt->rtx.res.y))) *
+				tan((float)tt->cam.fov /2 /180 * M_PI);
+				tt->cam.ray.z = -1;
+				tt->cam.ray = normalize(tt->cam.ray);
+				t_matrix rotation_x = init_matrix(init_vec(1,0,0), init_vec(0, cos(tt->cam.rot.x), -sin(tt->cam.rot.x)), init_vec(0, sin(tt->cam.rot.x), cos(tt->cam.rot.x)));
+				t_matrix rotation_y = init_matrix(init_vec(cos(tt->cam.rot.y),0,sin(tt->cam.rot.y)), init_vec(0, 1, 0), init_vec(-sin(tt->cam.rot.y), 0, cos(tt->cam.rot.y)));
+				t_matrix rotation_z = init_matrix(init_vec(cos(tt->cam.rot.z),-sin(tt->cam.rot.z), 0), init_vec(sin(tt->cam.rot.z), cos(tt->cam.rot.z), 0), init_vec(0, 0, 1));
+				tt->cam.ray = vec_matrixed(tt->cam.ray, rotation_x);
+				tt->cam.ray = vec_matrixed(tt->cam.ray, rotation_y);
+				tt->cam.ray = vec_matrixed(tt->cam.ray, rotation_z);
+				mlx_put_pixel_img(tt->rtx.coor.x, tt->rtx.coor.y, &(tt->cam.id), tt->rtx.res.x, cal_col((tt->cam), (tt->rtx), 0));
+				tt->rtx.coor.y++;
+			}
+			tt->rtx.coor.x++;
+		}
+	return(NULL);
 }

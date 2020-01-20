@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/19 16:43:30 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/20 19:18:11 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,36 +26,40 @@
 
 
 #define BUFFER_SIZE 42
+#define CORE 1
 #define StructureNotifyMask	(1L<<17)
 #define DestroyNotify	17
 #define NAF 42
 
 t_color			cal_col(t_cam, t_rtx rtx, int bound);
 t_color     	cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist);
+
 void            *cal_cam(t_rtx *rtx, void *mlx_ptr, void *mlx_win_load, t_cam *cam);
+void            multi_thread(t_cam *cam, t_rtx *rtx);
 int				key_hook(int key, void *param);
 
 int				exit_hook(void *param);
 
 void			print_vec(t_vec vec);
+void            *show(void *arg);
 void			print_vecs(int nbr,...);
 
 #endif
 
 #define PREV_CAM 43
 #define NEXT_CAM 47
-#define RXU 126
-#define RXD 125
-#define RYU 124
-#define RYD 123
-#define RZU 121
-#define RZD 117
-#define TXU 2
-#define TXD 0
-#define TYU 14
-#define TYD 12
-#define TZU 1
-#define TZD 13
+#define RXU -1
+#define RXD -1
+#define RYU 123
+#define RYD 124
+#define RZU -1
+#define RZD -1
+#define TXU -1
+#define TXD -1
+#define TYU -1
+#define TYD -1
+#define TZU -1
+#define TZD -1
 #define FI_R 18
 #define FI_G 19
 #define FI_B 20

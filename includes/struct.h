@@ -6,12 +6,14 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/19 16:42:48 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/20 19:10:57 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
+#include <pthread.h>
 
 typedef struct	s_vec
 {
@@ -105,6 +107,7 @@ typedef struct	s_all
 	t_cam	*cam;
 	t_light	*light;
 	t_tg	*shape;
+	float	ar;
 	int		save;
 	int		cam_num;
 	void	*mlx_ptr;
@@ -126,6 +129,14 @@ typedef struct		s_send
 	int				tiny_x;
 	t_rtx			rtx;
 }					t_send;
+
+typedef struct		s_thread
+{
+	int				i;
+	pthread_mutex_t *mutex;
+	t_rtx			rtx;
+	t_cam			cam;
+}					t_thread;
 
 #endif
 

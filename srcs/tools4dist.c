@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4dist.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:10:01 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/15 15:03:01 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/20 18:46:10 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,5 @@ float		find_dist_cy(t_vec origin, t_vec ray, t_tg *shape, t_vec pos)
 	point = plus(origin, fois(ray, c));
 	shape->normal = normalize(min(point, plus(shape->center,
 	fois(shape->vec, dot(min(point, shape->center), shape->vec)))));
-	//print_vecs(1, shape->normal);*/
 	return (c);
 }
