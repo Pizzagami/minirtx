@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/19 16:42:50 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/22 10:48:03 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ char 		*pars_pl(char **buf, t_rtx *rtx)
 	ret = join(ret, read_color(buf[3], &(rtx->shape->color), " of a plane"));
 	if (buf[4])
 		ret = join(ret, read_float(buf[4], &(rtx->shape->trans), "transparence of a plane", 1));
-	if (buf[5])
+	if (buf[4] && buf[5])
 		ret = join(ret, read_float(buf[5], &(rtx->shape->refl), "reflection of a plane", 1));	
 	return(ret);
 }
@@ -163,7 +163,7 @@ char		*pars_s(char **buf, t_rtx *rtx)
 	ret = join(ret, read_color(buf[3], &(shape->color), " of a sphere"));
 	if (buf[4])
 		ret = join(ret, read_float(buf[4], &(shape->trans), " transparence of a sphere", 1));
-	if (buf[5])
+	if (buf[4] && buf[5])
 	ret = join(ret, read_float(buf[5], &(shape->refl), " reflection of a sphere", 1));
 	return(ret);
 }
@@ -192,7 +192,7 @@ char		*pars_tr(char **buf, t_rtx *rtx)
 	shape->center = shape->p1;
 	if (buf[5])
 		ret = join(ret, read_float(buf[5], &(shape->trans), " transparence of a triangle", 1));
-	if (buf[6])
+	if (buf[5] && buf[6])
 	ret = join(ret, read_float(buf[6], &(shape->refl), " reflection of a triangle", 1));
 	return(ret);
 }
@@ -278,7 +278,7 @@ char		*pars_py(char **buf, t_rtx *rtx)
 	ret = join(ret, read_color(buf[5], &(shape->color), " of a pyramide"));
 	if (buf[6])
 		ret = join(ret, read_float(buf[6], &(shape->trans), "transparence of a pyramide", 1));
-	if (buf[7])
+	if (buf[6] && buf[7])
 		ret = join(ret, read_float(buf[7], &(shape->refl), "reflection of a pyramide", 1));
 	shape->vec = normalize(shape->vec);
 	find_vecs(shape);
@@ -314,7 +314,7 @@ char 		*pars_sq(char **buf, t_rtx *rtx)
 	ret = join(ret, read_color(buf[4], &(shape->color), " of a square"));
 	if (buf[5])
 		ret = join(ret, read_float(buf[5], &(shape->trans), "transparence of a square", 1));
-	if (buf[6])
+	if (buf[5] && buf[6])
 		ret = join(ret, read_float(buf[6], &(shape->refl), "reflection of a square", 1));
 	shape->vec = normalize(shape->vec);
 	find_vecs(shape);

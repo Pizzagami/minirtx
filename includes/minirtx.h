@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/20 19:18:11 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/22 10:48:59 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,17 @@ void			print_vecs(int nbr,...);
 
 #define PREV_CAM 43
 #define NEXT_CAM 47
-#define RXU -1
-#define RXD -1
+#define RXU 126
+#define RXD 125
 #define RYU 123
 #define RYD 124
-#define RZU -1
-#define RZD -1
-#define TXU -1
-#define TXD -1
-#define TYU -1
-#define TYD -1
-#define TZU -1
+#define RZU 121
+#define RZD 117
+#define TXU 2
+#define TXD 0
+#define TYU 14
+#define TYD 12
+#define TZU 1
 #define TZD -1
 #define FI_R 18
 #define FI_G 19

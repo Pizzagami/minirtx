@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:53:33 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/19 16:42:47 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/22 10:48:02 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ int		key_hook(int key, void *param)
 		cam->filter = 'S';
 	if (key == FI_RST)
 		cam->filter = 0;
-	cal_cam(rtx, rtx->mlx_ptr, rtx->mlx_win, cam);
+	if (key != PREV_CAM && key != NEXT_CAM)
+		cal_cam(rtx, rtx->mlx_ptr, rtx->mlx_win, cam);
 	filter(cam->filter, rtx->res, &(cam->id));
 	mlx_put_image_to_window(rtx->mlx_ptr, rtx->mlx_win, cam->img, 0, 0);
 	if (key == 53)

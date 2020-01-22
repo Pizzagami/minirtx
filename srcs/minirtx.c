@@ -6,28 +6,11 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/20 19:11:43 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/22 10:48:04 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirtx.h"
-
-int rgbtoon(t_color color)
-{
-	if (color.r > 255)
-	color.r = 255;
-	if (color.g > 255)
-	color.g = 255;
-	if (color.b > 255)
-	color.b = 255;
-	if (color.r < 0)
-	color.r = 0;
-	if (color.g < 0)
-	color.g = 0;
-	if (color.b < 0)
-	color.b = 0;
-	return(color.r * 65536 + color.g * 256 + color.b);
-}
 
 t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
 {	
