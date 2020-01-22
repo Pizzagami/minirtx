@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/22 10:48:59 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/22 11:54:12 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void			print_vecs(int nbr,...);
 #define TXD 0
 #define TYU 14
 #define TYD 12
-#define TZU 1
-#define TZD -1
+#define TZU 13
+#define TZD 1
 #define FI_R 18
 #define FI_G 19
 #define FI_B 20

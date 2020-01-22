@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/22 10:48:03 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/22 14:15:58 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,17 @@ char		*pars_c(char **buf, t_rtx *rtx)
 		return("Too many arguments on declaration of camera");
 	ret = read_pos(buf[1], &(rtx->cam->origin), "of camera");
 	ret = join(ret, read_vec(buf[2], &(rtx->cam->vec), "of camera"));
+	cam->vec = fois(normalize(cam->vec), -1);
+	cam->right = normalize(cross(cam->vec, init_vec(0,1,0)));
+	if (isnan(cam->right.x) && isnan(cam->right.z) && isnan(cam->right.y))
+	{
+		if (cam->vec.y > 0)
+			cam->right = init_vec(1,0,0);
+		else
+			cam->right = init_vec(-1,0,0);
+	}
+	cam->up = fois(normalize(cross(cam->right, cam->vec)), -1);
+	print_vecs(3, cam->vec, cam->right, cam->up);
 	rtx->cam->fov = ft_atoi(buf[3]);
 	if (rtx->cam->fov == -42)
 		return("Invalid number for FOV of camera");
@@ -103,9 +114,10 @@ char		*pars_l(char **buf, t_rtx *rtx)
 	light = malloc(sizeof(t_light));
 	light->next = rtx->light;
 	rtx->light = light;
+	light->para = init_vec(0,0,0);
 	if (!buf[1] || !buf[2] || !buf[3])
 		return("Missing argument(s) on declaraton of light");
-	if (buf[4] != NULL)
+	if (buf[4] != NULL && buf[5] != NULL)
 		return("Too many arguments on declaration of light");
 	ret = read_pos(buf[1], &(rtx->light->pos), "of light");
 	rtx->light->ratio = ft_atof(buf[2]);
@@ -115,6 +127,8 @@ char		*pars_l(char **buf, t_rtx *rtx)
 		return ("Value out of range for ratio of light");
 	ret = join(ret, read_color(buf[3], &(rtx->light->color), "of light"));
 	rtx->light->color = lfois(rtx->light->color, rtx->light->ratio);
+	if (buf[4])
+		ret = read_vec(buf[4], &(light->para), "vector of parallel light");
 	return(ret);
 }
 

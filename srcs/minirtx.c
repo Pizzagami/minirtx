@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/22 10:48:04 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/22 14:16:13 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist)
 	while (li)
 	{
 		point = plus(cam.origin, fois(cam.ray, dist));
-		light = normalize(min(li->pos, point));
+		if (li->para.x || li->para.y || li->para.z)
+			light = fois(li->para, - 1);
+		else
+			light = normalize(min(li->pos, point));
 		if(dot(shape.normal, cam.ray) > 0)
 			shape.normal = fois(shape.normal, -1);
 		c = dot(light, shape.normal);
@@ -155,6 +158,21 @@ void            multi_thread(t_cam *cam, t_rtx *rtx)
 	}
 }
 
+t_vec	rotate_vec(t_vec base, t_vec rot, float angle)
+{
+	float		c;
+	float		s;
+	t_matrix	matrix;
+ 
+	c = cos(angle);
+	s = sin(angle);
+	matrix.a = init_vec(rot.x * rot.x * (1 - c) + c, rot.x * rot.y * (1 - c) - rot.z * s, rot.x * rot.z * (1 - c) + rot.y * s);
+	matrix.b = init_vec(rot.x * rot.y * (1 - c) + rot.z * s, rot.y * rot.y * (1 - c) + c, rot.y * rot.z * (1 - c) - rot.x * s);
+	matrix.c = init_vec(rot.x * rot.z * (1 - c) - rot.y * s, rot.y * rot.z * (1 - c) + rot.x * s, rot.z * rot.z * (1 - c) + c);
+	base = vec_matrixed(base, matrix);
+	return(base);
+}
+
 void *show(void *arg)
 {
 	t_thread	*tt;
@@ -165,18 +183,19 @@ void *show(void *arg)
 			tt->rtx.coor.y = 0;
 			while (tt->rtx.coor.y < tt->rtx.res.y)
 			{
-				tt->cam.ray.x = (2 * ((tt->rtx.coor.x + 0.5) / tt->rtx.res.x) - 1) *
-				tan((float)tt->cam.fov / 2.0 / 180.0 * M_PI) * tt->rtx.ar;
-				tt->cam.ray.y = (1 - (2 * ((tt->rtx.coor.y + 0.5) / tt->rtx.res.y))) *
-				tan((float)tt->cam.fov /2 /180 * M_PI);
-				tt->cam.ray.z = -1;
-				tt->cam.ray = normalize(tt->cam.ray);
-				t_matrix rotation_x = init_matrix(init_vec(1,0,0), init_vec(0, cos(tt->cam.rot.x), -sin(tt->cam.rot.x)), init_vec(0, sin(tt->cam.rot.x), cos(tt->cam.rot.x)));
-				t_matrix rotation_y = init_matrix(init_vec(cos(tt->cam.rot.y),0,sin(tt->cam.rot.y)), init_vec(0, 1, 0), init_vec(-sin(tt->cam.rot.y), 0, cos(tt->cam.rot.y)));
-				t_matrix rotation_z = init_matrix(init_vec(cos(tt->cam.rot.z),-sin(tt->cam.rot.z), 0), init_vec(sin(tt->cam.rot.z), cos(tt->cam.rot.z), 0), init_vec(0, 0, 1));
-				tt->cam.ray = vec_matrixed(tt->cam.ray, rotation_x);
-				tt->cam.ray = vec_matrixed(tt->cam.ray, rotation_y);
-				tt->cam.ray = vec_matrixed(tt->cam.ray, rotation_z);
+				float pw = 2 * tan((float)tt->cam.fov / 2.0 / 180.0 * M_PI) * 1 / tt->rtx.res.x * tt->rtx.ar;
+				float ph = 2 * tan((float)tt->cam.fov / 2.0 / 180.0 * M_PI) * 1 / tt->rtx.res.y;
+				t_vec pix;				
+				pix = plus(tt->cam.origin, min(tt->cam.vec, fois(tt->cam.right, pw * (tt->rtx.res.x / 2))));
+				pix = plus(pix, fois(tt->cam.up, (tt->rtx.res.y / 2) * ph));
+				pix = plus(pix, fois(tt->cam.right, pw / 2));
+				pix = min(pix, fois(tt->cam.up, ph / 2));
+				pix = plus(pix, fois(tt->cam.right, pw * tt->rtx.coor.x));
+				pix = min(pix, fois(tt->cam.up, ph * tt->rtx.coor.y));
+				tt->cam.ray = normalize(min(tt->cam.origin, pix));
+				tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.right, tt->cam.rot.x);
+				tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.up, tt->cam.rot.y);
+				tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.vec, tt->cam.rot.z);
 				mlx_put_pixel_img(tt->rtx.coor.x, tt->rtx.coor.y, &(tt->cam.id), tt->rtx.res.x, cal_col((tt->cam), (tt->rtx), 0));
 				tt->rtx.coor.y++;
 			}

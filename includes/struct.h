@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/20 19:10:57 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/22 13:52:27 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct	s_light
 	float	ratio;
 	t_vec	pos;
 	t_color	color;
+	t_vec	para;
 	struct s_light	*next;
 }				t_light;
 
@@ -48,6 +49,8 @@ typedef struct	s_cam
 	t_vec	origin;
 	t_vec	ray;
 	t_vec	vec;
+	t_vec	up;
+	t_vec	right;
 	t_vec	rot;
 	char	*id;
 	void	*img;

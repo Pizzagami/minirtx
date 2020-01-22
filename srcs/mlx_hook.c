@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:53:33 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/22 10:48:02 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/22 11:47:06 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,17 @@ int		key_hook(int key, void *param)
 	if (key == RZD)
 		cam->rot.z -= 0.05;
 	if (key == TXU)
-		cam->origin.x += 5;
+		cam->origin = min(cam->origin, fois(cam->right, 5));
 	if (key == TXD)
-		cam->origin.x -= 5;
+		cam->origin = plus(cam->origin, fois(cam->right, 5));
 	if (key == TYU)
-		cam->origin.y += 5;
+		cam->origin = min(cam->origin, fois(cam->up, 5));
 	if (key == TYD)
-		cam->origin.y -= 5;
+		cam->origin = plus(cam->origin, fois(cam->up, 5));
 	if (key == TZU)
-		cam->origin.z += 5;
+		cam->origin = min(cam->origin, fois(cam->vec, 5));
 	if (key == TZD)
-		cam->origin.z -= 5;
+		cam->origin = plus(cam->origin, fois(cam->vec, 5));
 	if (key == FI_R)
 		cam->filter = 'R';
 	if (key == FI_G)
