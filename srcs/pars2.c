@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/22 14:15:58 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:21:01 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char		*pars_c(char **buf, t_rtx *rtx)
 	cam->next = rtx->cam;
 	rtx->cam = cam;
 	cam->filter = 0;
+	cam->aa = 1;
 	if (!buf[1] || !buf[2] || !buf[3])
 		return("Missing argument(s) on declaraton of camera");
 	if (buf[4] != NULL && buf[5] != NULL)

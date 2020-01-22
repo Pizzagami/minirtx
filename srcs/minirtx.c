@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/22 14:16:13 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:15:14 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,10 +178,10 @@ void *show(void *arg)
 	t_thread	*tt;
 
 	tt = (t_thread*) arg;
-	while(tt->rtx.coor.x < tt->rtx.res.x / CORE  * (tt->i + 1))
+	while(tt->rtx.coor.x < tt->rtx.res.x * tt->cam.aa / CORE  * (tt->i + 1))
 		{
 			tt->rtx.coor.y = 0;
-			while (tt->rtx.coor.y < tt->rtx.res.y)
+			while (tt->rtx.coor.y < tt->rtx.res.y * tt->cam.aa)
 			{
 				float pw = 2 * tan((float)tt->cam.fov / 2.0 / 180.0 * M_PI) * 1 / tt->rtx.res.x * tt->rtx.ar;
 				float ph = 2 * tan((float)tt->cam.fov / 2.0 / 180.0 * M_PI) * 1 / tt->rtx.res.y;

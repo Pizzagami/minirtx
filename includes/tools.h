@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/19 16:42:45 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/22 14:20:49 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 int	            nb_char(long n);
 int				ft_atoi(char *str);
 int				ft_strlen(char *str);
-int				rgbtoon(t_color color);
 int     		distri(t_tg tri, t_vec p);
 int				ft_strcmp(char *s1, char *s2);
 int				distce(t_tg shape, t_vec dot);

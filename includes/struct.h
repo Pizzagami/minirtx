@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/22 13:52:27 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:13:42 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct	s_cam
 	void	*img;
 	int		fov;
 	int		num;
+	int		aa;
 	char	filter;
 	struct s_cam	*next;
 }				t_cam;
