@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:53:33 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/22 11:47:06 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/23 11:33:51 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,11 @@ int		key_hook(int key, void *param)
 	while(i < rtx->cam_num)
 	{
 		cam = cam->next;
-		if (cam->filter == 'l')
-			cam = cam->next;
 		i++;
 	}
-	if (key == NEXT_CAM && cam->next && (cam->next->filter != 'r' || cam->next->next))
+	if (key == NEXT_CAM && cam->next)
 	{
 		rtx->cam_num++;
-		cam = cam->next;
-			if (cam->filter == 'l')
 		cam = cam->next;
 	}
 	if (key == RXU)
@@ -68,29 +64,38 @@ int		key_hook(int key, void *param)
 		cam->origin = min(cam->origin, fois(cam->vec, 5));
 	if (key == TZD)
 		cam->origin = plus(cam->origin, fois(cam->vec, 5));
-	if (key == FI_R)
+	if (key == FI_R && cam->filter != 'r')
 		cam->filter = 'R';
-	if (key == FI_G)
+	if (key == FI_G && cam->filter != 'r')
 		cam->filter = 'G';
-	if (key == FI_B)
+	if (key == FI_B && cam->filter != 'r')
 		cam->filter = 'B';
-	if (key == FI_P)
+	if (key == FI_P && cam->filter != 'r')
 		cam->filter = 'P';
-	if (key == FI_C)
+	if (key == FI_C && cam->filter != 'r')
 		cam->filter = 'C';
-	if (key == FI_Y)
+	if (key == FI_Y && cam->filter != 'r')
 		cam->filter = 'Y';
-	if (key == FI_W)
+	if (key == FI_W && cam->filter != 'r')
 		cam->filter = 'W';
-	if (key == FI_N)
+	if (key == FI_N && cam->filter != 'r')
 		cam->filter = 'N';
-	if (key == FI_S)
+	if (key == FI_S && cam->filter != 'r')
 		cam->filter = 'S';
 	if (key == FI_RST)
 		cam->filter = 0;
-	if (key != PREV_CAM && key != NEXT_CAM)
+	if (key == QUA_UP)
+		if (rtx->aa < 2)
+			rtx->aa *= 2;
+	if (key == QUA_DO)
+		if (rtx->aa > 0.125)
+			rtx->aa /= 2;
+	if (key != PREV_CAM && key != NEXT_CAM && cam->filter != 'r')
+	{
 		cal_cam(rtx, rtx->mlx_ptr, rtx->mlx_win, cam);
-	filter(cam->filter, rtx->res, &(cam->id));
+		anti_aliesing(cam, rtx);
+		filter(cam->filter, rtx->res, &(cam->id));
+	}
 	mlx_put_image_to_window(rtx->mlx_ptr, rtx->mlx_win, cam->img, 0, 0);
 	if (key == 53)
 		exit(0);

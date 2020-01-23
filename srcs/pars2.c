@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/22 15:21:01 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/23 09:29:47 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ char		*pars_c(char **buf, t_rtx *rtx)
 	cam->next = rtx->cam;
 	rtx->cam = cam;
 	cam->filter = 0;
-	cam->aa = 1;
 	if (!buf[1] || !buf[2] || !buf[3])
 		return("Missing argument(s) on declaraton of camera");
 	if (buf[4] != NULL && buf[5] != NULL)
@@ -77,7 +76,6 @@ char		*pars_c(char **buf, t_rtx *rtx)
 			cam->right = init_vec(-1,0,0);
 	}
 	cam->up = fois(normalize(cross(cam->right, cam->vec)), -1);
-	print_vecs(3, cam->vec, cam->right, cam->up);
 	rtx->cam->fov = ft_atoi(buf[3]);
 	if (rtx->cam->fov == -42)
 		return("Invalid number for FOV of camera");
@@ -359,6 +357,13 @@ char		*pars_cu(char **buf, t_rtx *rtx)
 	pars_sqr(-3, *(inf.shape), rtx);
 
 	return(ret);
+}
+
+char		*pars_aa(char **buf, t_rtx *rtx)
+{
+	(void)buf;
+	rtx->aa = 2;
+	return(NULL);
 }
 
 void		pars_sqr(int x, t_tg info, t_rtx *rtx)

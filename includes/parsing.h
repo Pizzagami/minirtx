@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:36:32 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/15 15:59:42 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/23 09:21:10 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ char			*pars_tr(char **buf, t_rtx *rtx);
 char			*pars_cy(char **buf, t_rtx *rtx); 
 char			*pars_ce(char **buf, t_rtx *rtx); 
 char			*pars_py(char **buf, t_rtx *rtx); 
-char			*pars_cu(char **buf, t_rtx *rtx); 
+char			*pars_cu(char **buf, t_rtx *rtx);
+char		    *pars_aa(char **buf, t_rtx *rtx);
 
 char			*ft_strcpy(char *dest, char *src);
 char			**ft_split(char *str, char *charset);

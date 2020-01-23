@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/22 15:15:14 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/23 10:50:11 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ int main(int argc, char **argv)
 	i = 0;
 	rtx = parseke(argc, argv);
 	rtx.cam_num = 0;
+	if (rtx.aa != 2)
+		rtx.aa = 1;
 	rtx.mlx_ptr = mlx_init();
 	mlx_win_load = mlx_new_window(rtx.mlx_ptr, 550, 50, "Loading ...");
 	ca = rtx.cam;
@@ -106,9 +108,10 @@ int main(int argc, char **argv)
 	{
 		cal_cam(&rtx, rtx.mlx_ptr, mlx_win_load, ca);
 		filter(ca->filter, rtx.res, &(ca->id));
+		anti_aliesing(ca, &rtx);
 		ca = ca->next;
 	}
-	make_3d(&rtx.cam, rtx.res);
+	make_3d(&(rtx.cam), rtx.res);
 	mlx_destroy_window(rtx.mlx_ptr, mlx_win_load);
 	rtx.mlx_win = mlx_new_window(rtx.mlx_ptr, rtx.res.x, rtx.res.y, "miniRTX");
 	mlx_hook(rtx.mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, NULL);
@@ -123,7 +126,9 @@ int main(int argc, char **argv)
 void	*cal_cam(t_rtx *rtx, void *mlx_ptr, void *mlx_win_load, t_cam *cam)
 {
 	int		x;
-
+	
+	rtx->res.x *= rtx->aa;
+	rtx->res.y *= rtx->aa;
 	rtx->ar = (float)rtx->res.x / (float)rtx->res.y;
 	cam->img = mlx_new_image(mlx_ptr, rtx->res.x, rtx->res.y);
 	cam->id = mlx_get_data_addr(cam->img, &x, &x, &x);
@@ -178,10 +183,10 @@ void *show(void *arg)
 	t_thread	*tt;
 
 	tt = (t_thread*) arg;
-	while(tt->rtx.coor.x < tt->rtx.res.x * tt->cam.aa / CORE  * (tt->i + 1))
+	while(tt->rtx.coor.x < tt->rtx.res.x / CORE  * (tt->i + 1))
 		{
 			tt->rtx.coor.y = 0;
-			while (tt->rtx.coor.y < tt->rtx.res.y * tt->cam.aa)
+			while (tt->rtx.coor.y < tt->rtx.res.y)
 			{
 				float pw = 2 * tan((float)tt->cam.fov / 2.0 / 180.0 * M_PI) * 1 / tt->rtx.res.x * tt->rtx.ar;
 				float ph = 2 * tan((float)tt->cam.fov / 2.0 / 180.0 * M_PI) * 1 / tt->rtx.res.y;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 19:17:07 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/11 18:33:46 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/23 09:13:07 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,24 @@ t_color color_mix(t_color c1, t_color c2, float r1, float r2)
     color.g = c1.g * r1 + c2.g * r2;
     color.b = c1.b * r1 + c2.b * r2;
     return (color);
+}
+
+t_color		cp(int x, int y, char *id, t_res res)
+{
+	t_color color;
+
+	color.r = id[(x + y * res.x) * 4 + 2];
+	color.g = id[(x + y * res.x) * 4 + 1];
+	color.b = id[(x + y * res.x) * 4];
+	return(color);
+}
+
+t_color		cm(t_color c1, t_color c2, t_color c3, t_color c4)
+{
+    t_color color;
+
+    color.r = ((unsigned char)c1.r + (unsigned char)c2.r + (unsigned char)c3.r + (unsigned char)c4.r)/4;
+    color.g = ((unsigned char)c1.g + (unsigned char)c2.g + (unsigned char)c3.g + (unsigned char)c4.g)/4;
+    color.b = ((unsigned char)c1.b + (unsigned char)c2.b + (unsigned char)c3.b + (unsigned char)c4.b)/4;
+	return(color);
 }

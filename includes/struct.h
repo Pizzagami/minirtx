@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/22 15:13:42 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/23 08:50:56 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct	s_cam
 	void	*img;
 	int		fov;
 	int		num;
-	int		aa;
 	char	filter;
 	struct s_cam	*next;
 }				t_cam;
@@ -112,6 +111,7 @@ typedef struct	s_all
 	t_light	*light;
 	t_tg	*shape;
 	float	ar;
+	float	aa;
 	int		save;
 	int		cam_num;
 	void	*mlx_ptr;

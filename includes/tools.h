@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/22 14:20:49 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:04:12 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ char		    *ft_itoa(int n);
 char			*check_ligne(char *str);
 char			*join(char *s1, char *s2);
 char			*strjoin(int nbr, char *s1, ...);
-void            anti_aliesing(t_res res, char **id);
 char			*read_vec(char *buf, t_vec *vec, char *id);
 char			*read_pos(char *buf, t_vec *vec, char *id);
 char			*read_color(char *buf, t_color *color,char *str);
@@ -44,11 +43,12 @@ float			find_dist_cy(t_vec   origin, t_vec ray, t_tg *shape, t_vec pos);
 float	        cal_lite_inter(t_rtx rtx, t_light *li, t_vec point, t_tg shape);
 
 void			ft_putnbr(int nb);
-void            make_3d(t_cam **ca, t_res res);
 void			ft_putstr(char *str);
 void			init_lst(t_rtx *rtx);
 void			tri_vecs(t_tg *shape);
+void            make_3d(t_cam **ca, t_res res);
 void	        export_to_bmp(char *id, t_res res);
+void            anti_aliesing(t_cam *cam, t_rtx *rtx);
 void            filter(char filter, t_res res, char **id);
 void            create_tri(t_vec p1, t_vec p2, t_vec p3, t_rtx *rtx);
 void			mlx_put_pixel_img(int x, int y, char **id, int sl, t_color color);
@@ -64,9 +64,11 @@ t_vec		    init_vec(float x, float y, float z);
 
 t_color			lfois(t_color color, float a);
 t_color			color_init(int r, int g, int b);
+t_color         cp(int x, int y, char *id, t_res res);
 t_color			color_cap(t_color color, t_color max);
 t_color         cosha(float ratio, t_color light, t_color shape);
 t_color			color_add(t_color base, t_color add, float coef);
+t_color		    cm(t_color c1, t_color c2, t_color c3, t_color c4);
 t_color         color_mix(t_color c1, t_color c2, float r1, float r2);
 
 t_matrix        init_matrix(t_vec a, t_vec b, t_vec c);
