@@ -37,7 +37,7 @@ OBJS = ${SRCS:.c=.o}
 CC  = gcc
 
 FLAGS =   -L includes/minilibx -lmlx -framework OpenGL -framework Appkit -fsanitize=address -g3
-CFLAGS =  -Wall -Wextra -Werror -I includes/ -I includes/minilibx
+CFLAGS =  -Wall -Wextra -Werror -I includes/ -I includes/minilibx  -g3
 RM  = rm -f
 
 ${NAME}	:	${OBJS}
@@ -52,6 +52,6 @@ fclean:  clean
 	${RM} ${NAME}
 
 re: fclean all
-	${RM}	${OBJS}
+	${RM}	${OBJS} file.bmp
 
 .PHONY: all clean fclean re

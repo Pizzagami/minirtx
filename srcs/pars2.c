@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/16 15:52:37 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/23 15:53:02 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ char		*pars_c(char **buf, t_rtx *rtx)
 		else
 			return ("Invalid value for filter of camera");
 	}
+	cam->rot = init_vec(0,0,0);
 	return(ret);
 }
 
@@ -234,6 +235,76 @@ char		*pars_cy(char **buf, t_rtx *rtx)
 		return("Value out of range for high of cylinder");
 	ret = join(ret, read_color(buf[5], &(shape->color), " of cylinder"));
 	shape->vec = normalize(shape->vec);
+	return(ret);
+}
+
+char		*pars_co(char **buf, t_rtx *rtx)
+{
+	char *ret;
+	t_tg *shape;
+
+	shape = malloc(sizeof(t_tg));
+	shape->next = rtx->shape;
+	rtx->shape = shape;
+
+	shape->type = 32;
+	shape->trans = 0;
+	shape->refl = 0;
+	shape->dam = 0;
+	if (!buf[1] || !buf[2] || !buf[3] || !buf[4] || !buf[5])
+		return("Missing argument(s) on declaraton of cone");
+	if (buf[6] != NULL)
+		return("Too many arguments on declaration of cone");
+	ret = read_pos(buf[1], &(shape->center), " of cone");
+	ret = join(ret, read_vec(buf[2], &(shape->vec), " of cone"));
+	shape->dia = ft_atof(buf[3]);
+	if (isnan(rtx->shape->dia))
+		return("Invalid number for diameter of cone");
+	shape->hi = ft_atof(buf[4]);
+	if (shape->dia < 0 || shape->dia > 90)
+		return("Value out of range for angle of cone");
+	if (isnan(shape->hi))
+		return("Invalid number for high of cone");
+	if (shape->hi < 0)
+		return("Value out of range for high of cone");
+	ret = join(ret, read_color(buf[5], &(shape->color), " of cone"));
+	shape->vec = normalize(shape->vec);
+	shape->dia *= M_PI / 180;
+	return(ret);
+}
+
+char		*pars_sa(char **buf, t_rtx *rtx)
+{
+	char *ret;
+	t_tg *shape;
+
+	shape = malloc(sizeof(t_tg));
+	shape->next = rtx->shape;
+	rtx->shape = shape;
+
+	shape->type = 21;
+	shape->trans = 0;
+	shape->refl = 0;
+	shape->dam = 0;
+	if (!buf[1] || !buf[2] || !buf[3] || !buf[4] || !buf[5])
+		return("Missing argument(s) on declaraton of sablier");
+	if (buf[6] != NULL)
+		return("Too many arguments on declaration of sablier");
+	ret = read_pos(buf[1], &(shape->center), " of sablier");
+	ret = join(ret, read_vec(buf[2], &(shape->vec), " of sablier"));
+	shape->dia = ft_atof(buf[3]);
+	if (isnan(rtx->shape->dia))
+		return("Invalid number for diameter of sablier");
+	shape->hi = ft_atof(buf[4]);
+	if (shape->dia < 0 || shape->dia > 90)
+		return("Value out of range for angle of sablier");
+	if (isnan(shape->hi))
+		return("Invalid number for high of sablier");
+	if (shape->hi < 0)
+		return("Value out of range for high of sablier");
+	ret = join(ret, read_color(buf[5], &(shape->color), " of sablier"));
+	shape->vec = normalize(shape->vec);
+	shape->dia *= M_PI / 180;
 	return(ret);
 }
 
