@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:36:32 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/15 15:59:42 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/24 15:46:56 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,15 @@ char			*pars_r(char **buf, t_rtx *rtx);
 char			*pars_c(char **buf, t_rtx *rtx); 
 char			*pars_l(char **buf, t_rtx *rtx); 
 char			*pars_s(char **buf, t_rtx *rtx);
+char		    *pars_sm(char **buf, t_rtx *rtx);
 char 			*pars_pl(char **buf, t_rtx *rtx);
 char 			*pars_sq(char **buf, t_rtx *rtx); 
 char			*pars_tr(char **buf, t_rtx *rtx); 
 char			*pars_cy(char **buf, t_rtx *rtx); 
 char			*pars_ce(char **buf, t_rtx *rtx); 
 char			*pars_py(char **buf, t_rtx *rtx); 
-char			*pars_cu(char **buf, t_rtx *rtx); 
+char			*pars_cu(char **buf, t_rtx *rtx);
+char		    *pars_aa(char **buf, t_rtx *rtx);
 
 char			*ft_strcpy(char *dest, char *src);
 char			**ft_split(char *str, char *charset);
@@ -45,7 +47,7 @@ void			pars_sqr(int x, t_tg info, t_rtx *rtx);
 void			ft_switch(char *buf, t_rtx *rtx, int fd, int i);
 void			alloc_word(char *str, char *charset, char **ptr);
 
-t_rtx			parsing(int fd);
-t_rtx			parseke(int argc, char **argv);
+t_rtx			parsing(int fd, void* mlx_ptr);
+t_rtx			parseke(int argc, char **argv, void* mlx_ptr);
 
 #endif

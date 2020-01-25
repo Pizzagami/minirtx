@@ -23,6 +23,7 @@ SRCS = 	./srcs/minirtx.c		\
 		./srcs/tools4color.c	\
 		./srcs/tools4vector.c	\
 		./srcs/tools4vector2.c	\
+		./srcs/tools4transf.c	\
 		./srcs/tools4math.c		\
 		./srcs/tools4lite.c		\
 		./srcs/tools4aa.c		\
@@ -36,12 +37,12 @@ OBJS = ${SRCS:.c=.o}
 
 CC  = gcc
 
-FLAGS =   -L includes/minilibx -lmlx -framework OpenGL -framework Appkit -fsanitize=address -g3
+FLAGS =   -L includes/minilibx -lmlx -framework OpenGL -framework Appkit -fsanitize=address -O0 -g3
 CFLAGS =  -Wall -Wextra -Werror -I includes/ -I includes/minilibx
 RM  = rm -f
 
 ${NAME}	:	${OBJS}
-	@${CC}	 -o ${NAME}  ${FLAGS} ${OBJS}
+	${CC}	 -o ${NAME}  ${FLAGS} ${OBJS}
 
 all:  ${NAME}
 

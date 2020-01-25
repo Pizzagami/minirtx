@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tools4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 17:26:19 by braimbau          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/01/16 12:12:09 by braimbau         ###   ########.fr       */
-=======
-/*   Updated: 2020/01/15 16:03:50 by selgrabl         ###   ########.fr       */
->>>>>>> d053a93300ea17068fe98f3add2ef996eb15f53d
+/*   Updated: 2020/01/24 19:03:56 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirtx.h"
-
-char	*read_float(char *str, float *value, char *id, float max)
-{
-	*value = ft_atof(str);
-	if (isnan(*value))
-		return(join("invalid value for ", id));
-	if (*value < 0)
-		return(join("Value out of range for ", id));
-	if (max > 0 && *value > max)
-		return(join("Value out of range for ", id));
-	return (NULL);
-}
 
 void	create_tri(t_vec p1, t_vec p2, t_vec p3, t_rtx *rtx)
 {
@@ -93,6 +77,24 @@ void	export_to_bmp(char *id, t_res res)
 		}
 		y--;
 	}
+}
 
+void	make_mapping(t_tg *shape)
+{
+	float u;
+	float v;
+	float theta;
 
+	if (shape->type != 11)
+		return;
+	v = acos(-dot(shape->v1, shape->normal)) / M_PI;
+	theta = (acos(dot(shape->normal, shape->v2) / sin(acos(-dot(shape->v1, shape->normal))))) / (2 * M_PI);
+	if (dot(cross(shape->v1, shape->v2), shape->normal) > 0)
+		u = theta;
+	else
+		u = 1 - theta;
+	shape->color = cp(u * shape->map_res.x, v * shape->map_res.y, shape->map_id, shape->map_res);
+	shape->color.r = (unsigned char)shape->color.r;
+	shape->color.g = (unsigned char)shape->color.g;
+	shape->color.b = (unsigned char)shape->color.b;
 }
