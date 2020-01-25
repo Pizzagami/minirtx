@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 17:26:19 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/24 19:03:56 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/01/25 14:16:58 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/24 18:59:56 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/01/25 14:19:41 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,15 @@ float			find_dist(t_vec origin, t_vec ray, t_tg *shape);
 float			find_dist_sp(t_vec   origin, t_vec ray, t_tg shape);
 float			find_dist_stcp(t_vec   origin, t_vec ray, t_tg shape);
 float			find_dist_cy(t_vec   origin, t_vec ray, t_tg *shape, t_vec pos);
+float			find_dist_co(t_vec origin, t_vec ray, t_tg *shape, t_vec pos);
+float			find_dist_sa(t_vec origin, t_vec ray, t_tg *shape, t_vec pos);
 float	        cal_lite_inter(t_rtx rtx, t_light *li, t_vec point, t_tg shape);
 
 void			ft_putnbr(int nb);
 void			ft_putstr(char *str);
 void			init_lst(t_rtx *rtx);
 void			tri_vecs(t_tg *shape);
+void            make_mapping(t_tg *shape);
 void            make_3d(t_cam **ca, t_res res);
 void	        apply_filter(int key, t_cam *cam);
 void            make_rotation(int key, t_cam *cam);
@@ -53,9 +56,8 @@ void	        export_to_bmp(char *id, t_res res);
 void            make_translation(int key, t_cam *cam);
 void            anti_aliesing(t_cam *cam, t_rtx *rtx);
 void            filter(char filter, t_res res, char **id);
-
-void            make_mapping(t_tg *shape);
 void            create_tri(t_vec p1, t_vec p2, t_vec p3, t_rtx *rtx);
+void			damier(t_vec point, t_tg *shape, t_color *color, float dist);
 void			mlx_put_pixel_img(int x, int y, char **id, int sl, t_color color);
 void            refresh_loading_bar(t_rtx *rtx, void	*mlx_win, int pourcentage);
 

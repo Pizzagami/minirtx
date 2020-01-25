@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/24 19:32:55 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/01/25 14:16:11 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
 	if (shape.refl && dist != -1.0)
 	{
 		cam.ray = min(cam.ray, fois(shape.normal , 2 * dot(cam.ray, shape.normal)));
-		color = color_mix(color, cal_col(cam, rtx, bound + 1), 1 - shape.refl, shape.refl);
+		color = color_mix(color, cal_col(cam, rtx, bound + 1), 1 - shape.refl,
+		shape.refl);
 	}
 	if (shape.trans && dist != -1.0)
 	{
@@ -54,10 +55,13 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
 			cam.origin = plus(cam.origin, fois(cam.ray, dist + shape.dia));
 		else
 			cam.origin = plus(cam.origin, fois(cam.ray, dist + 0.00001)); 
-		color = color_mix(color, cal_col(cam, rtx, bound + 1), 1 - shape.trans, shape.trans);
+		color = color_mix(color, cal_col(cam, rtx, bound + 1), 1 - shape.trans,
+		shape.trans);
 	}
 	if (dist == -1)
 		return(color_init(0,0,0));
+	if (shape.dam != 0)
+		damier(plus(cam.origin, fois(cam.ray, dist)), &shape, &color, dist);
 	return (color);
 }
 
@@ -120,7 +124,7 @@ int main(int argc, char **argv)
 	mlx_hook(rtx.mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, NULL);
 	mlx_key_hook(rtx.mlx_win, key_hook, &rtx);
 	mlx_put_image_to_window(rtx.mlx_ptr, rtx.mlx_win, rtx.cam->img, 0, 0);
-	if (rtx.save)
+	//if (rtx.save)
 		export_to_bmp(rtx.cam->id, rtx.res);
 	mlx_loop(rtx.mlx_ptr);
 	return(EXIT_SUCCESS);

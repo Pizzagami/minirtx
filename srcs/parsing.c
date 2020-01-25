@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/24 15:47:15 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/01/25 14:17:00 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 	err = (ft_strcmp(buf[0], "tr") == 0) ? pars_tr(buf, rtx) : err;
 	err = (ft_strcmp(buf[0], "cy") == 0) ? pars_cy(buf, rtx) : err;
 	err = (ft_strcmp(buf[0], "cu") == 0) ? pars_cu(buf, rtx) : err;
+	err = (ft_strcmp(buf[0], "sa") == 0) ? pars_sa(buf, rtx) : err;
+	err = (ft_strcmp(buf[0], "co") == 0) ? pars_co(buf, rtx) : err;
 	err = (ft_strcmp(buf[0], "py") == 0) ? pars_py(buf, rtx) : err;
 	err = (ft_strcmp(buf[0], "ce") == 0) ? pars_ce(buf, rtx) : err;
 	err = (ft_strcmp(buf[0], "pl") == 0) ? pars_pl(buf, rtx) : err;

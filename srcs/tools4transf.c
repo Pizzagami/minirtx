@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4transf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 17:30:11 by raimbaultbr       #+#    #+#             */
-/*   Updated: 2020/01/23 17:42:07 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/01/25 14:17:40 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
