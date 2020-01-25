@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 19:17:07 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/23 09:13:07 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/24 16:42:33 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,18 @@ t_color color_cap(t_color color, t_color max)
 
 t_color color_add(t_color base, t_color add, float coef)
 {
-   base.r += add.r * coef;
-   base.g += add.g * coef;
-   base.b += add.b * coef;
+   base.r += (unsigned char)add.r * coef;
+   base.g += (unsigned char)add.g * coef;
+   base.b += (unsigned char)add.b * coef;
    return (base);
 }
 
 t_color cosha(float ratio, t_color light, t_color shape)
 {
     t_color color;
-		color.r = ratio * light.r / 255 * shape.r;
-		color.g = ratio * light.g / 255 * shape.g;
-		color.b = ratio * light.b / 255 * shape.b;
+		color.r = ratio * (unsigned char)light.r / 255 * (unsigned char)shape.r;
+		color.g = ratio * (unsigned char)light.g / 255 * (unsigned char)shape.g;
+		color.b = ratio * (unsigned char)light.b / 255 * (unsigned char)shape.b;
     return(color);
 }
 

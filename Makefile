@@ -23,6 +23,7 @@ SRCS = 	./srcs/minirtx.c		\
 		./srcs/tools4color.c	\
 		./srcs/tools4vector.c	\
 		./srcs/tools4vector2.c	\
+		./srcs/tools4transf.c	\
 		./srcs/tools4math.c		\
 		./srcs/tools4lite.c		\
 		./srcs/tools4aa.c		\

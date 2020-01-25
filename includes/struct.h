@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/23 08:50:56 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/24 16:14:29 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,12 @@ typedef struct	s_cam
 	struct s_cam	*next;
 }				t_cam;
 
+typedef struct	s_res
+{
+	int x;
+	int y;
+}				t_res;
+
 typedef	struct s_obj
 {
 	t_vec	center;
@@ -77,6 +83,8 @@ typedef	struct s_obj
 	int		type;
 	float	refl;
 	float	trans;
+	char	*map_id;
+	t_res	map_res;
 	struct s_obj	*next;
 
 }				t_tg;
@@ -86,12 +94,6 @@ typedef struct	s_amb
 	t_color	color;
 	float	ratio;	
 }				t_amb;
-
-typedef struct	s_res
-{
-	int x;
-	int y;
-}				t_res;
 
 typedef struct	s_nor
 {
@@ -152,6 +154,7 @@ typedef struct		s_thread
 	5 = pyramide
 	6 = cube
 	7 = cercle
+	11 = shere with mapping (sm)
 	123 = gauch
 	124 = droite
 */

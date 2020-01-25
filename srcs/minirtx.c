@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/23 10:50:11 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/24 19:32:55 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
 		}
 		sh = sh->next;
 	}
-	if (shape.type == 1)
-			shape.normal = normalize(min(plus(cam.origin, fois(cam.ray, dist)), shape.center));
+	if (shape.type == 1 || shape.type == 11)
+		shape.normal = normalize(min(plus(cam.origin, fois(cam.ray, dist)), shape.center));
+	make_mapping(&shape);
 	if (dist != -1.0)
 	{
 		color = color_add(cosha(rtx.amb.ratio, rtx.amb.color, shape.color),
@@ -92,16 +93,18 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist)
 int main(int argc, char **argv)
 {
 	void	*mlx_win_load;
+	void	*mlx_ptr;
 	t_rtx	rtx;
 	t_cam	*ca;
 	int		i;
 
 	i = 0;
-	rtx = parseke(argc, argv);
+	mlx_ptr = mlx_init();
+	rtx = parseke(argc, argv, mlx_ptr);
+	rtx.mlx_ptr = mlx_ptr;
 	rtx.cam_num = 0;
 	if (rtx.aa != 2)
 		rtx.aa = 1;
-	rtx.mlx_ptr = mlx_init();
 	mlx_win_load = mlx_new_window(rtx.mlx_ptr, 550, 50, "Loading ...");
 	ca = rtx.cam;
 	while (ca)

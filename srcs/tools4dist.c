@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4dist.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:10:01 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/20 18:46:10 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/24 19:05:15 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 float		find_dist(t_vec origin, t_vec ray, t_tg *shape)
 {
-	if (shape->type == 1)
+	if (shape->type == 1 || shape->type == 11)
 		return (find_dist_sp(origin, ray, *shape));
 	if (shape->type == 2)
 		return (find_dist_cy(origin, ray, shape, min(origin, shape->center)));

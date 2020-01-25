@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/23 09:29:47 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/24 19:02:11 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,7 @@ char		*pars_c(char **buf, t_rtx *rtx)
 	cam->vec = fois(normalize(cam->vec), -1);
 	cam->right = normalize(cross(cam->vec, init_vec(0,1,0)));
 	if (isnan(cam->right.x) && isnan(cam->right.z) && isnan(cam->right.y))
-	{
-		if (cam->vec.y > 0)
-			cam->right = init_vec(1,0,0);
-		else
-			cam->right = init_vec(-1,0,0);
-	}
+		cam->right = (cam->vec.y > 0) ? init_vec(1,0,0) : init_vec(-1,0,0);
 	cam->up = fois(normalize(cross(cam->right, cam->vec)), -1);
 	rtx->cam->fov = ft_atoi(buf[3]);
 	if (rtx->cam->fov == -42)
@@ -178,6 +173,32 @@ char		*pars_s(char **buf, t_rtx *rtx)
 		ret = join(ret, read_float(buf[4], &(shape->trans), " transparence of a sphere", 1));
 	if (buf[4] && buf[5])
 	ret = join(ret, read_float(buf[5], &(shape->refl), " reflection of a sphere", 1));
+	return(ret);
+}
+
+char		*pars_sm(char **buf, t_rtx *rtx)
+{
+	char *ret;
+	t_tg *shape;
+	void *map_ptr;
+	int x;
+
+	shape = malloc(sizeof(t_tg));
+	shape->next = rtx->shape;
+	rtx->shape = shape;
+	shape->type = 11;
+	shape->trans = 0;
+	shape->refl = 0;
+	shape->v1 = init_vec(0,-1,0);
+	shape->v2 = init_vec(-1,0,0);
+	if (!(buf[1] || buf[2] || buf[3]))
+		return("Missing argument(s) on declaraton of a mapped sphere");
+	if (buf[4] != NULL)
+		return("Too many arguments on declaration of a mapped sphere");
+	ret = read_pos(buf[1], &(rtx->shape->center), " of a mapped sphere");
+	ret = join(ret, read_float(buf[2], &(shape->dia), " diameter of a mapped sphere", -1));
+	map_ptr = mlx_xpm_file_to_image (rtx->mlx_ptr, buf[3], &(shape->map_res.x), &(shape->map_res.y));
+	shape->map_id = mlx_get_data_addr(map_ptr, &x, &x, &x);
 	return(ret);
 }
 
@@ -399,4 +420,16 @@ void		pars_sqr(int x, t_tg info, t_rtx *rtx)
 	shape->vec = normalize(cross(min(shape->p2, shape->p1),
 		min(shape->p3, shape->p1)));
 	shape->normal = shape->vec;
+}
+
+char	*read_float(char *str, float *value, char *id, float max)
+{
+	*value = ft_atof(str);
+	if (isnan(*value))
+		return(join("invalid value for ", id));
+	if (*value < 0)
+		return(join("Value out of range for ", id));
+	if (max > 0 && *value > max)
+		return(join("Value out of range for ", id));
+	return (NULL);
 }

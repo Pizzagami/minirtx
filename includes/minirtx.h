@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/23 11:18:31 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/24 16:00:10 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 
 #define BUFFER_SIZE 42
-#define CORE 1
+#define CORE 16
 #define StructureNotifyMask	(1L<<17)
 #define DestroyNotify	17
 #define NAF 42
@@ -70,5 +70,5 @@ void			print_vecs(int nbr,...);
 #define FI_W 28
 #define FI_S 25
 #define FI_RST 29
-#define QUA_UP 69 
-#define QUA_DO 78
+#define QUA_UP 24
+#define QUA_DO 27
