@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/23 15:53:02 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/25 14:17:09 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,15 @@ char		*pars_c(char **buf, t_rtx *rtx)
 		return("Missing argument(s) on declaraton of camera");
 	if (buf[4] != NULL && buf[5] != NULL)
 		return("Too many arguments on declaration of camera");
-	ret = read_pos(buf[1], &(cam->origin), "of camera");
-	ret = join(ret, read_vec(buf[2], &(cam->vec), "of camera"));
-	cam->fov = ft_atoi(buf[3]);
-	if (cam->fov == -42)
+	ret = read_pos(buf[1], &(rtx->cam->origin), "of camera");
+	ret = join(ret, read_vec(buf[2], &(rtx->cam->vec), "of camera"));
+	cam->vec = fois(normalize(cam->vec), -1);
+	cam->right = normalize(cross(cam->vec, init_vec(0,1,0)));
+	if (isnan(cam->right.x) && isnan(cam->right.z) && isnan(cam->right.y))
+		cam->right = (cam->vec.y > 0) ? init_vec(1,0,0) : init_vec(-1,0,0);
+	cam->up = fois(normalize(cross(cam->right, cam->vec)), -1);
+	rtx->cam->fov = ft_atoi(buf[3]);
+	if (rtx->cam->fov == -42)
 		return("Invalid number for FOV of camera");
 	if (cam->fov > 180 || cam->fov < 0)
 		return ("Value out of range for FOV of camera");
@@ -103,9 +108,10 @@ char		*pars_l(char **buf, t_rtx *rtx)
 	light = malloc(sizeof(t_light));
 	light->next = rtx->light;
 	rtx->light = light;
+	light->para = init_vec(0,0,0);
 	if (!buf[1] || !buf[2] || !buf[3])
 		return("Missing argument(s) on declaraton of light");
-	if (buf[4] != NULL)
+	if (buf[4] != NULL && buf[5] != NULL)
 		return("Too many arguments on declaration of light");
 	ret = read_pos(buf[1], &(light->pos), "of light");
 	light->ratio = ft_atof(buf[2]);
@@ -113,8 +119,10 @@ char		*pars_l(char **buf, t_rtx *rtx)
 		return("Invalid number for ratio of light");
 	if (light->ratio > 1 || light->ratio < 0)
 		return ("Value out of range for ratio of light");
-	ret = join(ret, read_color(buf[3], &(light->color), "of light"));
-	light->color = lfois(light->color, light->ratio);
+	ret = join(ret, read_color(buf[3], &(rtx->light->color), "of light"));
+	rtx->light->color = lfois(rtx->light->color, rtx->light->ratio);
+	if (buf[4])
+		ret = read_vec(buf[4], &(light->para), "vector of parallel light");
 	return(ret);
 }
 
@@ -138,11 +146,9 @@ char 		*pars_pl(char **buf, t_rtx *rtx)
 	ret = join(ret, read_vec(buf[2], &(shape->normal), " of a plane"));
 	ret = join(ret, read_color(buf[3], &(shape->color), " of a plane"));
 	if (buf[4])
-		ret = join(ret, read_float(buf[4], &(shape->trans), "transparence of a plane", 1));
-	if (buf[5])
-		ret = join(ret, read_float(buf[5], &(shape->refl), "reflection of a plane", 1));	
-	if (buf[6])
-		ret = join(ret, read_float(buf[6], &(shape->dam), "damier", -1));
+		ret = join(ret, read_float(buf[4], &(rtx->shape->trans), "transparence of a plane", 1));
+	if (buf[4] && buf[5])
+		ret = join(ret, read_float(buf[5], &(rtx->shape->refl), "reflection of a plane", 1));	
 	return(ret);
 }
 
@@ -167,10 +173,36 @@ char		*pars_s(char **buf, t_rtx *rtx)
 	ret = join(ret, read_color(buf[3], &(shape->color), " of a sphere"));
 	if (buf[4])
 		ret = join(ret, read_float(buf[4], &(shape->trans), " transparence of a sphere", 1));
-	if (buf[5])
+	if (buf[4] && buf[5])
 	ret = join(ret, read_float(buf[5], &(shape->refl), " reflection of a sphere", 1));
 	if (buf[6])
 		ret = join(ret, read_float(buf[6], &(shape->dam), "damier", -1));
+	return(ret);
+}
+
+char		*pars_sm(char **buf, t_rtx *rtx)
+{
+	char *ret;
+	t_tg *shape;
+	void *map_ptr;
+	int x;
+
+	shape = malloc(sizeof(t_tg));
+	shape->next = rtx->shape;
+	rtx->shape = shape;
+	shape->type = 11;
+	shape->trans = 0;
+	shape->refl = 0;
+	shape->v1 = init_vec(0,-1,0);
+	shape->v2 = init_vec(-1,0,0);
+	if (!(buf[1] || buf[2] || buf[3]))
+		return("Missing argument(s) on declaraton of a mapped sphere");
+	if (buf[4] != NULL)
+		return("Too many arguments on declaration of a mapped sphere");
+	ret = read_pos(buf[1], &(rtx->shape->center), " of a mapped sphere");
+	ret = join(ret, read_float(buf[2], &(shape->dia), " diameter of a mapped sphere", -1));
+	map_ptr = mlx_xpm_file_to_image (rtx->mlx_ptr, buf[3], &(shape->map_res.x), &(shape->map_res.y));
+	shape->map_id = mlx_get_data_addr(map_ptr, &x, &x, &x);
 	return(ret);
 }
 
@@ -199,7 +231,7 @@ char		*pars_tr(char **buf, t_rtx *rtx)
 	shape->center = shape->p1;
 	if (buf[5])
 		ret = join(ret, read_float(buf[5], &(shape->trans), " transparence of a triangle", 1));
-	if (buf[6])
+	if (buf[5] && buf[6])
 	ret = join(ret, read_float(buf[6], &(shape->refl), " reflection of a triangle", 1));
 	return(ret);
 }
@@ -357,7 +389,7 @@ char		*pars_py(char **buf, t_rtx *rtx)
 	ret = join(ret, read_color(buf[5], &(shape->color), " of a pyramide"));
 	if (buf[6])
 		ret = join(ret, read_float(buf[6], &(shape->trans), "transparence of a pyramide", 1));
-	if (buf[7])
+	if (buf[6] && buf[7])
 		ret = join(ret, read_float(buf[7], &(shape->refl), "reflection of a pyramide", 1));
 	shape->vec = normalize(shape->vec);
 	find_vecs(shape);
@@ -394,7 +426,7 @@ char 		*pars_sq(char **buf, t_rtx *rtx)
 	ret = join(ret, read_color(buf[4], &(shape->color), " of a square"));
 	if (buf[5])
 		ret = join(ret, read_float(buf[5], &(shape->trans), "transparence of a square", 1));
-	if (buf[6])
+	if (buf[5] && buf[6])
 		ret = join(ret, read_float(buf[6], &(shape->refl), "reflection of a square", 1));
 	shape->vec = normalize(shape->vec);
 	find_vecs(shape);
@@ -424,6 +456,13 @@ char		*pars_cu(char **buf, t_rtx *rtx)
 	pars_sqr(-3, *(inf.shape), rtx);
 
 	return(ret);
+}
+
+char		*pars_aa(char **buf, t_rtx *rtx)
+{
+	(void)buf;
+	rtx->aa = 2;
+	return(NULL);
 }
 
 void		pars_sqr(int x, t_tg info, t_rtx *rtx)
@@ -460,4 +499,16 @@ void		pars_sqr(int x, t_tg info, t_rtx *rtx)
 	shape->vec = normalize(cross(min(shape->p2, shape->p1),
 		min(shape->p3, shape->p1)));
 	shape->normal = shape->vec;
+}
+
+char	*read_float(char *str, float *value, char *id, float max)
+{
+	*value = ft_atof(str);
+	if (isnan(*value))
+		return(join("invalid value for ", id));
+	if (*value < 0)
+		return(join("Value out of range for ", id));
+	if (max > 0 && *value > max)
+		return(join("Value out of range for ", id));
+	return (NULL);
 }

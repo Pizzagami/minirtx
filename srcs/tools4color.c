@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 19:17:07 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/22 16:11:17 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/25 14:17:31 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,18 @@ t_color color_cap(t_color color, t_color max)
 
 t_color color_add(t_color base, t_color add, float coef)
 {
-   base.r += add.r * coef;
-   base.g += add.g * coef;
-   base.b += add.b * coef;
+   base.r += (unsigned char)add.r * coef;
+   base.g += (unsigned char)add.g * coef;
+   base.b += (unsigned char)add.b * coef;
    return (base);
 }
 
 t_color cosha(float ratio, t_color light, t_color shape)
 {
     t_color color;
-		color.r = ratio * light.r / 255 * shape.r;
-		color.g = ratio * light.g / 255 * shape.g;
-		color.b = ratio * light.b / 255 * shape.b;
+		color.r = ratio * (unsigned char)light.r / 255 * (unsigned char)shape.r;
+		color.g = ratio * (unsigned char)light.g / 255 * (unsigned char)shape.g;
+		color.b = ratio * (unsigned char)light.b / 255 * (unsigned char)shape.b;
     return(color);
 }
 
@@ -87,3 +87,22 @@ void damier(t_vec point, t_tg *shape, t_color *color, float dist)
     }
 
 }   
+t_color		cp(int x, int y, char *id, t_res res)
+{
+	t_color color;
+
+	color.r = id[(x + y * res.x) * 4 + 2];
+	color.g = id[(x + y * res.x) * 4 + 1];
+	color.b = id[(x + y * res.x) * 4];
+	return(color);
+}
+
+t_color		cm(t_color c1, t_color c2, t_color c3, t_color c4)
+{
+    t_color color;
+
+    color.r = ((unsigned char)c1.r + (unsigned char)c2.r + (unsigned char)c3.r + (unsigned char)c4.r)/4;
+    color.g = ((unsigned char)c1.g + (unsigned char)c2.g + (unsigned char)c3.g + (unsigned char)c4.g)/4;
+    color.b = ((unsigned char)c1.b + (unsigned char)c2.b + (unsigned char)c3.b + (unsigned char)c4.b)/4;
+	return(color);
+}

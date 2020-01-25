@@ -6,40 +6,55 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 10:38:58 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/19 16:42:08 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/23 11:59:08 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirtx.h"
 
-void    anti_aliesing(t_res res, char **id)
+void	anti_aliesing(t_cam *cam, t_rtx *rtx)
 {
-	int     x;
-	int     y;
+	int		x;
+	int		y;
+	t_color color;
+	void	*img_ptr;
+	char	*id;
 
+	if (rtx->aa == 1)
+		return;
+	int bite = 1 / rtx->aa;
+	rtx->res.x /= rtx->aa;
+	rtx->res.y /= rtx->aa;
+	img_ptr = mlx_new_image(rtx->mlx_ptr, rtx->res.x, rtx->res.y);
+	id = mlx_get_data_addr(img_ptr, &x, &x, &x);
 	x = 0;
-	while (x < res.x)
+	while(x < rtx->res.x)
 	{
 		y = 0;
-		while (y < res.y)
+		while(y < rtx->res.y)
 		{
-			if (x && y && x != res.x - 1 && y != res.y - 1)
+			if (rtx->aa > 1)
 			{
-			(*id)[(x + (y * res.x)) * 4] /= 2;//(char) (*id)[(x + (y * res.x)) * 4]/2;
-			(*id)[((x + (y * res.x)) * 4) + 1] /= 2;//(char) (*id)[((x + (y * res.x)) * 4) + 1]/2;
-			(*id)[((x + (y * res.x)) * 4 )+ 2] /= 2;//(char) (*id)[((x + (y * res.x)) * 4 )+ 2]/2;
+			rtx->res.x *= rtx->aa;
+			color = cm(cp(x * 2, y * 2, cam->id, rtx->res), cp(x * 2 + 1, y * 2, cam->id, rtx->res), cp(x * 2 + 1, y * 2 + 1, cam->id, rtx->res), cp(x * 2, y * 2 + 1, cam->id, rtx->res));
+			rtx->res.x /= rtx->aa;
 			}
 			else
-			(*id)[(x + (y * res.x)) * 4] = (*id)[(x + (y * res.x)) * 4];
-			(*id)[((x + (y * res.x)) * 4) + 1] = (*id)[((x + (y * res.x)) * 4) + 1];
-			(*id)[((x + (y * res.x)) * 4 )+ 2] = (*id)[((x + (y * res.x)) * 4 )+ 2];
+			{
+				rtx->res.x /= bite;
+				color = cp(x / bite, y / bite, cam->id, rtx->res);
+				rtx->res.x *= bite;
+			}
+			mlx_put_pixel_img(x, y, &id, rtx->res.x, color);
 			y++;
 		}
 		x++;
 	}
+	cam->id = id;
+	cam->img = img_ptr;
 }
 
-void    filter(char filter, t_res res, char **id)
+void	filter(char filter, t_res res, char **id)
 {
 	int     x;
 	int     y;
@@ -85,9 +100,10 @@ void    filter(char filter, t_res res, char **id)
 void	make_3d(t_cam **cam, t_res res)
 {
 	t_cam *ca;
+	t_cam *tmp;
 	int	x;
 	int y;
-
+	(void)res;
 	ca = *cam;
 	while(ca)
 	{
@@ -103,7 +119,10 @@ void	make_3d(t_cam **cam, t_res res)
 					y++;
 				}
 				x++;
-			}		
+			}
+			tmp = ca->next;
+			ca->next = ca->next->next;
+			free(tmp);
 		}
 		ca = ca->next;
 	}
