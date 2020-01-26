@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:10:01 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/25 14:20:23 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/26 14:24:05 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ float		find_dist_co(t_vec origin, t_vec ray, t_tg *shape, t_vec pos)
 	}
 	x = (dot(ray, shape->vec) != 0) ? (dot(min(shape->center, origin),
 		shape->vec) / dot(ray, shape->vec)) : 0;
-	if (x > c)
+	if (x > c || x < -c)
 		return(-1.0);
 	point = plus(origin, fois(ray, c));
 	shape->v2 = (dot(shape->vec, min(point, shape->center)) < 0) ? fois(shape->vec, -1): shape->vec;

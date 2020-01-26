@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/25 14:17:09 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/26 14:27:12 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ char		*pars_s(char **buf, t_rtx *rtx)
 		ret = join(ret, read_float(buf[4], &(shape->trans), " transparence of a sphere", 1));
 	if (buf[4] && buf[5])
 	ret = join(ret, read_float(buf[5], &(shape->refl), " reflection of a sphere", 1));
-	if (buf[6])
+	if (buf[4] && buf[5] && buf[6])
 		ret = join(ret, read_float(buf[6], &(shape->dam), "damier", -1));
 	return(ret);
 }
@@ -240,18 +240,19 @@ char		*pars_cy(char **buf, t_rtx *rtx)
 {
 	char *ret;
 	t_tg *shape;
+	float	x;
 
 	shape = malloc(sizeof(t_tg));
 	shape->next = rtx->shape;
 	rtx->shape = shape;
-
 	shape->type = 2;
 	shape->trans = 0;
 	shape->refl = 0;
 	shape->dam = 0;
+	x = 0;
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4] || !buf[5])
 		return("Missing argument(s) on declaraton of cylinder");
-	if (buf[6] != NULL)
+	if (buf[6] != NULL && buf[7] != NULL && buf[8] != NULL && buf[9] != NULL)
 		return("Too many arguments on declaration of cylinder");
 	ret = read_pos(buf[1], &(shape->center), " of cylinder");
 	ret = join(ret, read_vec(buf[2], &(shape->vec), " of cylinder"));
@@ -266,7 +267,14 @@ char		*pars_cy(char **buf, t_rtx *rtx)
 	if (shape->hi < 0)
 		return("Value out of range for high of cylinder");
 	ret = join(ret, read_color(buf[5], &(shape->color), " of cylinder"));
+	if (buf[6])
+		ret = join(ret, read_float(buf[6], &(shape->trans), " transparence of a cylinder", 1));
+	if (buf[6] && buf[7])
+	ret = join(ret, read_float(buf[7], &(shape->refl), " reflection of a cylinder", 1));
+	if (buf[6] && buf[7] && buf[8])
+		ret = join(ret, read_float(buf[8], &x, "capuchon of a cylinder", -1));
 	shape->vec = normalize(shape->vec);
+	(x == 1) ? creat_ce(*shape, rtx): 0;
 	return(ret);
 }
 
@@ -362,7 +370,7 @@ char		*pars_ce(char **buf, t_rtx *rtx)
 		return("Invalid number for diameter of cercle");
 	if (shape->dia < 0)
 		return("Value out of range for diameter of cercle");
-	ret = join(ret, read_color(buf[4], &(shape->color), " of cercle"));
+	ret = join(ret, read_color(buf[4], &(shape->color), " of cercle")); //trnapaence et reflextion
 	return(ret);
 }
 
