@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/26 14:51:42 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/26 16:05:12 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,20 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound, t_thread *tt)
 		return(color_init(0,0,0));
 	sh = rtx.shape;
 	dist = -1;
-	pthread_mutex_lock (tt->mutex);
+	(shape.type == 1 || shape.type == 2)? pthread_mutex_lock (tt->mutex): 0;
 	while (sh)
 	{
 		ldist = find_dist(cam.origin, cam.ray, sh);
 		if (ldist != - 1 && (dist == - 1 || ldist < dist))
 		{
 			dist = ldist;
+
 			shape = *sh;
 
 		}
 		sh = sh->next;
 	}
-	pthread_mutex_unlock (tt->mutex);
+	(shape.type == 1 || shape.type == 2)? pthread_mutex_unlock (tt->mutex): 0;
 	if (shape.type == 1 || shape.type == 11)
 		shape.normal = normalize(min(plus(cam.origin, fois(cam.ray, dist)), shape.center));
 	make_mapping(&shape);
@@ -77,9 +78,10 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist, t_thread 
 	t_light *li;
 	color = color_init(0,0,0);
 	li = rtx->light;
-	pthread_mutex_lock (tt->mutex);
-	while (li) // mutex 
+	(shape.type == 1 || shape.type == 2)? pthread_mutex_lock (tt->mutex): 0;
+	while (li)
 	{
+		
 		point = plus(cam.origin, fois(cam.ray, dist));
 		if (li->para.x || li->para.y || li->para.z)
 			light = fois(li->para, - 1);
@@ -94,7 +96,8 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist, t_thread 
 		color = color_add(color, cosha(c, li->color, shape.color), 1);
 		li = li->next;
 	}
-	pthread_mutex_unlock (tt->mutex);
+	(shape.type == 1 || shape.type == 2) ? pthread_mutex_unlock (tt->mutex): 0;
+	(void)tt;
 	return (color);
 }
 
@@ -128,7 +131,7 @@ int main(int argc, char **argv)
 	mlx_hook(rtx.mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, NULL);
 	mlx_key_hook(rtx.mlx_win, key_hook, &rtx);
 	mlx_put_image_to_window(rtx.mlx_ptr, rtx.mlx_win, rtx.cam->img, 0, 0);
-	//if (rtx.save)
+	if (rtx.save)
 		export_to_bmp(rtx.cam->id, rtx.res);
 	mlx_loop(rtx.mlx_ptr);
 	return(EXIT_SUCCESS);
