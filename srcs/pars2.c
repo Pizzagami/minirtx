@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/26 14:27:12 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/26 17:37:57 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,7 +274,9 @@ char		*pars_cy(char **buf, t_rtx *rtx)
 	if (buf[6] && buf[7] && buf[8])
 		ret = join(ret, read_float(buf[8], &x, "capuchon of a cylinder", -1));
 	shape->vec = normalize(shape->vec);
-	(x == 1) ? creat_ce(*shape, rtx): 0;
+	if (x == 1)
+		creat_ce(*shape, rtx);
+	printf("croix/n");
 	return(ret);
 }
 
@@ -371,6 +373,7 @@ char		*pars_ce(char **buf, t_rtx *rtx)
 	if (shape->dia < 0)
 		return("Value out of range for diameter of cercle");
 	ret = join(ret, read_color(buf[4], &(shape->color), " of cercle")); //trnapaence et reflextion
+	
 	return(ret);
 }
 

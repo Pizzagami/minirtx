@@ -6,13 +6,13 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/26 16:05:12 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/26 18:05:00 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirtx.h"
 
-t_color		cal_col(t_cam cam, t_rtx rtx, int bound, t_thread *tt)
+t_color		cal_col(t_cam cam, t_rtx rtx, int bound,pthread_mutex_t *mutex[1])
 {	
 	t_color color;
 	float dist;
@@ -24,7 +24,7 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound, t_thread *tt)
 		return(color_init(0,0,0));
 	sh = rtx.shape;
 	dist = -1;
-	(shape.type == 1 || shape.type == 2)? pthread_mutex_lock (tt->mutex): 0;
+	//(shape.type == 2 || shape.type == 32 || shape.type == 21)? pthread_mutex_lock(mutex[0]): 0;
 	while (sh)
 	{
 		ldist = find_dist(cam.origin, cam.ray, sh);
@@ -37,20 +37,20 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound, t_thread *tt)
 		}
 		sh = sh->next;
 	}
-	(shape.type == 1 || shape.type == 2)? pthread_mutex_unlock (tt->mutex): 0;
+	//(shape.type == 2 || shape.type == 32 || shape.type == 21)? pthread_mutex_unlock(mutex[0]): 0;
 	if (shape.type == 1 || shape.type == 11)
 		shape.normal = normalize(min(plus(cam.origin, fois(cam.ray, dist)), shape.center));
 	make_mapping(&shape);
 	if (dist != -1.0)
 	{
 		color = color_add(cosha(rtx.amb.ratio, rtx.amb.color, shape.color),
-		cal_lit(cam, shape, &rtx, dist, tt), 1);
+		cal_lit(cam, shape, &rtx, dist, mutex[1]), 1);
 		color = color_cap(color, shape.color);
 	}
 	if (shape.refl && dist != -1.0)
 	{
 		cam.ray = min(cam.ray, fois(shape.normal , 2 * dot(cam.ray, shape.normal)));
-		color = color_mix(color, cal_col(cam, rtx, bound + 1, tt), 1 - shape.refl,
+		color = color_mix(color, cal_col(cam, rtx, bound + 1, mutex), 1 - shape.refl,
 		shape.refl);
 	}
 	if (shape.trans && dist != -1.0)
@@ -59,7 +59,7 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound, t_thread *tt)
 			cam.origin = plus(cam.origin, fois(cam.ray, dist + shape.dia));
 		else
 			cam.origin = plus(cam.origin, fois(cam.ray, dist + 0.00001)); 
-		color = color_mix(color, cal_col(cam, rtx, bound + 1, tt), 1 - shape.trans,
+		color = color_mix(color, cal_col(cam, rtx, bound + 1, mutex), 1 - shape.trans,
 		shape.trans);
 	}
 	if (dist == -1)
@@ -69,7 +69,7 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound, t_thread *tt)
 	return (color);
 }
 
-t_color         cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist, t_thread *tt)
+t_color         cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist, pthread_mutex_t *mutex)
 {
 	t_vec	light;
 	t_vec	point;
@@ -78,7 +78,7 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist, t_thread 
 	t_light *li;
 	color = color_init(0,0,0);
 	li = rtx->light;
-	(shape.type == 1 || shape.type == 2)? pthread_mutex_lock (tt->mutex): 0;
+	//(shape.type == 2|| shape.type == 32 || shape.type == 21)? pthread_mutex_lock(mutex): 0;
 	while (li)
 	{
 		
@@ -96,8 +96,8 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist, t_thread 
 		color = color_add(color, cosha(c, li->color, shape.color), 1);
 		li = li->next;
 	}
-	(shape.type == 1 || shape.type == 2) ? pthread_mutex_unlock (tt->mutex): 0;
-	(void)tt;
+//	(shape.type == 2 || shape.type == 32 || shape.type == 21) ? pthread_mutex_unlock(mutex): 0;
+	(void)mutex;
 	return (color);
 }
 
@@ -155,6 +155,7 @@ void            multi_thread(t_cam *cam, t_rtx *rtx)
 {
 	t_thread		tt[CORE];
 	pthread_mutex_t mutex;
+	pthread_mutex_t mutex2;
 	pthread_t		thread[CORE];
 	int i;
 
@@ -164,7 +165,8 @@ void            multi_thread(t_cam *cam, t_rtx *rtx)
 	{
 		rtx->coor.x = rtx->res.x / CORE  *  i;
 		tt[i].i = i;
-		tt[i].mutex = &mutex;
+		tt[i].mutex[0] = &mutex;
+		tt[i].mutex[1] = &mutex2;
 		tt[i].rtx = *rtx;
 		tt[i].cam = *cam;
 		pthread_create(&thread[i], NULL, &show, &tt[i]);
@@ -215,7 +217,7 @@ void *show(void *arg)
 				tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.right, tt->cam.rot.x);
 				tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.up, tt->cam.rot.y);
 				tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.vec, tt->cam.rot.z);
-				mlx_put_pixel_img(tt->rtx.coor.x, tt->rtx.coor.y, &(tt->cam.id), tt->rtx.res.x, cal_col((tt->cam), (tt->rtx), 0, tt));
+				mlx_put_pixel_img(tt->rtx.coor.x, tt->rtx.coor.y, &(tt->cam.id), tt->rtx.res.x, cal_col((tt->cam), (tt->rtx), 0, tt->mutex));
 				tt->rtx.coor.y++;
 			}
 			tt->rtx.coor.x++;

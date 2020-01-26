@@ -39,7 +39,6 @@ CC  = gcc
 
 FLAGS =   -L includes/minilibx -lmlx -framework OpenGL -framework Appkit -fsanitize=address -O0 -g3
 CFLAGS =  -Wall -Wextra -Werror -I includes/ -I includes/minilibx
-RM  = rm -f
 
 ${NAME}	:	${OBJS}
 	${CC}	 -o ${NAME}  ${FLAGS} ${OBJS}
