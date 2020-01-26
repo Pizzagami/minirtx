@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/24 16:00:10 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/01/26 14:51:11 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@
 
 
 #define BUFFER_SIZE 42
-#define CORE 16
+#define CORE 4
 #define StructureNotifyMask	(1L<<17)
 #define DestroyNotify	17
 #define NAF 42
 
-t_color			cal_col(t_cam, t_rtx rtx, int bound);
-t_color     	cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist);
+t_color			cal_col(t_cam, t_rtx rtx, int bound, t_thread *tt);
+t_color     	cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist, t_thread *tt);
 
 void            *cal_cam(t_rtx *rtx, void *mlx_ptr, void *mlx_win_load, t_cam *cam);
 void            multi_thread(t_cam *cam, t_rtx *rtx);

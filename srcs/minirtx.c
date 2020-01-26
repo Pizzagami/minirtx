@@ -6,13 +6,13 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/25 14:16:11 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/26 14:51:42 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirtx.h"
 
-t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
+t_color		cal_col(t_cam cam, t_rtx rtx, int bound, t_thread *tt)
 {	
 	t_color color;
 	float dist;
@@ -24,6 +24,7 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
 		return(color_init(0,0,0));
 	sh = rtx.shape;
 	dist = -1;
+	pthread_mutex_lock (tt->mutex);
 	while (sh)
 	{
 		ldist = find_dist(cam.origin, cam.ray, sh);
@@ -31,22 +32,24 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
 		{
 			dist = ldist;
 			shape = *sh;
+
 		}
 		sh = sh->next;
 	}
+	pthread_mutex_unlock (tt->mutex);
 	if (shape.type == 1 || shape.type == 11)
 		shape.normal = normalize(min(plus(cam.origin, fois(cam.ray, dist)), shape.center));
 	make_mapping(&shape);
 	if (dist != -1.0)
 	{
 		color = color_add(cosha(rtx.amb.ratio, rtx.amb.color, shape.color),
-		cal_lit(cam, shape, &rtx, dist), 1);
+		cal_lit(cam, shape, &rtx, dist, tt), 1);
 		color = color_cap(color, shape.color);
 	}
 	if (shape.refl && dist != -1.0)
 	{
 		cam.ray = min(cam.ray, fois(shape.normal , 2 * dot(cam.ray, shape.normal)));
-		color = color_mix(color, cal_col(cam, rtx, bound + 1), 1 - shape.refl,
+		color = color_mix(color, cal_col(cam, rtx, bound + 1, tt), 1 - shape.refl,
 		shape.refl);
 	}
 	if (shape.trans && dist != -1.0)
@@ -55,7 +58,7 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
 			cam.origin = plus(cam.origin, fois(cam.ray, dist + shape.dia));
 		else
 			cam.origin = plus(cam.origin, fois(cam.ray, dist + 0.00001)); 
-		color = color_mix(color, cal_col(cam, rtx, bound + 1), 1 - shape.trans,
+		color = color_mix(color, cal_col(cam, rtx, bound + 1, tt), 1 - shape.trans,
 		shape.trans);
 	}
 	if (dist == -1)
@@ -65,17 +68,17 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound)
 	return (color);
 }
 
-t_color         cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist)
+t_color         cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist, t_thread *tt)
 {
 	t_vec	light;
 	t_vec	point;
 	t_color	color;
 	float c;
 	t_light *li;
-
 	color = color_init(0,0,0);
 	li = rtx->light;
-	while (li)
+	pthread_mutex_lock (tt->mutex);
+	while (li) // mutex 
 	{
 		point = plus(cam.origin, fois(cam.ray, dist));
 		if (li->para.x || li->para.y || li->para.z)
@@ -91,6 +94,7 @@ t_color         cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist)
 		color = color_add(color, cosha(c, li->color, shape.color), 1);
 		li = li->next;
 	}
+	pthread_mutex_unlock (tt->mutex);
 	return (color);
 }
 
@@ -208,7 +212,7 @@ void *show(void *arg)
 				tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.right, tt->cam.rot.x);
 				tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.up, tt->cam.rot.y);
 				tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.vec, tt->cam.rot.z);
-				mlx_put_pixel_img(tt->rtx.coor.x, tt->rtx.coor.y, &(tt->cam.id), tt->rtx.res.x, cal_col((tt->cam), (tt->rtx), 0));
+				mlx_put_pixel_img(tt->rtx.coor.x, tt->rtx.coor.y, &(tt->cam.id), tt->rtx.res.x, cal_col((tt->cam), (tt->rtx), 0, tt));
 				tt->rtx.coor.y++;
 			}
 			tt->rtx.coor.x++;

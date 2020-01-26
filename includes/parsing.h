@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:36:32 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/25 14:20:33 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/25 15:31:42 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char			**ft_split(char *str, char *charset);
 
 void			corners(t_tg *shape);
 void			find_vecs(t_tg *shape);
+void			creat_ce(t_tg shape, t_rtx *rtx);
 void			join2(char **line, char **buf, int x);
 void			pars_sqr(int x, t_tg info, t_rtx *rtx);
 void			ft_switch(char *buf, t_rtx *rtx, int fd, int i);

@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/25 14:17:00 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/26 14:31:53 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 	}
 }
 
-void	corners(t_tg *shape)
+void		corners(t_tg *shape)
 {
 	shape->hi /= 2;
 	shape->p1 = plus(fois(plus(shape->v1,shape->v2),shape->hi),shape->center);
@@ -113,7 +113,7 @@ void	corners(t_tg *shape)
 	shape->hi *= 2;
 }
 
-void	find_vecs(t_tg *shape)
+void		find_vecs(t_tg *shape)
 {
 	if (fabsf(shape->vec.x) <= fabsf(shape->vec.y) &&
 		(fabsf(shape->vec.x) <= fabsf(shape->vec.z)))
@@ -138,4 +138,26 @@ void	find_vecs(t_tg *shape)
 	}
 	shape->v1 = normalize(shape->v1);
 	shape->v2 = normalize(cross(shape->vec, shape->v1));
+}
+
+void		creat_ce(t_tg shape, t_rtx *rtx)
+{
+	t_tg *shape1;
+	t_tg *shape2;
+
+	shape1 = malloc(sizeof(t_tg));
+	shape1->next = rtx->shape;
+	rtx->shape = shape1;
+	shape1->color = shape.color;
+	shape1->dia = shape.dia;
+	shape1->normal = shape.vec;
+	shape1->refl = shape.refl;
+	shape1->trans = shape.trans;
+	shape1->center = plus(shape.center, fois(shape.vec, shape.hi / 2));
+	shape2 = malloc(sizeof(t_tg));
+	shape2->next = rtx->shape;
+	rtx->shape = shape2;
+	shape2 = shape1;
+	shape2->center = min(shape.center, fois(shape.vec, shape.hi / 2));
+	printf("sisilafamille/n");
 }
