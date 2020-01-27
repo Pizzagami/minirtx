@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:53:33 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/23 17:40:40 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/01/27 13:31:12 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		key_hook(int key, void *param)
 			rtx->aa /= 2;
 	if (key != PREV_CAM && key != NEXT_CAM && cam->filter != 'r')
 	{
-		cal_cam(rtx, rtx->mlx_ptr, rtx->mlx_win, cam);
+		cal_cam(rtx, rtx->mlx_ptr, cam);
 		anti_aliesing(cam, rtx);
 		filter(cam->filter, rtx->res, &(cam->id));
 	}
