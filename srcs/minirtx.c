@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/26 18:28:14 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/01/27 09:38:03 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ t_color		cal_col(t_cam cam, t_rtx rtx, int bound,pthread_mutex_t *mutex[1])
 		}
 		sh = sh->next;
 	}
-	if (shape.type == 1 || shape.type == 11)
-		shape.normal = normalize(min(plus(cam.origin, fois(cam.ray, dist)), shape.center));
+	shape.normal = find_normal(shape, cam, dist);
 	make_mapping(&shape);
 	if (dist != -1.0)
 	{

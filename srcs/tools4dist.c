@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4dist.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:10:01 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/26 14:24:05 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/27 09:37:33 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ float		find_dist_cy(t_vec origin, t_vec ray, t_tg *shape, t_vec pos)
 	float b;
 	float c;
 	float x;
-	t_vec point;
 
 	a = dot(ray, ray) - dot(ray, shape->vec) * dot(ray, shape->vec);
 	b = 2 * (dot(ray, pos) - dot(ray, shape->vec) * dot(pos, shape->vec));
@@ -89,9 +88,6 @@ float		find_dist_cy(t_vec origin, t_vec ray, t_tg *shape, t_vec pos)
 		if ((fabs(a) > shape->hi / 2) || (fabs(x) > shape->hi / 2 && b < 0))
 			return (-1.0);
 	}
-	point = plus(origin, fois(ray, c));
-	shape->normal = normalize(min(point, plus(shape->center,
-	fois(shape->vec, dot(min(point, shape->center), shape->vec))))); //-1
 	return (c);
 }
 
@@ -137,7 +133,6 @@ float		find_dist_co(t_vec origin, t_vec ray, t_tg *shape, t_vec pos)
 	float b;
 	float c;
 	float x;
-	t_vec point;
 	
 	c = pow(cos(shape->dia), 2);
 	a = pow(dot(ray, shape->vec), 2) - c;
@@ -164,9 +159,6 @@ float		find_dist_co(t_vec origin, t_vec ray, t_tg *shape, t_vec pos)
 		shape->vec) / dot(ray, shape->vec)) : 0;
 	if (x > c || x < -c)
 		return(-1.0);
-	point = plus(origin, fois(ray, c));
-	shape->v2 = (dot(shape->vec, min(point, shape->center)) < 0) ? fois(shape->vec, -1): shape->vec;
-	shape->v1 = plus(fois(shape->v2, dist_dot(point, shape->center) / cos(shape->dia)), shape->center);
-	shape->normal = normalize(min(point, shape->v1)); // - quand dedans
+	 // - quand dedans
 	return (c);
 }

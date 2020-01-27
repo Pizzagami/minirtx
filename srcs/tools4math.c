@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4math.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/15 15:57:12 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/27 09:38:56 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,25 @@ int			distsqr(t_tg shape, t_vec   dot)
 int			distce(t_tg shape, t_vec dot)
 {
 	return ((dist_dot(dot, shape.center) > (shape.dia)) ? 0: 1);
+}
+
+t_vec	find_normal(t_tg shape, t_cam cam, float dist)
+{
+	t_vec point;
+	t_vec normal;
+
+	point = plus(cam.origin, fois(cam.ray, dist));
+	if (shape.type == 1 || shape.type == 11)
+		normal = normalize(min(point, shape.center));
+	else if (shape.type == 32)
+	{
+		shape.v2 = (dot(shape.vec, min(point, shape.center)) < 0) ? fois(shape.vec, -1): shape.vec;
+		shape.v1 = plus(fois(shape.v2, dist_dot(point, shape.center) / cos(shape.dia)), shape.center);
+		normal = normalize(min(point, shape.v1));
+	}
+	else if (shape.type == 2)
+		normal = normalize(min(point, plus(shape.center,fois(shape.vec, dot(min(point, shape.center), shape.vec)))));
+	else
+		normal = shape.normal;
+	return(normal);
 }
