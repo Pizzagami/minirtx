@@ -31,6 +31,7 @@ SRCS = 	./srcs/minirtx.c		\
 		./srcs/tools4load.c		\
 		./srcs/get_next_line.c	\
 		./srcs/tools4dist.c		\
+		./srcs/solver.c			\
 
 
 OBJS = ${SRCS:.c=.o}
