@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:10:01 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/27 09:37:33 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/01/27 14:28:55 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,17 +148,12 @@ float		find_dist_co(t_vec origin, t_vec ray, t_tg *shape, t_vec pos)
 	c = (c > a && a > 0.0001) ? a : c;
 	a = dot(ray, shape->vec) * c + dot(pos, shape->vec);
 	x = dot(min(shape->center, origin), shape->vec);
-	if ((fabs(a) > shape->hi / 2) || (fabs(x) > shape->hi / 2 && c < 0))
+	if ((fabs(a) > shape->hi / 2) || (fabs(x) > shape->hi / 2 && c < 0) || a > 0)
 	{
 		a = dot(ray, shape->vec) * b + dot(pos, shape->vec);
 		c = b;
-		if ((fabs(a) > shape->hi / 2) || (fabs(x) > shape->hi / 2 && b < 0))
+		if ((fabs(a) > shape->hi / 2) || (fabs(x) > shape->hi / 2 && b < 0) || a > 0)
 			return (-1.0);
 	}
-	x = (dot(ray, shape->vec) != 0) ? (dot(min(shape->center, origin),
-		shape->vec) / dot(ray, shape->vec)) : 0;
-	if (x > c || x < -c)
-		return(-1.0);
-	 // - quand dedans
 	return (c);
 }
