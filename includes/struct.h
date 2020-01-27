@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/27 09:22:48 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/01/27 13:10:42 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ typedef struct	s_all
 	int		cam_num;
 	void	*mlx_ptr;
 	void	*mlx_win;
+	int		bound;
 }				t_rtx;
 
 typedef struct	s_matrix

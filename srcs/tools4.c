@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 17:26:19 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/26 15:55:50 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/27 10:44:28 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,3 +98,4 @@ void	make_mapping(t_tg *shape)
 	shape->color.g = (unsigned char)shape->color.g;
 	shape->color.b = (unsigned char)shape->color.b;
 }
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/26 18:16:22 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/01/27 13:24:17 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@
 #define DestroyNotify	17
 #define NAF 42
 
-t_color			cal_col(t_cam, t_rtx rtx, int bound, pthread_mutex_t *mutex[1]);
-t_color     	cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist, pthread_mutex_t *mutex);
+t_color			cal_col(t_cam, t_rtx rtx, int bound);
+t_color     	cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist);
+t_color		    make_color(t_rtx *rtx, t_tg *shape, float dist, t_cam *cam);
 
-void            *cal_cam(t_rtx *rtx, void *mlx_ptr, void *mlx_win_load, t_cam *cam);
+void            *cal_cam(t_rtx *rtx, void *mlx_ptr, t_cam *cam);
 void            multi_thread(t_cam *cam, t_rtx *rtx);
 int				key_hook(int key, void *param);
 

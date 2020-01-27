@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/27 09:38:47 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/01/27 13:10:51 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ t_vec			plus(t_vec truc, t_vec machin);
 t_vec           vec_matrixed(t_vec v, t_matrix m);
 t_vec			cross(t_vec machin, t_vec bidule);
 t_vec		    init_vec(float x, float y, float z);
+t_vec		    cal_pix(t_thread *tt, float pw, float ph);
 t_vec           find_normal(t_tg shape, t_cam cam, float dist);
 
 
