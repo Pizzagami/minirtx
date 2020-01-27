@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/26 14:31:53 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/26 17:12:25 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,17 +147,16 @@ void		creat_ce(t_tg shape, t_rtx *rtx)
 
 	shape1 = malloc(sizeof(t_tg));
 	shape1->next = rtx->shape;
-	rtx->shape = shape1;
+	shape1->type = 7;
 	shape1->color = shape.color;
-	shape1->dia = shape.dia;
+	shape1->dia = shape.dia / 2;
 	shape1->normal = shape.vec;
 	shape1->refl = shape.refl;
 	shape1->trans = shape.trans;
 	shape1->center = plus(shape.center, fois(shape.vec, shape.hi / 2));
 	shape2 = malloc(sizeof(t_tg));
-	shape2->next = rtx->shape;
+	*shape2 = *shape1;
+	shape2->next = shape1;
 	rtx->shape = shape2;
-	shape2 = shape1;
 	shape2->center = min(shape.center, fois(shape.vec, shape.hi / 2));
-	printf("sisilafamille/n");
 }

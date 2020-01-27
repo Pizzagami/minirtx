@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/26 15:56:50 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/01/26 18:16:22 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 #define DestroyNotify	17
 #define NAF 42
 
-t_color			cal_col(t_cam, t_rtx rtx, int bound, t_thread *tt);
-t_color     	cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist, t_thread *tt);
+t_color			cal_col(t_cam, t_rtx rtx, int bound, pthread_mutex_t *mutex[1]);
+t_color     	cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist, pthread_mutex_t *mutex);
 
 void            *cal_cam(t_rtx *rtx, void *mlx_ptr, void *mlx_win_load, t_cam *cam);
 void            multi_thread(t_cam *cam, t_rtx *rtx);

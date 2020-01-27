@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/25 15:19:02 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/26 17:50:16 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ typedef struct		s_send
 typedef struct		s_thread
 {
 	int				i;
-	pthread_mutex_t *mutex;
+	pthread_mutex_t *mutex[2];
 	t_rtx			rtx;
 	t_cam			cam;
 }					t_thread;
