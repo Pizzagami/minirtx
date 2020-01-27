@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/26 17:37:57 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/27 17:17:17 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ char		*pars_c(char **buf, t_rtx *rtx)
 	cam->rot = init_vec(0,0,0);
 	return(ret);
 }
-
 
 char		*pars_l(char **buf, t_rtx *rtx)
 {
@@ -373,7 +372,6 @@ char		*pars_ce(char **buf, t_rtx *rtx)
 	if (shape->dia < 0)
 		return("Value out of range for diameter of cercle");
 	ret = join(ret, read_color(buf[4], &(shape->color), " of cercle")); //trnapaence et reflextion
-	
 	return(ret);
 }
 

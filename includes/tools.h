@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/27 13:10:51 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/27 17:04:18 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ float			find_dist_sp(t_vec   origin, t_vec ray, t_tg shape);
 float			find_dist_stcp(t_vec   origin, t_vec ray, t_tg shape);
 float			find_dist_cy(t_vec   origin, t_vec ray, t_tg *shape, t_vec pos);
 float			find_dist_co(t_vec origin, t_vec ray, t_tg *shape, t_vec pos);
-float			find_dist_sa(t_vec origin, t_vec ray, t_tg *shape, t_vec pos);
 float	        cal_lite_inter(t_rtx rtx, t_light *li, t_vec point, t_tg shape);
 
 void			ft_putnbr(int nb);

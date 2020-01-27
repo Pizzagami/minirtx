@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:39:59 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/27 13:23:55 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/27 16:05:41 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@ t_color		cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist)
 			light = normalize(min(li->pos, point));
 		if (dot(shape.normal, cam.ray) > 0)
 			shape.normal = fois(shape.normal, -1);
+		// float test = find_dist(min(plus(cam.origin, fois(cam.ray, dist)), fois(shape.normal, 0.1)), fois(light, -1), &shape);
+		// if (test == -1)
+		// 	c = 0;
+		// else
 		c = dot(light, shape.normal);
 		if (c < 0)
 			c = 0;
@@ -213,7 +217,7 @@ void		*show(void *arg)
 	tt = (t_thread*)arg;
 	pw = 2 * tan((float)tt->cam.fov / 360 * M_PI) / tt->rtx.res.x * tt->rtx.ar;
 	ph = 2 * tan((float)tt->cam.fov / 360 * M_PI) / tt->rtx.res.y;
-	while (tt->rtx.coor.x < tt->rtx.res.x / CORE * (tt->i + 1))
+	while (tt->rtx.coor.x < ceil((float)tt->rtx.res.x / (float)CORE * (float)(tt->i + 1)))
 	{
 		tt->rtx.coor.y = 0;
 		while (tt->rtx.coor.y < tt->rtx.res.y)

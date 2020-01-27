@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4math.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/27 09:38:56 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/01/27 17:17:11 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_vec	find_normal(t_tg shape, t_cam cam, float dist)
 	point = plus(cam.origin, fois(cam.ray, dist));
 	if (shape.type == 1 || shape.type == 11)
 		normal = normalize(min(point, shape.center));
-	else if (shape.type == 32)
+	else if (shape.type == 21 || shape.type == 32)
 	{
 		shape.v2 = (dot(shape.vec, min(point, shape.center)) < 0) ? fois(shape.vec, -1): shape.vec;
 		shape.v1 = plus(fois(shape.v2, dist_dot(point, shape.center) / cos(shape.dia)), shape.center);
