@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solver.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 18:10:42 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/28 12:54:43 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/01/28 13:48:41 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_vec   solver4(float coef[5])
             po = sqrtf(po);
         else 
             //return(0)
-
+        ;
     }
     return(init_vec(0,0,0));
 }

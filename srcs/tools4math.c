@@ -3,15 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   tools4math.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/27 18:11:09 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/28 13:48:36 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tools.h"
 
+int			second_degre(float a, float b, float c, float *x1, float *x2)
+{
+	float d;
+
+	if (a == 0)
+	{
+		*x1 = - c / b;
+		return (1);
+	}
+	d = pow(b, 2) - 4 * a * c;
+	if (d < 0)
+		return (0);
+	else if (d == 0)
+	{
+		*x1 = -b / (2 * a);
+		return (1);
+	}
+	else
+	{
+		*x1 = (-b + sqrt(d)) / (2 * a);
+		*x2 = (-b - sqrt(d)) / (2 * a);
+		return (2);
+	}
+} 
 
 int			distri(t_tg tri, t_vec p)
 {
