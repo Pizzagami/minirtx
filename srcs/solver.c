@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 18:10:42 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/28 12:54:43 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/01/28 13:35:25 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_vec   solver4(float coef[5])
         else if (po > 0)
             po = sqrtf(po);
         else 
-            //return(0)
+            return(init_vec(0,0,0));
 
     }
     return(init_vec(0,0,0));

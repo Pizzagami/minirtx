@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 19:17:07 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/27 13:08:55 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/28 14:02:49 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ t_color color_cap(t_color color, t_color max)
 
 t_color color_add(t_color base, t_color add, float coef)
 {
-   base.r += (unsigned char)add.r * coef;
-   base.g += (unsigned char)add.g * coef;
-   base.b += (unsigned char)add.b * coef;
+    base.r += add.r * coef;
+    base.g += add.g * coef;
+    base.b += add.b * coef;
    return (base);
 }
 
