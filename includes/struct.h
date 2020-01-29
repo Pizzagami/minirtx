@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/27 13:10:42 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/28 14:18:14 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@ typedef struct	s_vec
 	float y;
 	float z;
 }				t_vec;
+
+typedef struct	s_tor
+{
+	int nb;
+	double s0;
+	double s1;
+	double s2;
+	double s3;
+}				t_tor;
 
 typedef struct 	s_color
 {

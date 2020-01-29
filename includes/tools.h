@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/27 17:57:03 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/28 14:44:22 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char			*read_color(char *buf, t_color *color,char *str);
 char            *read_float(char *str, float *value, char *id, float max);
 
 float      		ft_atof(char *buf);
+float   		dist_tor(float coef[5]);
 float			dot(t_vec machin, t_vec bidule);
 float   		dist_dot(t_vec machin, t_vec bidule);
 float			find_dist(t_vec origin, t_vec ray, t_tg *shape);
@@ -82,5 +83,6 @@ t_color		    cm(t_color c1, t_color c2, t_color c3, t_color c4);
 t_color         color_mix(t_color c1, t_color c2, float r1, float r2);
 
 t_matrix        init_matrix(t_vec a, t_vec b, t_vec c);
+t_tor			init_tor(int nb, float x, float y, float z, float a);
 
 #endif

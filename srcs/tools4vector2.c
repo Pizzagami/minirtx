@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4vector2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 19:19:08 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/19 16:44:15 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/28 14:20:06 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,17 @@ t_vec		init_vec(float x, float y, float z)
 	vec.x = x;
 	vec.y = y;
 	vec.z = z;
+	return(vec);
+}
+
+t_tor		init_tor(int nb, float x, float y, float z, float a)
+{
+	t_tor vec;
+
+	vec.nb = nb;
+	vec.s0 = x;
+	vec.s1 = y;
+	vec.s2 = z;
+	vec.s3 = a;
 	return(vec);
 }

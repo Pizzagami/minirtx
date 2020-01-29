@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:36:32 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/25 15:31:42 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/28 14:59:14 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int				clear_buff(int x, int fd, char ***buf);
 char			*pars_a(char **buf, t_rtx *rtx);
 char			*pars_r(char **buf, t_rtx *rtx); 
 char			*pars_c(char **buf, t_rtx *rtx); 
-char			*pars_l(char **buf, t_rtx *rtx); 
+char			*pars_l(char **buf, t_rtx *rtx);
+char			*pars_t(char **buf, t_rtx *rtx); 
 char			*pars_s(char **buf, t_rtx *rtx);
 char		    *pars_sm(char **buf, t_rtx *rtx);
 char 			*pars_pl(char **buf, t_rtx *rtx);
