@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/27 17:55:24 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/30 14:08:09 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -372,35 +372,6 @@ char		*pars_ce(char **buf, t_rtx *rtx)
 	if (shape->dia < 0)
 		return("Value out of range for diameter of cercle");
 	ret = join(ret, read_color(buf[4], &(shape->color), " of cercle")); //trnapaence et reflextion
-	return(ret);
-}
-
-char		*pars_t(char **buf, t_rtx *rtx)
-{
-	char *ret;
-	t_tg *shape;
-
-	shape = malloc(sizeof(t_tg));
-	shape->next = rtx->shape;
-	rtx->shape = shape;
-	shape->type = 42;
-	shape->trans = 0;
-	shape->refl = 0;
-	if (!buf[1] || !buf[2] || !buf[3] || !buf[4] || !buf[5])
-		return("Missing argument(s) on declaraton of torus");
-	if (buf[6] != NULL)
-		return("Too many arguments on declaration of torus");
-	ret = read_pos(buf[1], &(shape->center), " of torus");
-	ret = join(ret, read_vec(buf[2], &(shape->normal), " of torus"));
-	shape->dia = ft_atof(buf[3]);
-	shape->hi = ft_atof(buf[4]);
-	if (isnan(shape->dia))
-		return("Invalid number for diameter of torus");
-	if (isnan(shape->hi))
-		return("Invalid number for diameter of torus");
-	if (shape->dia < 0)
-		return("Value out of range for diameter of torus");
-	ret = join(ret, read_color(buf[5], &(shape->color), " of torus")); //trnapaence et reflextion
 	return(ret);
 }
 
