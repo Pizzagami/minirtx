@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4math.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/28 13:48:36 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/28 14:06:19 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int			second_degre(float a, float b, float c, float *x1, float *x2)
 		*x2 = (-b - sqrt(d)) / (2 * a);
 		return (2);
 	}
-} 
+}
 
 int			distri(t_tg tri, t_vec p)
 {
