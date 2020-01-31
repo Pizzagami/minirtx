@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:39:59 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/31 09:32:39 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/31 11:28:43 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ t_color		cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist)
 			light = fois(li->para, -1);
 		else
 			light = normalize(min(li->pos, point));
-		if (dot(shape.normal, cam.ray) > 0)
-			shape.normal = fois(shape.normal, 1);
+		if ((shape.type == 4 || shape.type == 0 || shape.type == 3) && dot(shape.normal, cam.ray) > 0)
+			shape.normal = fois(shape.normal, -1);
 		c = dot(light, shape.normal);
 		if (c < 0)
 			c = 0;

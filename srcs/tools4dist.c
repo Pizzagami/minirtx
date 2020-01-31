@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:10:01 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/27 18:10:17 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/31 11:05:35 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ float		find_dist_t(t_vec origin, t_vec ray, t_tg *shape, t_vec pos)
 	float e;
 	float f;
 
+	(void)pos;
+	f = 69;
 	sum = dot(ray, ray);
 	e = dot(origin, origin) - pow(shape->dia, 2) - pow(shape->hi, 2);
 	dot (origin ,ray);
@@ -139,4 +141,5 @@ float		find_dist_t(t_vec origin, t_vec ray, t_tg *shape, t_vec pos)
 	coef[2] = 2 * sum * e + 4 * f * f + four * pow(ray.y, 2);
 	coef[3] = 4 * sum * f;
 	coef[4] = sum * sum;
+	return 1;
 }
