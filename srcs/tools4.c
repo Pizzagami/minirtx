@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 17:26:19 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/27 10:44:28 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/28 16:44:12 by raimbaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,8 @@ void	write_number_in_file(int nb, int fd)
 	write(fd, &nb, sizeof(int));
 }
 
-void	export_to_bmp(char *id, t_res res)
+void		write_header(int fd, t_res res)
 {
-	int fd;
-
-	char c;
-	char full = (char)255;
-	fd = open("./file.bmp", O_CREAT | O_WRONLY, 777);
 	write(fd, "BM", 2); //identifier
 	write_number_in_file(54 + 4 * res.x * res.y, fd); //size of file
 	write_number_in_file(0, fd); //reserved
@@ -60,18 +55,27 @@ void	export_to_bmp(char *id, t_res res)
 	write_number_in_file(0, fd); //nb colors
 	write_number_in_file(0, fd); //nb important colors
 
-	int y = res.y - 1;
+}
+
+void		export_to_bmp(char *id, t_res res)
+{
+	int		fd;
+	char	full;
+	int		y;
+	int		x;
+
+	full = (char)255;
+	fd = open("./file.bmp", O_CREAT | O_WRONLY, 777);
+	write_header(fd, res);
+	y = res.y - 1;
 	while (y >= 0)
 	{
-		int x = 0;
+		x = 0;
 		while (x < res.x)
 		{
-			c = id[(y * res.x + x) * 4];
-			write(fd, &c, 1);
-			c = id[(y * res.x + x) * 4 + 1];
-			write(fd, &c, 1);
-			c = id[(y * res.x + x) * 4 + 2];
-			write(fd, &c, 1);
+			write(fd, &id[(y * res.x + x) * 4], 1);
+			write(fd, &id[(y * res.x + x) * 4 + 1], 1);
+			write(fd, &id[(y * res.x + x) * 4 + 2], 1);
 			write(fd, &full, 1);
 			x++;
 		}

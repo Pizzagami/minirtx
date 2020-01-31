@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4vector.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 19:18:20 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/23 14:16:45 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/29 11:46:42 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ t_vec	normalize(t_vec vec)
 	vec.y /= sqrtf(dot(tmp, tmp));
 	vec.z /= sqrtf(dot(tmp, tmp));
 	return(vec);
+}
+
+float	length(t_vec vec)
+{
+	return(sqrtf(dot(vec, vec)));
 }
 
 t_vec	min(t_vec truc, t_vec machin)

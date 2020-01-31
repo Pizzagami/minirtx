@@ -1,55 +1,80 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools4aa.c                                         :+:      :+:    :+:   */
+/*   ft_tools4aa.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 10:38:58 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/23 11:59:08 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/28 14:30:10 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirtx.h"
 
-void	anti_aliesing(t_cam *cam, t_rtx *rtx)
+static void	apply_aa(t_rtx *rtx, t_cam *cam, char **id)
 {
 	int		x;
 	int		y;
-	t_color color;
+	t_color	color;
+
+	x = 0;
+	while (x < rtx->res.x)
+	{
+		y = 0;
+		while (y < rtx->res.y)
+		{
+			rtx->res.x *= rtx->aa;
+			color = cm(cp(x * 2, y * 2, cam->id, rtx->res), cp(x * 2 + 1, y * 2,
+			cam->id, rtx->res), cp(x * 2 + 1, y * 2 + 1, cam->id, rtx->res),
+			cp(x * 2, y * 2 + 1, cam->id, rtx->res));
+			rtx->res.x /= rtx->aa;
+			mlx_put_pixel_img(x, y, id, rtx->res.x, color);
+			y++;
+		}
+		x++;
+	}
+}
+
+static void	apply_lq(t_rtx *rtx, t_cam *cam, char **id)
+{
+	int		x;
+	int		y;
+	t_color	color;
+
+	x = 0;
+	while (x < rtx->res.x)
+	{
+		y = 0;
+		while (y < rtx->res.y)
+		{
+				rtx->res.x /= 1 / rtx->aa;
+				color = cp(x / (1 / rtx->aa), y / (1 / rtx->aa),
+				cam->id, rtx->res);
+				rtx->res.x *= 1 / rtx->aa;
+			mlx_put_pixel_img(x, y, id, rtx->res.x, color);
+			y++;
+		}
+		x++;
+	}
+}
+
+void		anti_aliesing(t_cam *cam, t_rtx *rtx)
+{
+	int		x;
 	void	*img_ptr;
 	char	*id;
 
 	if (rtx->aa == 1)
 		return;
-	int bite = 1 / rtx->aa;
 	rtx->res.x /= rtx->aa;
 	rtx->res.y /= rtx->aa;
 	img_ptr = mlx_new_image(rtx->mlx_ptr, rtx->res.x, rtx->res.y);
 	id = mlx_get_data_addr(img_ptr, &x, &x, &x);
-	x = 0;
-	while(x < rtx->res.x)
-	{
-		y = 0;
-		while(y < rtx->res.y)
-		{
-			if (rtx->aa > 1)
-			{
-			rtx->res.x *= rtx->aa;
-			color = cm(cp(x * 2, y * 2, cam->id, rtx->res), cp(x * 2 + 1, y * 2, cam->id, rtx->res), cp(x * 2 + 1, y * 2 + 1, cam->id, rtx->res), cp(x * 2, y * 2 + 1, cam->id, rtx->res));
-			rtx->res.x /= rtx->aa;
-			}
-			else
-			{
-				rtx->res.x /= bite;
-				color = cp(x / bite, y / bite, cam->id, rtx->res);
-				rtx->res.x *= bite;
-			}
-			mlx_put_pixel_img(x, y, &id, rtx->res.x, color);
-			y++;
-		}
-		x++;
-	}
+	if (rtx->aa > 1)
+		apply_aa(rtx, cam, &id);
+	else if (rtx->aa < 1)
+		apply_lq(rtx, cam, &id);
 	cam->id = id;
 	cam->img = img_ptr;
 }

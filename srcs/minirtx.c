@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:39:59 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/28 14:00:21 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/01/29 11:48:40 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,6 @@ t_color		cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist)
 			light = normalize(min(li->pos, point));
 		if (dot(shape.normal, cam.ray) > 0)
 			shape.normal = fois(shape.normal, -1);
-		// float test = find_dist(min(plus(cam.origin, fois(cam.ray, dist)), fois(shape.normal, 0.1)), fois(light, -1), &shape);
-		// if (test == -1)
-		// 	c = 0;
-		// else
 		c = dot(light, shape.normal);
 		if (c < 0)
 			c = 0;
@@ -129,7 +125,7 @@ int			main(int argc, char **argv)
 	mlx_key_hook(rtx.mlx_win, key_hook, &rtx);
 	mlx_put_image_to_window(rtx.mlx_ptr, rtx.mlx_win, rtx.cam->img, 0, 0);
 	if (rtx.save)
-		export_to_bmp(rtx.cam->id, rtx.res);
+		;//export_to_bmp(rtx.cam->id, rtx.res);
 	mlx_loop(rtx.mlx_ptr);
 	return (EXIT_SUCCESS);
 }

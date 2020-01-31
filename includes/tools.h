@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/27 17:57:03 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/29 11:47:04 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char			*read_pos(char *buf, t_vec *vec, char *id);
 char			*read_color(char *buf, t_color *color,char *str);
 char            *read_float(char *str, float *value, char *id, float max);
 
+float	        length(t_vec vec);
 float      		ft_atof(char *buf);
 float			dot(t_vec machin, t_vec bidule);
 float   		dist_dot(t_vec machin, t_vec bidule);
