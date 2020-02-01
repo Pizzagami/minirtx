@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 09:27:03 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/01 09:27:16 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/01 11:40:41 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		filter(char f, t_res res, char **id)
 static void	delete_cam(t_cam *ca)
 {
 	t_cam *tmp;
-	
+
 	tmp = ca->next;
 	ca->next = ca->next->next;
 	free(tmp);

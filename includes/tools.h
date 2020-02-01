@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/01 09:24:25 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/01 10:36:11 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int     		distsqr(t_tg shape, t_vec   dot);
 int				second_degre(float a, float b, float c, float *x1, float *x2);
 
 char		    *ft_itoa(int n);
-char			*check_ligne(char *str);
 char			*join(char *s1, char *s2);
 char			*strjoin(int nbr, char *s1, ...);
 char			*read_vec(char *buf, t_vec *vec, char *id);

@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/31 11:21:54 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/01 10:18:30 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 
 t_color			cal_col(t_cam, t_rtx rtx, int bound);
 t_color     	cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist);
-t_color		    make_color(t_rtx *rtx, t_tg *shape, float dist, t_cam *cam);
 
 void            *cal_cam(t_rtx *rtx, void *mlx_ptr, t_cam *cam);
 void            multi_thread(t_cam *cam, t_rtx *rtx);

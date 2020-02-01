@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/26 17:12:25 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/02/01 10:28:10 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,20 @@ t_rtx		parsing(int fd, void *mlx_ptr)
 		exit(EXIT_FAILURE);
 	}
 	return(rtx);
+}
+
+static char	*check_ligne(char *str)
+{
+	int i;
+
+	i = 1;
+	while (str[i])
+	{
+		if (str[i] == ',' && str[i - 1] == ',')
+			return ("Invalid line format");
+		i++;
+	}
+	return (NULL);
 }
 
 void		ft_switch(char *str, t_rtx *rtx, int fd, int i)

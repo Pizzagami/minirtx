@@ -13,21 +13,25 @@
 NAME = miniRT
 
 SRCS = 	./srcs/minirtx.c		\
+		./srcs/anti_aliasing.c	\
+		./srcs/basics.c			\
+		./srcs/cals.c			\
+		./srcs/color.c			\
+		./srcs/color_basics.c	\
+		./srcs/converters.c		\
 		./srcs/filter.c			\
-		./srcs/tools.c			\
+		./srcs/image.c			\
 		./srcs/parsing.c		\
-		./srcs/mlx_hook.c		\
+		./srcs/put.c			\
+		./srcs/readers.c		\
+		./srcs/hook.c			\
 		./srcs/pars2.c			\
-		./srcs/tools2.c			\
-		./srcs/tools3.c			\
-		./srcs/tools4.c			\
-		./srcs/tools4color.c	\
+		./srcs/other_tools.c	\
 		./srcs/tools4vector.c	\
 		./srcs/tools4vector2.c	\
-		./srcs/tools4transf.c	\
+		./srcs/transformation.c	\
 		./srcs/tools4math.c		\
-		./srcs/tools4lite.c		\
-		./srcs/anti_aliasing.c	\
+		./srcs/light.c		\
 		./srcs/ft_split.c		\
 		./srcs/tools4load.c		\
 		./srcs/get_next_line.c	\
