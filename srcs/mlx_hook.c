@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:53:33 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/27 13:31:12 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/01 09:24:46 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int		exit_hook(void *param)
 
 int		key_hook(int key, void *param)
 {
-	printf("%d\n", key);
 	t_rtx	*rtx = param;
 	int i;
 	t_cam	*cam;
@@ -52,7 +51,7 @@ int		key_hook(int key, void *param)
 	if (key != PREV_CAM && key != NEXT_CAM && cam->filter != 'r')
 	{
 		cal_cam(rtx, rtx->mlx_ptr, cam);
-		anti_aliesing(cam, rtx);
+		anti_aliasing(cam, rtx);
 		filter(cam->filter, rtx->res, &(cam->id));
 	}
 	mlx_put_image_to_window(rtx->mlx_ptr, rtx->mlx_win, cam->img, 0, 0);

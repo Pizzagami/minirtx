@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:39:59 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/31 11:28:43 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/01 09:25:03 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int			main(int argc, char **argv)
 	{
 		cal_cam(&rtx, rtx.mlx_ptr, ca);
 		filter(ca->filter, rtx.res, &(ca->id));
-		anti_aliesing(ca, &rtx);
+		anti_aliasing(ca, &rtx);
 		ca = ca->next;
 	}
 	make_3d(&(rtx.cam), rtx.res);

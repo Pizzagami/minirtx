@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/31 11:04:36 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/01 09:24:25 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	        apply_filter(int key, t_cam *cam);
 void            make_rotation(int key, t_cam *cam);
 void	        export_to_bmp(char *id, t_res res);
 void            make_translation(int key, t_cam *cam);
-void            anti_aliesing(t_cam *cam, t_rtx *rtx);
+void            anti_aliasing(t_cam *cam, t_rtx *rtx);
 void            filter(char filter, t_res res, char **id);
 void            create_tri(t_vec p1, t_vec p2, t_vec p3, t_rtx *rtx);
 void			damier(t_vec point, t_tg *shape, t_color *color, float dist);
