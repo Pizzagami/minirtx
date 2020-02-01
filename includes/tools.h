@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/01 10:36:11 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/01 12:15:37 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int     		distri(t_tg tri, t_vec p);
 int				ft_strcmp(char *s1, char *s2);
 int				distce(t_tg shape, t_vec dot);
 int     		distsqr(t_tg shape, t_vec   dot);
-int				second_degre(float a, float b, float c, float *x1, float *x2);
+int		    	second_degre(t_vec v, float *x1, float *x2);
 
 char		    *ft_itoa(int n);
 char			*join(char *s1, char *s2);
@@ -68,8 +68,8 @@ t_vec           vec_matrixed(t_vec v, t_matrix m);
 t_vec			cross(t_vec machin, t_vec bidule);
 t_vec		    init_vec(float x, float y, float z);
 t_vec		    cal_pix(t_thread *tt, float pw, float ph);
+t_vec   		rotate_vec(t_vec base, t_vec rot, float angle);
 t_vec           find_normal(t_tg shape, t_cam cam, float dist);
-
 
 t_color			lfois(t_color color, float a);
 t_color			color_init(int r, int g, int b);

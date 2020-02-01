@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reader.c                                           :+:      :+:    :+:   */
+/*   readers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 10:05:12 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/01 10:05:35 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/01 11:55:28 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,17 @@ char	*read_pos(char *str, t_vec *vec, char *id)
 		return (join("Invalid float for position z", id));
 	if (str[ft_strlen(str) - 1] < '0' || str[ft_strlen(str) - 1] > '9')
 		return (join("Invalid format for position ", id));
+	return (NULL);
+}
+
+char	*read_float(char *str, float *value, char *id, float max)
+{
+	*value = ft_atof(str);
+	if (isnan(*value))
+		return (join("invalid value for ", id));
+	if (*value < 0)
+		return (join("Value out of range for ", id));
+	if (max > 0 && *value > max)
+		return (join("Value out of range for ", id));
 	return (NULL);
 }

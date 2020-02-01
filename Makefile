@@ -27,15 +27,16 @@ SRCS = 	./srcs/minirtx.c		\
 		./srcs/hook.c			\
 		./srcs/pars2.c			\
 		./srcs/other_tools.c	\
-		./srcs/tools4vector.c	\
-		./srcs/tools4vector2.c	\
+		./srcs/vector.c			\
+		./srcs/vector_basics.c	\
+		./srcs/matrix.c			\
 		./srcs/transformation.c	\
-		./srcs/tools4math.c		\
-		./srcs/light.c		\
+		./srcs/maths.c			\
+		./srcs/light.c			\
 		./srcs/ft_split.c		\
-		./srcs/tools4load.c		\
 		./srcs/get_next_line.c	\
-		./srcs/tools4dist.c		\
+		./srcs/dist_main.c		\
+		./srcs/dist_others.c	\
 		./srcs/solver.c			\
 
 

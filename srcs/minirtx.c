@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:39:59 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/01 10:18:10 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/01 11:47:05 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,26 +73,6 @@ void		multi_thread(t_cam *cam, t_rtx *rtx)
 	}
 }
 
-t_vec		rotate_vec(t_vec base, t_vec rot, float angle)
-{
-	float		c;
-	float		s;
-	t_matrix	matrix;
-
-	c = cos(angle);
-	s = sin(angle);
-	matrix.a = init_vec(rot.x * rot.x * (1 - c) + c, rot.x * rot.y * (1 - c)
-	- rot.z * s, rot.x * rot.z * (1 - c) + rot.y * s);
-	matrix.b = init_vec(rot.x * rot.y * (1 - c) + rot.z * s, rot.y * rot.y *
-	(1 - c) + c, rot.y * rot.z * (1 - c) - rot.x * s);
-	matrix.c = init_vec(rot.x * rot.z * (1 - c) - rot.y * s, rot.y * rot.z *
-	(1 - c) + rot.x * s, rot.z * rot.z * (1 - c) + c);
-	base = vec_matrixed(base, matrix);
-	return (base);
-}
-
-
-
 void		*show(void *arg)
 {
 	t_thread	*tt;
@@ -103,7 +83,8 @@ void		*show(void *arg)
 	tt = (t_thread*)arg;
 	pw = 2 * tan((float)tt->cam.fov / 360 * M_PI) / tt->rtx.res.x * tt->rtx.ar;
 	ph = 2 * tan((float)tt->cam.fov / 360 * M_PI) / tt->rtx.res.y;
-	while (tt->rtx.coor.x < ceil((float)tt->rtx.res.x / (float)CORE * (float)(tt->i + 1)))
+	while (tt->rtx.coor.x < ceil((float)tt->rtx.res.x / (float)CORE *
+	(float)(tt->i + 1)))
 	{
 		tt->rtx.coor.y = 0;
 		while (tt->rtx.coor.y < tt->rtx.res.y)

@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 14:19:00 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/01 10:37:19 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/01 11:48:02 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	init_lst(t_rtx *rtx)
 	rtx->light = NULL;
 }
 
-void		make_mapping(t_tg *shape)
+void	make_mapping(t_tg *shape)
 {
 	float u;
 	float v;
