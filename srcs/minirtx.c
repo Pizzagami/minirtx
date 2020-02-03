@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:39:59 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/03 11:04:01 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/03 11:10:21 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void		*show(void *arg)
 	t_thread	*tt;
 	float		pw;
 	float		ph;
-	t_vec		pix;
 
 	tt = (t_thread*)arg;
 	pw = 2 * tan((float)tt->cam.fov / 360 * M_PI) / tt->rtx.res.x * tt->rtx.ar;
@@ -93,12 +92,11 @@ void		*show(void *arg)
 		tt->rtx.coor.y = 0;
 		while (tt->rtx.coor.y < tt->rtx.res.y)
 		{
-			pix = cal_pix(tt, pw, ph);
-			tt->cam.ray = normalize(min(tt->cam.origin, pix));
+			tt->cam.ray = normalize(min(tt->cam.origin, cal_pix(tt, pw, ph)));
 			tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.right, tt->cam.rot.x);
 			tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.up, tt->cam.rot.y);
 			tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.vec, tt->cam.rot.z);
-			mlx_put_pixel_img(init_res(tt->rtx.coor.x, tt->rtx.coor.y), &(tt->cam.id),
+			put_pixel(init_res(tt->rtx.coor.x, tt->rtx.coor.y), &(tt->cam.id),
 			tt->rtx.res.x, cal_col((tt->cam), (tt->rtx), 0));
 			tt->rtx.coor.y++;
 		}

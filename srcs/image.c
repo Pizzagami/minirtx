@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 10:34:04 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/03 10:47:24 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/03 11:07:37 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void		export_to_bmp(char *id, t_res res)
 	}
 }
 
-void		mlx_put_pixel_img(t_res r, char **id, int sl, t_color color)
+void		put_pixel(t_res r, char **id, int sl, t_color color)
 {
 	(*id)[(r.x + (r.y * sl)) * 4] = (char)color.b;
 	(*id)[((r.x + (r.y * sl)) * 4) + 1] = (char)color.g;

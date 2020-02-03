@@ -12,31 +12,32 @@
 
 NAME = miniRT
 
-SRCS = 	./srcs/minirtx.c		\
-		./srcs/anti_aliasing.c	\
+SRCS = 	./srcs/anti_aliasing.c	\
 		./srcs/basics.c			\
 		./srcs/cals.c			\
-		./srcs/color.c			\
 		./srcs/color_basics.c	\
+		./srcs/color.c			\
 		./srcs/converters.c		\
+		./srcs/dist_main.c		\
+		./srcs/dist_others.c	\
 		./srcs/filter.c			\
+		./srcs/ft_split.c		\
+		./srcs/get_next_line.c	\
+		./srcs/hook.c			\
 		./srcs/image.c			\
+		./srcs/light.c			\
+		./srcs/maths.c			\
+		./srcs/matrix.c			\
+		./srcs/minirtx.c		\
+		./srcs/other_tools.c	\
+		./srcs/other.c			\
+		./srcs/pars2.c			\
 		./srcs/parsing.c		\
 		./srcs/put.c			\
 		./srcs/readers.c		\
-		./srcs/hook.c			\
-		./srcs/pars2.c			\
-		./srcs/other_tools.c	\
-		./srcs/vector.c			\
-		./srcs/vector_basics.c	\
-		./srcs/matrix.c			\
 		./srcs/transformation.c	\
-		./srcs/maths.c			\
-		./srcs/light.c			\
-		./srcs/ft_split.c		\
-		./srcs/get_next_line.c	\
-		./srcs/dist_main.c		\
-		./srcs/dist_others.c	\
+		./srcs/vector_basics.c	\
+		./srcs/vector.c			\
 
 
 OBJS = ${SRCS:.c=.o}
