@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/27 15:28:11 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/01/31 11:21:54 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 
 #define BUFFER_SIZE 42
-#define CORE 16
+#define CORE 4
 #define StructureNotifyMask	(1L<<17)
 #define DestroyNotify	17
 #define NAF 42

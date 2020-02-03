@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools4dist.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:10:01 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/28 13:56:05 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/01/31 11:05:35 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,15 +130,16 @@ float		find_dist_t(t_vec origin, t_vec ray, t_tg *shape, t_vec pos)
 	float e;
 	float f;
 
+	(void)pos;
+	f = 69;
 	sum = dot(ray, ray);
 	e = dot(origin, origin) - pow(shape->dia, 2) - pow(shape->hi, 2);
-	f = dot(origin ,ray);
+	dot (origin ,ray);
 	four = 4 * (pow(shape->dia, 2));
 	coef[0] = (e * e - four * (pow(shape->hi, 2) - pow(origin.y, 2)));
 	coef[1] = 4 * f * e + 2 * four * origin.y * ray.y;
 	coef[2] = 2 * sum * e + 4 * f * f + four * pow(ray.y, 2);
 	coef[3] = 4 * sum * f;
 	coef[4] = sum * sum;
-
-	return(pos.x);
+	return 1;
 }
