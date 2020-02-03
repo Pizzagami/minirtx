@@ -21,6 +21,7 @@ SRCS = 	./srcs/anti_aliasing.c	\
 		./srcs/dist_main.c		\
 		./srcs/dist_others.c	\
 		./srcs/filter.c			\
+		./srcs/free.c			\
 		./srcs/ft_split.c		\
 		./srcs/get_next_line.c	\
 		./srcs/hook.c			\
@@ -44,7 +45,7 @@ OBJS = ${SRCS:.c=.o}
 
 CC  = gcc
 
-FLAGS =   -L includes/minilibx -lmlx -framework OpenGL -framework Appkit -fsanitize=address -O0 -g3
+FLAGS =   -L includes/minilibx -lmlx -framework OpenGL -framework Appkit -O0 -g3
 CFLAGS =  -Wall -Wextra -Werror -I includes/ -I includes/minilibx
 
 ${NAME}	:	${OBJS}

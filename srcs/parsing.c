@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/03 11:24:15 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/03 12:21:06 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_rtx		parsing(int fd, void *mlx_ptr)
 	while (get_next_line(fd, &str) != 0)
 	{
 		ft_switch(str, &rtx, fd, i);
+		free(str);
 		i++;
 	}
 	ft_switch(str, &rtx, fd, i);
@@ -113,6 +114,7 @@ void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 	if (str[0] == '\0')
 		return ;
 	err = monster(buf, rtx);
+	free_buf(buf);
 	err = join(err, check_ligne(str));
 	if (err)
 	{
@@ -120,6 +122,8 @@ void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 		ft_putnbr(i + 1);
 		ft_putstr(")\n");
 		close(fd);
+		free(err);
 		exit(EXIT_FAILURE);
 	}
+	free(err);
 }

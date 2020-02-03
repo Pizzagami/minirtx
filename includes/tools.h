@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/03 11:07:53 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/03 12:15:44 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,11 @@ float	        cal_lite_inter(t_rtx rtx, t_light *li, t_vec point, t_tg shape);
 
 void			ft_putnbr(int nb);
 void			ft_putstr(char *str);
+void        	free_buf(char **buf);
 void			init_lst(t_rtx *rtx);
 void			tri_vecs(t_tg *shape);
 void            make_mapping(t_tg *shape);
+
 void            make_3d(t_cam **ca, t_res res);
 void	        apply_filter(int key, t_cam *cam);
 void            make_rotation(int key, t_cam *cam);

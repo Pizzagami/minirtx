@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:53:33 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/03 10:44:31 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/03 11:52:53 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int				exit_hook(void *param)
 {
-	(void)param;
+	t_rtx *tmp;
+	
+	tmp = (t_rtx*)param;
 	exit(0);
 	return (EXIT_SUCCESS);
 }
