@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 14:19:00 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/01 11:48:02 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/03 10:44:55 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,13 @@ void	make_mapping(t_tg *shape)
 	shape->color.r = (unsigned char)shape->color.r;
 	shape->color.g = (unsigned char)shape->color.g;
 	shape->color.b = (unsigned char)shape->color.b;
+}
+
+t_res	init_res(int x, int y)
+{
+	t_res r;
+
+	r.x = x;
+	r.y = y;
+	return (r);
 }

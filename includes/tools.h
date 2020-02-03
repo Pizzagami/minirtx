@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/01 12:15:37 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/03 10:12:55 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void            anti_aliasing(t_cam *cam, t_rtx *rtx);
 void            filter(char filter, t_res res, char **id);
 void            create_tri(t_vec p1, t_vec p2, t_vec p3, t_rtx *rtx);
 void			damier(t_vec point, t_tg *shape, t_color *color, float dist);
-void			mlx_put_pixel_img(int x, int y, char **id, int sl, t_color color);
+void			mlx_put_pixel_img(t_res r, char **id, int sl, t_color color);
 void            refresh_loading_bar(t_rtx *rtx, void	*mlx_win, int pourcentage);
 
 t_vec			normalize(t_vec vect);
@@ -81,5 +81,7 @@ t_color		    cm(t_color c1, t_color c2, t_color c3, t_color c4);
 t_color         color_mix(t_color c1, t_color c2, float r1, float r2);
 
 t_matrix        init_matrix(t_vec a, t_vec b, t_vec c);
+
+t_res	init_res(int x, int y);
 
 #endif

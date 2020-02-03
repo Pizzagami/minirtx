@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/01 11:53:11 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/03 10:50:51 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ t_rtx		parseke(int argc, char **argv, void *mlx_ptr)
 		close(fd);
 		exit(1);
 	}
-	if (argc == 3)
-		rtx.save = (ft_strcmp(argv[2], "-save") == 0) ? 1 : 0;
-	else if (argc > 3)
+	if (argc > 3)
 		write(1, "Error : too many arguments\n", 30);
 	rtx = parsing(fd, mlx_ptr);
+	if (argc == 3)
+		rtx.save = (ft_strcmp(argv[2], "-save") == 0) ? 1 : 0;
 	close(fd);
 	return (rtx);
 }

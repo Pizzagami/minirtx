@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 10:38:58 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/01 12:14:15 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/03 10:14:48 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	make_aa(t_rtx *rtx, t_cam *cam, char **id)
 			cam->id, rtx->res), cp(x * 2 + 1, y * 2 + 1, cam->id, rtx->res),
 			cp(x * 2, y * 2 + 1, cam->id, rtx->res));
 			rtx->res.x /= rtx->aa;
-			mlx_put_pixel_img(x, y, id, rtx->res.x, color);
+			mlx_put_pixel_img(init_res(x, y), id, rtx->res.x, color);
 			y++;
 		}
 		x++;
@@ -51,7 +51,7 @@ static void	make_lq(t_rtx *rtx, t_cam *cam, char **id)
 			rtx->res.x /= 1 / rtx->aa;
 			color = cp(x / (1 / rtx->aa), y / (1 / rtx->aa), cam->id, rtx->res);
 			rtx->res.x *= 1 / rtx->aa;
-			mlx_put_pixel_img(x, y, id, rtx->res.x, color);
+			mlx_put_pixel_img(init_res(x, y), id, rtx->res.x, color);
 			y++;
 		}
 		x++;

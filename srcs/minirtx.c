@@ -6,11 +6,19 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:39:59 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/01 11:47:05 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/03 10:54:18 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirtx.h"
+
+void		init_main(t_rtx *rtx, int argc, char **argv, void *mlx_ptr)
+{
+	*rtx = parseke(argc, argv, mlx_ptr);
+	rtx->mlx_ptr = mlx_ptr;
+	rtx->cam_num = 0;
+	rtx->aa = (rtx->aa != 2) ? 1 : rtx->aa;
+}
 
 int			main(int argc, char **argv)
 {
@@ -21,11 +29,7 @@ int			main(int argc, char **argv)
 
 	i = 0;
 	mlx_ptr = mlx_init();
-	rtx = parseke(argc, argv, mlx_ptr);
-	rtx.mlx_ptr = mlx_ptr;
-	rtx.cam_num = 0;
-	if (rtx.aa != 2)
-		rtx.aa = 1;
+	init_main(&rtx, argv, argv, mlx_ptr);
 	ca = rtx.cam;
 	while (ca)
 	{
@@ -94,7 +98,7 @@ void		*show(void *arg)
 			tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.right, tt->cam.rot.x);
 			tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.up, tt->cam.rot.y);
 			tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.vec, tt->cam.rot.z);
-			mlx_put_pixel_img(tt->rtx.coor.x, tt->rtx.coor.y, &(tt->cam.id),
+			mlx_put_pixel_img(init_res(tt->rtx.coor.x, tt->rtx.coor.y), &(tt->cam.id),
 			tt->rtx.res.x, cal_col((tt->cam), (tt->rtx), 0));
 			tt->rtx.coor.y++;
 		}

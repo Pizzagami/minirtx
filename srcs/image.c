@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 10:34:04 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/01 11:43:59 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/03 10:47:24 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ void		export_to_bmp(char *id, t_res res)
 	char	c;
 	int		y;
 	int		x;
-	char	full;
 
-	full = (char)255;
 	fd = open("./file.bmp", O_CREAT | O_WRONLY, 777);
 	write_header(fd, res);
 	y = res.y - 1;
@@ -58,18 +56,19 @@ void		export_to_bmp(char *id, t_res res)
 			write(fd, &c, 1);
 			c = id[(y * res.x + x) * 4 + 2];
 			write(fd, &c, 1);
-			write(fd, &full, 1);
+			c = (char)255;
+			write(fd, &c, 1);
 			x++;
 		}
 		y--;
 	}
 }
 
-void		mlx_put_pixel_img(int x, int y, char **id, int sl, t_color color)
+void		mlx_put_pixel_img(t_res r, char **id, int sl, t_color color)
 {
-	(*id)[(x + (y * sl)) * 4] = (char)color.b;
-	(*id)[((x + (y * sl)) * 4) + 1] = (char)color.g;
-	(*id)[((x + (y * sl)) * 4) + 2] = (char)color.r;
+	(*id)[(r.x + (r.y * sl)) * 4] = (char)color.b;
+	(*id)[((r.x + (r.y * sl)) * 4) + 1] = (char)color.g;
+	(*id)[((r.x + (r.y * sl)) * 4) + 2] = (char)color.r;
 }
 
 t_color		cp(int x, int y, char *id, t_res res)

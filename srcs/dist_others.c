@@ -6,41 +6,39 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 12:19:46 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/01 12:31:32 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/03 10:23:31 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirtx.h"
 
-float		find_dist_co(t_vec origin, t_vec ray, t_tg *shape, t_vec pos)
+float		find_dist_co(t_vec origin, t_vec ray, t_tg *sh, t_vec pos)
 {
-	float a;
-	float b;
-	float c;
+	t_vec v;
 	float x;
 
-	c = pow(cos(shape->dia), 2);
-	a = pow(dot(ray, shape->vec), 2) - c;
-	b = 2 * (dot(ray, shape->vec) * dot(pos, shape->vec) - dot(ray, pos) * c);
-	c = pow(dot(pos, shape->vec), 2) - dot(pos, pos) * c;
-	if ((x = pow(b, 2) - 4 * a * c) <= 0.00001)
+	v.z = pow(cos(sh->dia), 2);
+	v.x = pow(dot(ray, sh->vec), 2) - v.z;
+	v.y = 2 * (dot(ray, sh->vec) * dot(pos, sh->vec) - dot(ray, pos) * v.z);
+	v.z = pow(dot(pos, sh->vec), 2) - dot(pos, pos) * v.z;
+	if ((x = pow(v.y, 2) - 4 * v.x * v.z) <= 0.00001)
 		return (-1.0);
-	c = (-b - sqrtf(x)) / (2 * a);
-	a = (-b + sqrtf(x)) / (2 * a);
-	if (a == 0 && c == 0)
+	v.z = (-v.y - sqrtf(x)) / (2 * v.x);
+	v.x = (-v.y + sqrtf(x)) / (2 * v.x);
+	if (v.x == 0 && v.z == 0)
 		return (-1.0);
-	b = (c < a && a > 0.0001) ? a : c;
-	c = (c > a && a > 0.0001) ? a : c;
-	a = dot(ray, shape->vec) * c + dot(pos, shape->vec);
-	x = dot(min(shape->center, origin), shape->vec);
-	if ((fabs(a) > shape->hi / 2) || (fabs(x) > shape->hi / 2 && c < 0))
+	v.y = (v.z < v.x && v.x > 0.0001) ? v.x : v.z;
+	v.z = (v.z > v.x && v.x > 0.0001) ? v.x : v.z;
+	v.x = dot(ray, sh->vec) * v.z + dot(pos, sh->vec);
+	x = dot(min(sh->center, origin), sh->vec);
+	if ((fabs(v.x) > sh->hi / 2) || (fabs(x) > sh->hi / 2 && v.z < 0))
 	{
-		a = dot(ray, shape->vec) * b + dot(pos, shape->vec);
-		c = b;
-		if ((fabs(a) > shape->hi / 2) || (fabs(x) > shape->hi / 2 && b < 0))
+		v.x = dot(ray, sh->vec) * v.y + dot(pos, sh->vec);
+		v.z = v.y;
+		if ((fabs(v.x) > sh->hi / 2) || (fabs(x) > sh->hi / 2 && v.y < 0))
 			return (-1.0);
 	}
-	return ((shape->type == 32 && a > 0) ? -1.0 : c);
+	return ((sh->type == 32 && v.x > 0) ? -1.0 : v.z);
 }
 
 float		find_dist_t(t_vec origin, t_vec ray, t_tg *shape, t_vec pos)
