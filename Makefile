@@ -12,25 +12,32 @@
 
 NAME = miniRT
 
-SRCS = 	./srcs/minirtx.c		\
-		./srcs/tools.c			\
-		./srcs/parsing.c		\
-		./srcs/mlx_hook.c		\
-		./srcs/pars2.c			\
-		./srcs/tools2.c			\
-		./srcs/tools3.c			\
-		./srcs/tools4.c			\
-		./srcs/tools4color.c	\
-		./srcs/tools4vector.c	\
-		./srcs/tools4vector2.c	\
-		./srcs/tools4transf.c	\
-		./srcs/tools4math.c		\
-		./srcs/tools4lite.c		\
-		./srcs/tools4aa.c		\
+SRCS = 	./srcs/anti_aliasing.c	\
+		./srcs/basics.c			\
+		./srcs/cals.c			\
+		./srcs/color_basics.c	\
+		./srcs/color.c			\
+		./srcs/converters.c		\
+		./srcs/dist_main.c		\
+		./srcs/dist_others.c	\
+		./srcs/filter.c			\
 		./srcs/ft_split.c		\
-		./srcs/tools4load.c		\
 		./srcs/get_next_line.c	\
-		./srcs/tools4dist.c		\
+		./srcs/hook.c			\
+		./srcs/image.c			\
+		./srcs/light.c			\
+		./srcs/maths.c			\
+		./srcs/matrix.c			\
+		./srcs/minirtx.c		\
+		./srcs/other_tools.c	\
+		./srcs/other.c			\
+		./srcs/pars2.c			\
+		./srcs/parsing.c		\
+		./srcs/put.c			\
+		./srcs/readers.c		\
+		./srcs/transformation.c	\
+		./srcs/vector_basics.c	\
+		./srcs/vector.c			\
 
 
 OBJS = ${SRCS:.c=.o}
@@ -39,7 +46,6 @@ CC  = gcc
 
 FLAGS =   -L includes/minilibx -lmlx -framework OpenGL -framework Appkit -fsanitize=address -O0 -g3
 CFLAGS =  -Wall -Wextra -Werror -I includes/ -I includes/minilibx
-RM  = rm -f
 
 ${NAME}	:	${OBJS}
 	${CC}	 -o ${NAME}  ${FLAGS} ${OBJS}

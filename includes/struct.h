@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:30:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/25 15:19:02 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/01/31 11:04:43 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ typedef struct	s_all
 	int		cam_num;
 	void	*mlx_ptr;
 	void	*mlx_win;
+	int		bound;
 }				t_rtx;
 
 typedef struct	s_matrix
@@ -140,7 +141,7 @@ typedef struct		s_send
 typedef struct		s_thread
 {
 	int				i;
-	pthread_mutex_t *mutex;
+	pthread_mutex_t *mutex[2];
 	t_rtx			rtx;
 	t_cam			cam;
 }					t_thread;
@@ -156,6 +157,5 @@ typedef struct		s_thread
 	6 = cube
 	7 = cercle
 	11 = shere with mapping (sm)
-	123 = gauch
-	124 = droite
+	32 = cone
 */

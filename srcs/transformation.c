@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools4transf.c                                     :+:      :+:    :+:   */
+/*   transformation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 17:30:11 by raimbaultbr       #+#    #+#             */
-/*   Updated: 2020/01/25 14:17:40 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/02/01 11:29:59 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirtx.h"
 
-void    make_rotation(int key, t_cam *cam)
+void	make_rotation(int key, t_cam *cam)
 {
-    if (key == RXU)
+	if (key == RXU)
 		cam->rot.x += 0.05;
-    if (key == RXD)
+	if (key == RXD)
 		cam->rot.x -= 0.05;
 	if (key == RYU)
-        cam->rot.y += 0.05;
-    if (key == RYD)
-        cam->rot.y -= 0.05;
+		cam->rot.y += 0.05;
+	if (key == RYD)
+		cam->rot.y -= 0.05;
 	if (key == RZU)
 		cam->rot.z += 0.05;
 	if (key == RZD)
 		cam->rot.z -= 0.05;
 }
 
-void    make_translation(int key, t_cam *cam)
+void	make_translation(int key, t_cam *cam)
 {
 	if (key == TXU)
 		cam->origin = min(cam->origin, fois(cam->right, 5));

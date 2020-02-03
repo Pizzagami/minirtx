@@ -1,57 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools4vector.c                                     :+:      :+:    :+:   */
+/*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/07 19:18:20 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/23 14:16:45 by selgrabl         ###   ########.fr       */
+/*   Created: 2020/02/01 12:00:05 by braimbau          #+#    #+#             */
+/*   Updated: 2020/02/01 12:04:11 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tools.h"
-
-t_vec	normalize(t_vec vec)
-{
-	t_vec tmp;
-
-	tmp = vec;
-	vec.x /= sqrtf(dot(tmp, tmp));
-	vec.y /= sqrtf(dot(tmp, tmp));
-	vec.z /= sqrtf(dot(tmp, tmp));
-	return(vec);
-}
-
-t_vec	min(t_vec truc, t_vec machin)
-{
-	truc.x -= machin.x;
-	truc.y -= machin.y;
-	truc.z -= machin.z;
-
-	return (truc);
-}
-
-t_vec	plus(t_vec truc, t_vec machin)
-{
-	truc.x += machin.x;
-	truc.y += machin.y;
-	truc.z += machin.z;
-	return (truc);
-}
-
-t_vec	fois(t_vec truc, float a)
-{
-	truc.x *= a;
-	truc.y *= a;
-	truc.z *= a;
-	return (truc);
-}
+#include "minirtx.h"
 
 void	tri_vecs(t_tg *shape)
 {
 	t_vec tmp;
-	
+
 	if (shape->v1.z >= shape->vec.z)
 	{
 		tmp = shape->vec;
@@ -70,4 +34,26 @@ void	tri_vecs(t_tg *shape)
 		shape->v1 = shape->v2;
 		shape->v2 = tmp;
 	}
+}
+
+float	dot(t_vec machin, t_vec bidule)
+{
+	return (machin.x * bidule.x + machin.y * bidule.y + machin.z * bidule.z);
+}
+
+t_vec	cross(t_vec machin, t_vec bidule)
+{
+	t_vec truc;
+
+	truc.x = machin.y * bidule.z - machin.z * bidule.y;
+	truc.y = machin.z * bidule.x - machin.x * bidule.z;
+	truc.z = machin.x * bidule.y - machin.y * bidule.x;
+	return (truc);
+}
+
+float	dist_dot(t_vec machin, t_vec bidule)
+{
+	return (sqrtf(pow(machin.x - bidule.x, 2) +
+				pow(machin.y - bidule.y, 2) +
+				pow(machin.z - bidule.z, 2)));
 }

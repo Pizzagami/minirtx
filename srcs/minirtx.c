@@ -3,104 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/22 19:03:43 by braimbau          #+#    #+#             */
-/*   Updated: 2020/01/26 14:51:42 by selgrabl         ###   ########.fr       */
+/*   Created: 2020/01/27 10:39:59 by braimbau          #+#    #+#             */
+/*   Updated: 2020/02/03 11:10:21 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirtx.h"
 
-t_color		cal_col(t_cam cam, t_rtx rtx, int bound, t_thread *tt)
-{	
-	t_color color;
-	float dist;
-	float ldist;
-	t_tg shape;
-	t_tg *sh;
-	
-	if (bound > 10)
-		return(color_init(0,0,0));
-	sh = rtx.shape;
-	dist = -1;
-	pthread_mutex_lock (tt->mutex);
-	while (sh)
-	{
-		ldist = find_dist(cam.origin, cam.ray, sh);
-		if (ldist != - 1 && (dist == - 1 || ldist < dist))
-		{
-			dist = ldist;
-			shape = *sh;
-
-		}
-		sh = sh->next;
-	}
-	pthread_mutex_unlock (tt->mutex);
-	if (shape.type == 1 || shape.type == 11)
-		shape.normal = normalize(min(plus(cam.origin, fois(cam.ray, dist)), shape.center));
-	make_mapping(&shape);
-	if (dist != -1.0)
-	{
-		color = color_add(cosha(rtx.amb.ratio, rtx.amb.color, shape.color),
-		cal_lit(cam, shape, &rtx, dist, tt), 1);
-		color = color_cap(color, shape.color);
-	}
-	if (shape.refl && dist != -1.0)
-	{
-		cam.ray = min(cam.ray, fois(shape.normal , 2 * dot(cam.ray, shape.normal)));
-		color = color_mix(color, cal_col(cam, rtx, bound + 1, tt), 1 - shape.refl,
-		shape.refl);
-	}
-	if (shape.trans && dist != -1.0)
-	{
-		if (shape.type == 1)
-			cam.origin = plus(cam.origin, fois(cam.ray, dist + shape.dia));
-		else
-			cam.origin = plus(cam.origin, fois(cam.ray, dist + 0.00001)); 
-		color = color_mix(color, cal_col(cam, rtx, bound + 1, tt), 1 - shape.trans,
-		shape.trans);
-	}
-	if (dist == -1)
-		return(color_init(0,0,0));
-	if (shape.dam != 0)
-		damier(plus(cam.origin, fois(cam.ray, dist)), &shape, &color, dist);
-	return (color);
+void		init_main(t_rtx *rtx, int argc, char **argv, void *mlx_ptr)
+{
+	*rtx = parseke(argc, argv, mlx_ptr);
+	rtx->mlx_ptr = mlx_ptr;
+	rtx->cam_num = 0;
+	rtx->aa = (rtx->aa != 2) ? 1 : rtx->aa;
 }
 
-t_color         cal_lit(t_cam cam, t_tg shape, t_rtx *rtx, float dist, t_thread *tt)
+int			main(int argc, char **argv)
 {
-	t_vec	light;
-	t_vec	point;
-	t_color	color;
-	float c;
-	t_light *li;
-	color = color_init(0,0,0);
-	li = rtx->light;
-	pthread_mutex_lock (tt->mutex);
-	while (li) // mutex 
-	{
-		point = plus(cam.origin, fois(cam.ray, dist));
-		if (li->para.x || li->para.y || li->para.z)
-			light = fois(li->para, - 1);
-		else
-			light = normalize(min(li->pos, point));
-		if(dot(shape.normal, cam.ray) > 0)
-			shape.normal = fois(shape.normal, -1);
-		c = dot(light, shape.normal);
-		if (c < 0)
-			c = 0;
-		c *= cal_lite_inter(*rtx, li, point, shape);		
-		color = color_add(color, cosha(c, li->color, shape.color), 1);
-		li = li->next;
-	}
-	pthread_mutex_unlock (tt->mutex);
-	return (color);
-}
-
-int main(int argc, char **argv)
-{
-	void	*mlx_win_load;
 	void	*mlx_ptr;
 	t_rtx	rtx;
 	t_cam	*ca;
@@ -108,60 +29,42 @@ int main(int argc, char **argv)
 
 	i = 0;
 	mlx_ptr = mlx_init();
-	rtx = parseke(argc, argv, mlx_ptr);
-	rtx.mlx_ptr = mlx_ptr;
-	rtx.cam_num = 0;
-	if (rtx.aa != 2)
-		rtx.aa = 1;
-	mlx_win_load = mlx_new_window(rtx.mlx_ptr, 550, 50, "Loading ...");
+	init_main(&rtx, argc, argv, mlx_ptr);
 	ca = rtx.cam;
 	while (ca)
 	{
-		cal_cam(&rtx, rtx.mlx_ptr, mlx_win_load, ca);
+		cal_cam(&rtx, rtx.mlx_ptr, ca);
 		filter(ca->filter, rtx.res, &(ca->id));
-		anti_aliesing(ca, &rtx);
+		anti_aliasing(ca, &rtx);
 		ca = ca->next;
 	}
 	make_3d(&(rtx.cam), rtx.res);
-	mlx_destroy_window(rtx.mlx_ptr, mlx_win_load);
 	rtx.mlx_win = mlx_new_window(rtx.mlx_ptr, rtx.res.x, rtx.res.y, "miniRTX");
 	mlx_hook(rtx.mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, NULL);
 	mlx_key_hook(rtx.mlx_win, key_hook, &rtx);
 	mlx_put_image_to_window(rtx.mlx_ptr, rtx.mlx_win, rtx.cam->img, 0, 0);
-	//if (rtx.save)
+	if (rtx.save)
 		export_to_bmp(rtx.cam->id, rtx.res);
 	mlx_loop(rtx.mlx_ptr);
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
-void	*cal_cam(t_rtx *rtx, void *mlx_ptr, void *mlx_win_load, t_cam *cam)
-{
-	int		x;
-	
-	rtx->res.x *= rtx->aa;
-	rtx->res.y *= rtx->aa;
-	rtx->ar = (float)rtx->res.x / (float)rtx->res.y;
-	cam->img = mlx_new_image(mlx_ptr, rtx->res.x, rtx->res.y);
-	cam->id = mlx_get_data_addr(cam->img, &x, &x, &x);
-	mlx_clear_window(mlx_ptr, mlx_win_load);
-	multi_thread(cam, rtx);
-	return(cam->img);
-}
-
-void            multi_thread(t_cam *cam, t_rtx *rtx)
+void		multi_thread(t_cam *cam, t_rtx *rtx)
 {
 	t_thread		tt[CORE];
 	pthread_mutex_t mutex;
+	pthread_mutex_t mutex2;
 	pthread_t		thread[CORE];
-	int i;
+	int				i;
 
 	i = 0;
 	pthread_mutex_init(&mutex, NULL);
 	while (i < CORE)
 	{
-		rtx->coor.x = rtx->res.x / CORE  *  i;
+		rtx->coor.x = rtx->res.x / CORE * i;
 		tt[i].i = i;
-		tt[i].mutex = &mutex;
+		tt[i].mutex[0] = &mutex;
+		tt[i].mutex[1] = &mutex2;
 		tt[i].rtx = *rtx;
 		tt[i].cam = *cam;
 		pthread_create(&thread[i], NULL, &show, &tt[i]);
@@ -174,48 +77,30 @@ void            multi_thread(t_cam *cam, t_rtx *rtx)
 	}
 }
 
-t_vec	rotate_vec(t_vec base, t_vec rot, float angle)
-{
-	float		c;
-	float		s;
-	t_matrix	matrix;
- 
-	c = cos(angle);
-	s = sin(angle);
-	matrix.a = init_vec(rot.x * rot.x * (1 - c) + c, rot.x * rot.y * (1 - c) - rot.z * s, rot.x * rot.z * (1 - c) + rot.y * s);
-	matrix.b = init_vec(rot.x * rot.y * (1 - c) + rot.z * s, rot.y * rot.y * (1 - c) + c, rot.y * rot.z * (1 - c) - rot.x * s);
-	matrix.c = init_vec(rot.x * rot.z * (1 - c) - rot.y * s, rot.y * rot.z * (1 - c) + rot.x * s, rot.z * rot.z * (1 - c) + c);
-	base = vec_matrixed(base, matrix);
-	return(base);
-}
-
-void *show(void *arg)
+void		*show(void *arg)
 {
 	t_thread	*tt;
+	float		pw;
+	float		ph;
 
-	tt = (t_thread*) arg;
-	while(tt->rtx.coor.x < tt->rtx.res.x / CORE  * (tt->i + 1))
+	tt = (t_thread*)arg;
+	pw = 2 * tan((float)tt->cam.fov / 360 * M_PI) / tt->rtx.res.x * tt->rtx.ar;
+	ph = 2 * tan((float)tt->cam.fov / 360 * M_PI) / tt->rtx.res.y;
+	while (tt->rtx.coor.x < ceil((float)tt->rtx.res.x / (float)CORE *
+	(float)(tt->i + 1)))
+	{
+		tt->rtx.coor.y = 0;
+		while (tt->rtx.coor.y < tt->rtx.res.y)
 		{
-			tt->rtx.coor.y = 0;
-			while (tt->rtx.coor.y < tt->rtx.res.y)
-			{
-				float pw = 2 * tan((float)tt->cam.fov / 2.0 / 180.0 * M_PI) * 1 / tt->rtx.res.x * tt->rtx.ar;
-				float ph = 2 * tan((float)tt->cam.fov / 2.0 / 180.0 * M_PI) * 1 / tt->rtx.res.y;
-				t_vec pix;				
-				pix = plus(tt->cam.origin, min(tt->cam.vec, fois(tt->cam.right, pw * (tt->rtx.res.x / 2))));
-				pix = plus(pix, fois(tt->cam.up, (tt->rtx.res.y / 2) * ph));
-				pix = plus(pix, fois(tt->cam.right, pw / 2));
-				pix = min(pix, fois(tt->cam.up, ph / 2));
-				pix = plus(pix, fois(tt->cam.right, pw * tt->rtx.coor.x));
-				pix = min(pix, fois(tt->cam.up, ph * tt->rtx.coor.y));
-				tt->cam.ray = normalize(min(tt->cam.origin, pix));
-				tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.right, tt->cam.rot.x);
-				tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.up, tt->cam.rot.y);
-				tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.vec, tt->cam.rot.z);
-				mlx_put_pixel_img(tt->rtx.coor.x, tt->rtx.coor.y, &(tt->cam.id), tt->rtx.res.x, cal_col((tt->cam), (tt->rtx), 0, tt));
-				tt->rtx.coor.y++;
-			}
-			tt->rtx.coor.x++;
+			tt->cam.ray = normalize(min(tt->cam.origin, cal_pix(tt, pw, ph)));
+			tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.right, tt->cam.rot.x);
+			tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.up, tt->cam.rot.y);
+			tt->cam.ray = rotate_vec(tt->cam.ray, tt->cam.vec, tt->cam.rot.z);
+			put_pixel(init_res(tt->rtx.coor.x, tt->rtx.coor.y), &(tt->cam.id),
+			tt->rtx.res.x, cal_col((tt->cam), (tt->rtx), 0));
+			tt->rtx.coor.y++;
 		}
-	return(NULL);
+		tt->rtx.coor.x++;
+	}
+	return (NULL);
 }
