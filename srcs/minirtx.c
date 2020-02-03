@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:39:59 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/03 10:54:18 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/03 11:04:01 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			main(int argc, char **argv)
 
 	i = 0;
 	mlx_ptr = mlx_init();
-	init_main(&rtx, argv, argv, mlx_ptr);
+	init_main(&rtx, argc, argv, mlx_ptr);
 	ca = rtx.cam;
 	while (ca)
 	{
