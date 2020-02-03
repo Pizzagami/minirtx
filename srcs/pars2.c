@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/01 12:48:05 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/03 16:49:30 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,7 +275,6 @@ char		*pars_cy(char **buf, t_rtx *rtx)
 	shape->vec = normalize(shape->vec);
 	if (x == 1)
 		creat_ce(*shape, rtx);
-	printf("croix/n");
 	return (ret);
 }
 

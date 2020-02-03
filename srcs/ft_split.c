@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 10:29:23 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/09 19:47:05 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/03 16:44:36 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	alloc_word(char *str, char *charset, char **ptr)
 	if (m)
 		ptr[m - 1] = malloc((1 + c) * sizeof(char));
 	ptr[m] = malloc(sizeof(NULL));
+
 }
 
 char	**ft_split(char *str, char *charset)

@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/03 15:12:12 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/02/03 16:33:03 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_rtx		parsing(int fd, void *mlx_ptr)
 		i++;
 	}
 	ft_switch(str, &rtx, fd, i);
+	free(str);
 	if (rtx.res.x < 0 || rtx.amb.color.b < 0)
 	{
 		write(2, "Error : Resolution or/and Ambiant light undefined\n", 50);
@@ -111,7 +112,10 @@ void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 
 	buf = ft_split(str, " ");
 	if (str[0] == '\0')
+	{
+		free(buf);
 		return ;
+	}
 	err = monster(buf, rtx);
 	free_buf(buf);
 	err = join(err, check_ligne(str));

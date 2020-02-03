@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 10:05:12 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/03 14:22:29 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/02/03 16:10:31 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 char	*read_color(char *str, t_color *color, char *id)
 {
 	char **buf;
-
 	buf = ft_split(str, ",");
 	if (!buf[0] || !buf[1] || !buf[2] || buf[3] != NULL)
 		return (join("Invalid format for color", id));

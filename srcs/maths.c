@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/03 14:33:17 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/02/03 16:46:13 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void		create_tri(t_vec p1, t_vec p2, t_vec p3, t_rtx *rtx)
 
 	tmp = *(rtx->shape);
 	shape = malloc(sizeof(t_tg));
+	printf("%p\n", shape);
 	shape->next = rtx->shape;
 	rtx->shape = shape;
 	rtx->shape->type = 3;
