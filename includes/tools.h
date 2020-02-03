@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <raimbaultbrieuc@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:32:33 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/31 17:55:26 by raimbaultbr      ###   ########.fr       */
+/*   Updated: 2020/02/03 14:59:11 by raimbaultbr      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ int     		distri(t_tg tri, t_vec p);
 int				ft_strcmp(char *s1, char *s2);
 int				distce(t_tg shape, t_vec dot);
 int     		distsqr(t_tg shape, t_vec   dot);
-int				second_degre(float a, float b, float c, float *x1, float *x2);
+int		    	second_degre(t_vec v, float *x1, float *x2);
 
 char		    *ft_itoa(int n);
-char			*check_ligne(char *str);
 char			*join(char *s1, char *s2);
 char			*strjoin(int nbr, char *s1, ...);
 char			*read_vec(char *buf, t_vec *vec, char *id);
@@ -47,6 +46,7 @@ float	        cal_lite_inter(t_rtx rtx, t_light *li, t_vec point, t_tg shape);
 
 void			ft_putnbr(int nb);
 void			ft_putstr(char *str);
+void        	free_buf(char **buf);
 void			init_lst(t_rtx *rtx);
 void			tri_vecs(t_tg *shape);
 void            make_mapping(t_tg *shape);
@@ -55,11 +55,12 @@ void	        apply_filter(int key, t_cam *cam);
 void            make_rotation(int key, t_cam *cam);
 void	        export_to_bmp(char *id, t_res res);
 void            make_translation(int key, t_cam *cam);
-void            anti_aliesing(t_cam *cam, t_rtx *rtx);
+void            anti_aliasing(t_cam *cam, t_rtx *rtx);
 void            filter(char filter, t_res res, char **id);
+void	        free_lists(t_cam *cam, t_light *light, t_tg *shape);
 void            create_tri(t_vec p1, t_vec p2, t_vec p3, t_rtx *rtx);
+void			put_pixel(t_res r, char **id, int sl, t_color color);
 void			damier(t_vec point, t_tg *shape, t_color *color, float dist);
-void			mlx_put_pixel_img(int x, int y, char **id, int sl, t_color color);
 void            refresh_loading_bar(t_rtx *rtx, void	*mlx_win, int pourcentage);
 
 t_vec			normalize(t_vec vect);
@@ -70,8 +71,8 @@ t_vec           vec_matrixed(t_vec v, t_matrix m);
 t_vec			cross(t_vec machin, t_vec bidule);
 t_vec		    init_vec(float x, float y, float z);
 t_vec		    cal_pix(t_thread *tt, float pw, float ph);
+t_vec   		rotate_vec(t_vec base, t_vec rot, float angle);
 t_vec           find_normal(t_tg shape, t_cam cam, float dist);
-
 
 t_color			lfois(t_color color, float a);
 t_color			color_init(int r, int g, int b);
@@ -83,5 +84,7 @@ t_color		    cm(t_color c1, t_color c2, t_color c3, t_color c4);
 t_color         color_mix(t_color c1, t_color c2, float r1, float r2);
 
 t_matrix        init_matrix(t_vec a, t_vec b, t_vec c);
+
+t_res	init_res(int x, int y);
 
 #endif
