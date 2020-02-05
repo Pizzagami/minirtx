@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:17:38 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/05 20:47:19 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/02/05 21:00:21 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void		create_tri(t_vec p1, t_vec p2, t_vec p3, t_rtx *rtx)
 	rtx->shape->p1 = p1;
 	rtx->shape->p2 = p2;
 	rtx->shape->p3 = p3;
+	rtx->shape->dam = tmp.dam;
 	shape->normal = normalize(cross(min(shape->p2, shape->p1),
 		min(shape->p3, shape->p1)));
 	shape->center = shape->p1;
