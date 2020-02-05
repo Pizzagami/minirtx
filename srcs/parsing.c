@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/05 13:06:05 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/02/05 13:17:14 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_rtx		parseke(int argc, char **argv, void *mlx_ptr)
 		exit_error(fd);
 	if (argc > 3)
 		write(1, "Error : too many arguments\n", 30);
-	rtx.save = 0;
 	if ((argc == 3) && (ft_strcmp(argv[2], "-save") != 0))
 		exit_error(fd);
 	if (argc == 3)
