@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/03 15:37:59 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/02/05 13:12:27 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char		*pars_cy(char **buf, t_rtx *rtx)
 {
 	char	*ret;
 	t_tg	*shape;
-	
+
 	shape = malloc(sizeof(t_tg));
 	shape->next = rtx->shape;
 	rtx->shape = shape;
@@ -43,7 +43,6 @@ char		*pars_cy2(t_tg *shape, t_rtx *rtx, char **buf, char *ret)
 	shape->hi = ft_atof(buf[4]);
 	ret = (isnan(shape->hi) || shape->hi < 0) ? join(ret,
 	"Invalid value for high of cylinder") : ret;
-	printf("%f\n",shape->hi);
 	ret = join(ret, read_color(buf[5], &(shape->color), " of cylinder"));
 	ret = (buf[6]) ? join(ret, read_float(buf[6], &(shape->trans),
 	" transparence of a cylinder", 1)) : ret;
@@ -53,7 +52,7 @@ char		*pars_cy2(t_tg *shape, t_rtx *rtx, char **buf, char *ret)
 		ret = join(ret, read_float(buf[8], &x, "capuchon of a cylinder", -1));
 	shape->vec = normalize(shape->vec);
 	(x == 1) ? creat_ce(*shape, rtx) : ret;
-	return(ret);
+	return (ret);
 }
 
 char		*pars_co(char **buf, t_rtx *rtx)

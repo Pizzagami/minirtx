@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/03 11:24:15 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/05 13:06:05 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,15 @@ t_rtx		parseke(int argc, char **argv, void *mlx_ptr)
 	while (*(argv[1] + 1))
 		argv[1]++;
 	if ((*argv[1] != 't' || *(argv[1] - 1) != 'r' || *(argv[1] - 2) != '.'))
-	{
-		ft_putstr("Error : Format incorrect \n");
-		close(fd);
-		exit(1);
-	}
+		exit_error(fd);
 	if (argc > 3)
 		write(1, "Error : too many arguments\n", 30);
-	rtx = parsing(fd, mlx_ptr);
+	rtx.save = 0;
+	if ((argc == 3) && (ft_strcmp(argv[2], "-save") != 0))
+		exit_error(fd);
 	if (argc == 3)
 		rtx.save = (ft_strcmp(argv[2], "-save") == 0) ? 1 : 0;
+	rtx = parsing(fd, mlx_ptr);
 	close(fd);
 	return (rtx);
 }

@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 15:27:44 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/03 16:11:51 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/02/05 13:12:19 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char		*pars_c(char **buf, t_rtx *rtx)
 	cam->up = fois(normalize(cross(cam->right, cam->vec)), -1);
 	rtx->cam->fov = ft_atoi(buf[3]);
 	ret = (cam->fov > 180 || cam->fov < 0) ? join(ret,
-	"Invalid number for FOV of camera"): 0;
+	"Invalid number for FOV of camera") : 0;
 	ret = (buf[4]) ? pars_3d(buf, rtx, ret, cam) : ret;
 	cam->rot = init_vec(0, 0, 0);
 	return (ret);
@@ -124,5 +124,5 @@ char		*pars_3d(char **buf, t_rtx *rtx, char *ret, t_cam *cam)
 	}
 	else
 		return (join(ret, "Invalid value for filter of camera"));
-	return(NULL);
+	return (NULL);
 }

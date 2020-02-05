@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   other_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 14:19:00 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/03 10:44:55 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/05 13:10:35 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,11 @@ t_res	init_res(int x, int y)
 	r.x = x;
 	r.y = y;
 	return (r);
+}
+
+void	exit_error(int fd)
+{
+	ft_putstr("Error : Format incorrect \n");
+	close(fd);
+	exit(1);
 }
