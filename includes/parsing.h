@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:36:32 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/01/25 15:31:42 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/02/03 16:14:37 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,16 @@ char			*pars_cu(char **buf, t_rtx *rtx);
 char		    *pars_aa(char **buf, t_rtx *rtx);
 
 char			*ft_strcpy(char *dest, char *src);
+char			*pars_3d(char **buf, t_rtx *rtx, char *ret, t_cam *cam);
+char			*pars_cy2(t_tg *shape, t_rtx *rtx, char **buf, char *ret);
+
 char			**ft_split(char *str, char *charset);
 
+void			vec_tri(t_tg *shape);
 void			corners(t_tg *shape);
+void			init_trd(t_tg *shape);
 void			find_vecs(t_tg *shape);
+void			face_py(t_tg *shape, t_rtx *rtx);
 void			creat_ce(t_tg shape, t_rtx *rtx);
 void			join2(char **line, char **buf, int x);
 void			pars_sqr(int x, t_tg info, t_rtx *rtx);

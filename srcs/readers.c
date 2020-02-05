@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 10:05:12 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/01 11:55:28 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/03 16:29:34 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ char	*read_vec(char *str, t_vec *vec, char *id)
 		return (join("Value(s) out of range for vector", id));
 	if (str[ft_strlen(str) - 1] < '0' || str[ft_strlen(str) - 1] > '9')
 		return (join("Invalid format for color ", id));
+	if (vec->x == 0 && vec->y == 0 && vec->z == 0)
+		vec->z = 1;
 	return (NULL);
 }
 

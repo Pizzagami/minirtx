@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:39:59 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/05 10:38:57 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/05 13:26:27 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ int			main(int argc, char **argv)
 	mlx_hook(rtx.mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, &rtx);
 	mlx_key_hook(rtx.mlx_win, key_hook, &rtx);
 	mlx_put_image_to_window(rtx.mlx_ptr, rtx.mlx_win, rtx.cam->img, 0, 0);
-	if (rtx.save)
+	if (rtx.save == 1)
 		export_to_bmp(rtx.cam->id, rtx.res);
-	mlx_loop(rtx.mlx_ptr);
+	else
+		mlx_loop(rtx.mlx_ptr);
 	return (EXIT_SUCCESS);
 }
 

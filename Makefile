@@ -32,7 +32,11 @@ SRCS = 	./srcs/anti_aliasing.c	\
 		./srcs/minirtx.c		\
 		./srcs/other_tools.c	\
 		./srcs/other.c			\
+		./srcs/pars_param.c		\
+		./srcs/pars_annexe.c	\
+		./srcs/pars1.c			\
 		./srcs/pars2.c			\
+		./srcs/pars3.c			\
 		./srcs/parsing.c		\
 		./srcs/put.c			\
 		./srcs/readers.c		\
