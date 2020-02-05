@@ -6,27 +6,32 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 12:10:53 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/05 13:20:13 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:06:08 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRTX_H
 # define MINIRTX_H
 
+#include <fcntl.h>
 #include <mlx.h>
 #include <math.h>
+#include <pthread.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <fcntl.h>
 #include <unistd.h>
-#include <stdarg.h>
 #include "struct.h"
+#include "colors.h" 
+#include "display.h"
+#include "find_dist.h" 
+#include "maths.h"
+#include "others.h"
 #include "parsing.h"
-#include <pthread.h>
 
 
 #define BUFFER_SIZE 42
-#define CORE 4
+#define CORE 16
 #define StructureNotifyMask	(1L<<17)
 #define DestroyNotify	17
 #define NAF 42
@@ -36,8 +41,6 @@ int				key_hook(int key, void *param);
 
 void            *show(void *arg);
 void			exit_error(int fd);
-void			print_vec(t_vec vec);
-void			print_vecs(int nbr,...);
 void            multi_thread(t_cam *cam, t_rtx *rtx);
 void            *cal_cam(t_rtx *rtx, void *mlx_ptr, t_cam *cam);
 

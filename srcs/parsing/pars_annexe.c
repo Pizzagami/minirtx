@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pars_annexe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 15:28:58 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/03 16:12:59 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:02:41 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minirtx.h"
 
 char		*pars_aa(char **buf, t_rtx *rtx)
 {

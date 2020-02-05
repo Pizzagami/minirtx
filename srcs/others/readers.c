@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 10:05:12 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/03 16:29:34 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/02/05 13:33:42 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char	*read_color(char *str, t_color *color, char *id)
 	if (color->g == -42)
 		return (join("Invalid integer for color green", id));
 	color->b = ft_atoi(buf[2]);
+	free_buf(buf);
 	if (color->b == -42)
 		return (join("Invalid integer for color blue", id));
 	if (color->r > 255 || color->r < 0 || color->g > 255 ||
@@ -50,6 +51,7 @@ char	*read_vec(char *str, t_vec *vec, char *id)
 	if (isnan(vec->y))
 		return (join("Invalid float for vector y", id));
 	vec->z = ft_atof(buf[2]);
+	free_buf(buf);
 	if (isnan(vec->z))
 		return (join("Invalid float for vector z", id));
 	if (vec->x > 1 || vec->x < -1 || vec->y > 1 ||
@@ -76,6 +78,7 @@ char	*read_pos(char *str, t_vec *vec, char *id)
 	if (isnan(vec->y))
 		return (join("Invalid float for position y", id));
 	vec->z = ft_atof(buf[2]);
+	free_buf(buf);
 	if (isnan(vec->z))
 		return (join("Invalid float for position z", id));
 	if (str[ft_strlen(str) - 1] < '0' || str[ft_strlen(str) - 1] > '9')

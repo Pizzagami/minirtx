@@ -6,11 +6,11 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 19:17:07 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/01 11:36:06 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:01:28 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tools.h"
+#include "minirtx.h"
 
 t_color	color_init(int r, int g, int b)
 {

@@ -6,11 +6,11 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/05 13:20:10 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:02:54 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minirtx.h"
 
 char		*pars_cy(char **buf, t_rtx *rtx)
 {

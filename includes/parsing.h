@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 13:36:32 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/03 16:14:37 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/02/05 13:58:25 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #ifndef PARSING_H
 # define PARSING_H
-
-#include "tools.h"
 
 int				increase_buf(char **buf);
 int				is_sep(char c, char *sep);
@@ -55,6 +53,7 @@ void			join2(char **line, char **buf, int x);
 void			pars_sqr(int x, t_tg info, t_rtx *rtx);
 void			ft_switch(char *buf, t_rtx *rtx, int fd, int i);
 void			alloc_word(char *str, char *charset, char **ptr);
+void            create_tri(t_vec p1, t_vec p2, t_vec p3, t_rtx *rtx);
 
 t_rtx			parsing(int fd, void* mlx_ptr);
 t_rtx			parseke(int argc, char **argv, void* mlx_ptr);

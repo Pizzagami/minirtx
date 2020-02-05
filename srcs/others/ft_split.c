@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 10:29:23 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/12/09 19:47:05 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/05 13:32:41 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	alloc_word(char *str, char *charset, char **ptr)
 	}
 	if (m)
 		ptr[m - 1] = malloc((1 + c) * sizeof(char));
-	ptr[m] = malloc(sizeof(NULL));
+	ptr[m] = NULL;
 }
 
 char	**ft_split(char *str, char *charset)

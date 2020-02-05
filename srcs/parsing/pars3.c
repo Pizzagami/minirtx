@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pars3.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 15:38:19 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/03 16:09:29 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:03:06 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minirtx.h"
 
 char		*pars_s(char **buf, t_rtx *rtx)
 {

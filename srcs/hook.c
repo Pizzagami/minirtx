@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:53:33 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/03 11:52:53 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/05 13:36:35 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int				exit_hook(void *param)
 {
-	t_rtx *tmp;
-	
-	tmp = (t_rtx*)param;
+	t_rtx *rtx;
+
+	rtx = (t_rtx*)param;
+	free_lists(rtx->cam, rtx->light, rtx->shape);
 	exit(0);
 	return (EXIT_SUCCESS);
 }
@@ -53,9 +54,8 @@ int				key_hook(int key, void *param)
 	make_rotation(key, cam);
 	make_translation(key, cam);
 	apply_filter(key, cam);
-	if (key == QUA_UP)
-		if (rtx->aa < 2)
-			rtx->aa *= 2;
+	if (key == QUA_UP && rtx->aa < 2)
+		rtx->aa *= 2;
 	if (key == QUA_DO)
 		if (rtx->aa > 0.125)
 			rtx->aa /= 2;
@@ -66,6 +66,8 @@ int				key_hook(int key, void *param)
 		filter(cam->filter, rtx->res, &(cam->id));
 	}
 	mlx_put_image_to_window(rtx->mlx_ptr, rtx->mlx_win, cam->img, 0, 0);
+	if (key == 53)
+		free_lists(rtx->cam, rtx->light, rtx->shape);
 	if (key == 53)
 		exit(0);
 	return (EXIT_SUCCESS);

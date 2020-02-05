@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 17:30:11 by raimbaultbr       #+#    #+#             */
-/*   Updated: 2020/02/05 10:32:16 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:14:39 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,33 @@
 void	make_rotation(int key, t_cam *cam)
 {
 	if (key == RXU)
-		cam->rot.x += 0.05;
+		cam->rot.x += 0.051;
 	if (key == RXD)
-		cam->rot.x -= 0.05;
+		cam->rot.x -= 0.051;
 	if (key == RYU)
-		cam->rot.y += 0.05;
+		cam->rot.y += 0.051;
 	if (key == RYD)
-		cam->rot.y -= 0.05;
+		cam->rot.y -= 0.051;
 	if (key == RZU)
-		cam->rot.z += 0.05;
+		cam->rot.z += 0.051;
 	if (key == RZD)
-		cam->rot.z -= 0.05;
+		cam->rot.z -= 0.051;
 }
 
 void	make_translation(int key, t_cam *cam)
 {
 	if (key == TXU)
-		cam->origin = plus(cam->origin, fois(cam->right, 5));
+		cam->origin = plus(cam->origin, fois(cam->right, 5.1));
 	if (key == TXD)
-		cam->origin = min(cam->origin, fois(cam->right, 5));
+		cam->origin = min(cam->origin, fois(cam->right, 5.1));
 	if (key == TYU)
-		cam->origin = plus(cam->origin, fois(cam->up, 5));
+		cam->origin = plus(cam->origin, fois(cam->up, 5.1));
 	if (key == TYD)
-		cam->origin = min(cam->origin, fois(cam->up, 5));
+		cam->origin = min(cam->origin, fois(cam->up, 5.1));
 	if (key == TZU)
-		cam->origin = plus(cam->origin, fois(cam->vec, 5));
+		cam->origin = plus(cam->origin, fois(cam->vec, 5.1));
 	if (key == TZD)
-		cam->origin = min(cam->origin, fois(cam->vec, 5));
+		cam->origin = min(cam->origin, fois(cam->vec, 5.1));
 }
 
 void	apply_filter(int key, t_cam *cam)

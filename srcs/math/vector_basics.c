@@ -6,11 +6,11 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 19:18:20 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/01 12:05:01 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:03:23 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tools.h"
+#include "minirtx.h"
 
 t_vec	normalize(t_vec vec)
 {

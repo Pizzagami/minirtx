@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   other_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 14:19:00 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/05 13:10:35 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:02:16 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tools.h"
+#include "minirtx.h"
 
 int		nb_char(long n)
 {

@@ -6,11 +6,11 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/05 13:26:20 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/05 17:56:45 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minirtx.h"
 
 t_rtx		parseke(int argc, char **argv, void *mlx_ptr)
 {
@@ -57,9 +57,10 @@ t_rtx		parsing(int fd, void *mlx_ptr)
 		i++;
 	}
 	ft_switch(str, &rtx, fd, i);
-	if (rtx.res.x < 0 || rtx.amb.color.b < 0)
+	free(str);
+	if (rtx.res.x < 0 || rtx.amb.color.b < 0 || rtx.cam == NULL)
 	{
-		write(2, "Error : Resolution or/and Ambiant light undefined\n", 50);
+		write(2, "Error : Missing Ambiant Light, Camera or Resolution\n", 52);
 		close(fd);
 		exit(EXIT_FAILURE);
 	}
@@ -111,6 +112,11 @@ void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 
 	buf = ft_split(str, " ");
 	if (str[0] == '\0')
+	{
+		free(buf);
+		return ;
+	}
+	if (buf[0] == NULL)
 		return ;
 	err = monster(buf, rtx);
 	free_buf(buf);

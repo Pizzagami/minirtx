@@ -12,44 +12,44 @@
 
 NAME = miniRT
 
-SRCS = 	./srcs/anti_aliasing.c	\
-		./srcs/basics.c			\
-		./srcs/cals.c			\
-		./srcs/color_basics.c	\
-		./srcs/color.c			\
-		./srcs/converters.c		\
-		./srcs/dist_main.c		\
-		./srcs/dist_others.c	\
-		./srcs/filter.c			\
-		./srcs/free.c			\
-		./srcs/ft_split.c		\
-		./srcs/get_next_line.c	\
-		./srcs/hook.c			\
-		./srcs/image.c			\
-		./srcs/light.c			\
-		./srcs/maths.c			\
-		./srcs/matrix.c			\
-		./srcs/minirtx.c		\
-		./srcs/other_tools.c	\
-		./srcs/other.c			\
-		./srcs/pars_param.c		\
-		./srcs/pars_annexe.c	\
-		./srcs/pars1.c			\
-		./srcs/pars2.c			\
-		./srcs/pars3.c			\
-		./srcs/parsing.c		\
-		./srcs/put.c			\
-		./srcs/readers.c		\
-		./srcs/transformation.c	\
-		./srcs/vector_basics.c	\
-		./srcs/vector.c			\
+SRCS = 	./srcs/display/anti_aliasing.c	\
+		./srcs/others/basics.c			\
+		./srcs/cals.c					\
+		./srcs/display/color_basics.c	\
+		./srcs/display/color.c			\
+		./srcs/others/converters.c		\
+		./srcs/display/dist_main.c		\
+		./srcs/display/dist_others.c	\
+		./srcs/display/filter.c			\
+		./srcs/others/free.c			\
+		./srcs/others/ft_split.c		\
+		./srcs/others/get_next_line.c	\
+		./srcs/hook.c					\
+		./srcs/display/image.c			\
+		./srcs/display/light.c			\
+		./srcs/math/maths.c				\
+		./srcs/math/matrix.c			\
+		./srcs/minirtx.c				\
+		./srcs/others/other_tools.c		\
+		./srcs/others/other.c			\
+		./srcs/parsing/pars_param.c		\
+		./srcs/parsing/pars_annexe.c	\
+		./srcs/parsing/pars1.c			\
+		./srcs/parsing/pars2.c			\
+		./srcs/parsing/pars3.c			\
+		./srcs/parsing/parsing.c		\
+		./srcs/others/put.c				\
+		./srcs/others/readers.c			\
+		./srcs/math/transformation.c	\
+		./srcs/math/vector_basics.c		\
+		./srcs/math/vector.c			\
 
 
 OBJS = ${SRCS:.c=.o}
 
 CC  = gcc
 
-FLAGS =   -L includes/minilibx -lmlx -framework OpenGL -framework Appkit -O0 -g3
+FLAGS =   -L includes/minilibx -lmlx -framework OpenGL -framework Appkit -fsanitize=address -O0 -g3
 CFLAGS =  -Wall -Wextra -Werror -I includes/ -I includes/minilibx
 
 ${NAME}	:	${OBJS}

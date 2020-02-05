@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pars1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 15:30:24 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/03 16:09:24 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/02/05 15:10:03 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minirtx.h"
 
 char		*pars_pl(char **buf, t_rtx *rtx)
 {
@@ -33,6 +33,8 @@ char		*pars_pl(char **buf, t_rtx *rtx)
 		"transparence of a plane", 1)) : 0;
 	ret = (buf[4] && buf[5]) ? join(ret, read_float(buf[5], &(rtx->shape->refl)
 	, "reflection of a plane", 1)) : 0;
+	if (buf[4] && buf[5] && buf[6] && !isnan(ft_atof(buf[6])))
+		shape->dam = ft_atof(buf[6]);
 	return (ret);
 }
 

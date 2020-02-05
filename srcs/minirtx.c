@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:39:59 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/05 13:26:27 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/05 13:33:05 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ int			main(int argc, char **argv)
 	void	*mlx_ptr;
 	t_rtx	rtx;
 	t_cam	*ca;
-	int		i;
 
-	i = 0;
 	mlx_ptr = mlx_init();
 	init_main(&rtx, argc, argv, mlx_ptr);
 	ca = rtx.cam;

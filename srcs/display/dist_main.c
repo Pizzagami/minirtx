@@ -6,11 +6,11 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:10:01 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/04 16:53:22 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:01:42 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tools.h"
+#include "minirtx.h"
 
 float		find_dist(t_vec origin, t_vec ray, t_tg *shape)
 {

@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 10:50:08 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/05 13:27:06 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/05 15:10:22 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		damier(t_vec point, t_tg *shape, t_color *color)
 	float t;
 	float t2;
 
-	point = plus(point, init_vec(214748, 214748, 214748));
+	point = plus(point, init_vec(21474, 214748, 2146));
 	right = normalize(cross(shape->normal, init_vec(0, 1, 0)));
 	if (isnan(right.x) && isnan(right.z) && isnan(right.y))
 		right = (shape->normal.y > 0) ? init_vec(1, 0, 0) : init_vec(-1, 0, 0);

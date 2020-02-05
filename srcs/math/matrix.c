@@ -6,11 +6,11 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 19:19:08 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/01 12:05:51 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:02:08 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tools.h"
+#include "minirtx.h"
 
 t_matrix	init_matrix(t_vec a, t_vec b, t_vec c)
 {
