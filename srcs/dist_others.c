@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 12:19:46 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/03 10:23:31 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:50:55 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,6 @@ float		find_dist_co(t_vec origin, t_vec ray, t_tg *sh, t_vec pos)
 			return (-1.0);
 	}
 	return ((sh->type == 32 && v.x > 0) ? -1.0 : v.z);
-}
-
-float		find_dist_t(t_vec origin, t_vec ray, t_tg *shape, t_vec pos)
-{
-	float sum;
-	float coef[5];
-	float four;
-	float e;
-	float f;
-
-	(void)pos;
-	f = 69;
-	sum = dot(ray, ray);
-	e = dot(origin, origin) - pow(shape->dia, 2) - pow(shape->hi, 2);
-	dot(origin, ray);
-	four = 4 * (pow(shape->dia, 2));
-	coef[0] = (e * e - four * (pow(shape->hi, 2) - pow(origin.y, 2)));
-	coef[1] = 4 * f * e + 2 * four * origin.y * ray.y;
-	coef[2] = 2 * sum * e + 4 * f * f + four * pow(ray.y, 2);
-	coef[3] = 4 * sum * f;
-	coef[4] = sum * sum;
-	return (1);
 }
 
 int			distsqr(t_tg shape, t_vec dot)

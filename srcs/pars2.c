@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/01 12:48:05 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:01:26 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,8 @@ char		*pars_pl(char **buf, t_rtx *rtx)
 		ret = join(ret, read_float(buf[4], &(rtx->shape->trans), "transparence of a plane", 1));
 	if (buf[4] && buf[5])
 		ret = join(ret, read_float(buf[5], &(rtx->shape->refl), "reflection of a plane", 1));
+	if (buf[4] && buf[5] && buf[6] && !isnan(ft_atof(buf[6])))
+        shape->dam = ft_atof(buf[6]);
 	return (ret);
 }
 

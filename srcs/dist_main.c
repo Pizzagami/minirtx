@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:10:01 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/01 12:25:57 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:53:22 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ float		find_dist(t_vec origin, t_vec ray, t_tg *shape)
 		return (find_dist_cy(origin, ray, shape, min(origin, shape->center)));
 	if (shape->type == 21 || shape->type == 32)
 		return (find_dist_co(origin, ray, shape, min(origin, shape->center)));
-	if (shape->type == 42)
-		return (find_dist_t(origin, ray, shape, min(origin, shape->center)));
 	return (find_dist_stcp(origin, ray, *shape));
 }
 

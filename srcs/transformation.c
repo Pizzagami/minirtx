@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 17:30:11 by raimbaultbr       #+#    #+#             */
-/*   Updated: 2020/02/01 11:29:59 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/05 10:32:16 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,17 @@ void	make_rotation(int key, t_cam *cam)
 void	make_translation(int key, t_cam *cam)
 {
 	if (key == TXU)
-		cam->origin = min(cam->origin, fois(cam->right, 5));
-	if (key == TXD)
 		cam->origin = plus(cam->origin, fois(cam->right, 5));
+	if (key == TXD)
+		cam->origin = min(cam->origin, fois(cam->right, 5));
 	if (key == TYU)
-		cam->origin = min(cam->origin, fois(cam->up, 5));
-	if (key == TYD)
 		cam->origin = plus(cam->origin, fois(cam->up, 5));
+	if (key == TYD)
+		cam->origin = min(cam->origin, fois(cam->up, 5));
 	if (key == TZU)
-		cam->origin = min(cam->origin, fois(cam->vec, 5));
-	if (key == TZD)
 		cam->origin = plus(cam->origin, fois(cam->vec, 5));
+	if (key == TZD)
+		cam->origin = min(cam->origin, fois(cam->vec, 5));
 }
 
 void	apply_filter(int key, t_cam *cam)

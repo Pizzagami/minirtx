@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 10:50:08 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/01 11:40:04 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:35:34 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,21 @@ t_color		color_mix(t_color c1, t_color c2, float r1, float r2)
 	return (color);
 }
 
-void		damier(t_vec point, t_tg *shape, t_color *color, float dist)
+void		damier(t_vec point, t_tg *shape, t_color *color)
 {
-	int x;
-	int y;
-	int z;
+	t_vec right;
+	t_vec up;
+	float t;
+	float t2;
 
-	(void)dist;
-	x = ((int)(point.x * shape->vec.x / shape->dam) % 2 == 0) ? 0 : 1;
-	y = ((int)(point.y * shape->vec.y / shape->dam) % 2 == 0) ? 0 : 1;
-	z = ((int)(point.z * shape->vec.z / shape->dam) % 2 == 0) ? 0 : 1;
-	if ((shape->type == 0 && (x + y + z == 1 || x + y + z == 2)) ||
-	(shape->type == 1 && (x + y == 1)))
+	point = plus(point, init_vec(214748,214748,214748));
+	right = normalize(cross(shape->normal, init_vec(0, 1, 0)));
+	if (isnan(right.x) && isnan(right.z) && isnan(right.y))
+		right = (shape->normal.y > 0) ? init_vec(1, 0, 0) : init_vec(-1, 0, 0);
+	up = normalize(cross(right, shape->normal));
+	t = dot(right, point);
+	t2 = dot(up, point);
+	if ((((int)(t / shape->dam) % 2 == 0) + ((int)(t2 / shape->dam) % 2 == 0)) == 1)
 	{
 		color->r = 255 - color->r;
 		color->g = 255 - color->g;

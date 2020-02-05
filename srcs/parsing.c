@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/03 12:21:06 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/04 15:40:13 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,6 @@ void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 		ft_putnbr(i + 1);
 		ft_putstr(")\n");
 		close(fd);
-		free(err);
 		exit(EXIT_FAILURE);
 	}
-	free(err);
 }

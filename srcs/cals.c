@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 10:15:53 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/01 11:34:49 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/05 10:26:22 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static t_color	make_color(t_rtx *rtx, t_tg *shape, float dist, t_cam *cam)
 {
 	t_color color;
 
+	if (shape->dam)
+		damier(plus(cam->origin, fois(cam->ray, dist)), shape, &shape->color);
 	color = color_add(cosha(rtx->amb.ratio, rtx->amb.color, shape->color),
 	cal_lit(*cam, *shape, rtx, dist), 1);
 	color = color_cap(color, shape->color);
@@ -49,8 +51,6 @@ static t_color	make_color(t_rtx *rtx, t_tg *shape, float dist, t_cam *cam)
 		color = color_mix(color, cal_col(*cam, *rtx, rtx->bound + 1),
 		1 - shape->trans, shape->trans);
 	}
-	if (shape->dam)
-		damier(plus(cam->origin, fois(cam->ray, dist)), shape, &color, dist);
 	return (color);
 }
 
