@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 15:30:24 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/05 15:10:03 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/05 20:52:56 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,29 @@ char		*pars_pl(char **buf, t_rtx *rtx)
 char		*pars_tr(char **buf, t_rtx *rtx)
 {
 	char *ret;
-	t_tg *shape;
+	t_tg *sh;
 
-	shape = malloc(sizeof(t_tg));
-	shape->next = rtx->shape;
-	rtx->shape = shape;
-	shape->type = 3;
-	init_trd(shape);
+	sh = malloc(sizeof(t_tg));
+	sh->next = rtx->shape;
+	rtx->shape = sh;
+	sh->type = 3;
+	init_trd(sh);
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
 		return ("Missing argument(s) on declaraton of triangle");
-	if (buf[5] != NULL && buf[6] != NULL && buf[7] != NULL)
+	if (buf[5] != NULL && buf[6] != NULL && buf[7] != NULL && buf[8] != NULL)
 		return ("Too many arguments on declaration of triangle");
-	ret = read_pos(buf[1], &(shape->p1), "of triangle");
-	ret = join(ret, read_pos(buf[2], &(shape->p2), "of triangle"));
-	ret = join(ret, read_pos(buf[3], &(shape->p3), "of triangle"));
-	ret = join(ret, read_color(buf[4], &(shape->color), " of triangle"));
-	shape->normal = normalize(cross(min(shape->p2, shape->p1),
-		min(shape->p3, shape->p1)));
-	shape->center = shape->p1;
-	ret = (buf[5]) ? join(ret, read_float(buf[5], &(shape->trans),
+	ret = read_pos(buf[1], &(sh->p1), "of triangle");
+	ret = join(ret, read_pos(buf[2], &(sh->p2), "of triangle"));
+	ret = join(ret, read_pos(buf[3], &(sh->p3), "of triangle"));
+	ret = join(ret, read_color(buf[4], &(sh->color), " of triangle"));
+	sh->normal = normalize(cross(min(sh->p2, sh->p1), min(sh->p3, sh->p1)));
+	sh->center = sh->p1;
+	ret = (buf[5]) ? join(ret, read_float(buf[5], &(sh->trans),
 	" transparence of a triangle", 1)) : 0;
-	ret = (buf[5] && buf[6]) ? join(ret, read_float(buf[6], &(shape->refl),
+	ret = (buf[5] && buf[6]) ? join(ret, read_float(buf[6], &(sh->refl),
 		" reflection of a triangle", 1)) : 0;
+	if (buf[5] && buf[6] && buf[7] && !isnan(ft_atof(buf[7])))
+		sh->dam = ft_atof(buf[7]);
 	return (ret);
 }
 
@@ -78,7 +79,7 @@ char		*pars_sq(char **buf, t_rtx *rtx)
 	init_trd(shape);
 	if (!buf[1] || !buf[2] || !buf[3] || !buf[4])
 		return ("Missing argument(s) on declaraton of a square");
-	if (buf[5] != NULL && buf[6] != NULL && buf[7] != NULL)
+	if (buf[5] != NULL && buf[6] != NULL && buf[7] != NULL && buf[8] != NULL)
 		return ("Too many arguments on declaration of a square");
 	ret = read_pos(buf[1], &(shape->center), " of a square");
 	ret = join(ret, read_vec(buf[2], &(shape->vec), " of a square"));
@@ -88,6 +89,8 @@ char		*pars_sq(char **buf, t_rtx *rtx)
 	"transparence of a square", 1)) : ret;
 	ret = (buf[5] && buf[6]) ? join(ret, read_float(buf[6], &(shape->refl),
 	"reflection of a square", 1)) : ret;
+	if (buf[5] && buf[6] && buf[7] && !isnan(ft_atof(buf[7])))
+		shape->dam = ft_atof(buf[7]);
 	vec_tri(shape);
 	return (ret);
 }

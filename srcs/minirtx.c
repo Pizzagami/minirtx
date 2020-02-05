@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirtx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:39:59 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/05 13:33:05 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/05 20:48:44 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int			main(int argc, char **argv)
 	}
 	make_3d(&(rtx.cam), rtx.res);
 	rtx.mlx_win = mlx_new_window(rtx.mlx_ptr, rtx.res.x, rtx.res.y, "miniRTX");
-	mlx_hook(rtx.mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, &rtx);
+	mlx_hook(rtx.mlx_win, 17, (1L << 17), exit_hook, &rtx);
 	mlx_key_hook(rtx.mlx_win, key_hook, &rtx);
 	mlx_put_image_to_window(rtx.mlx_ptr, rtx.mlx_win, rtx.cam->img, 0, 0);
 	if (rtx.save == 1)
