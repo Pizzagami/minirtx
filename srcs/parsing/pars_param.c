@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/03 15:27:44 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/05 14:02:45 by braimbau         ###   ########.fr       */
+/*   Created: 2020/02/03 15:27:44 by braimbau          #+#    #+#             */
+/*   Updated: 2020/02/06 10:35:47 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ char		*pars_r(char **buf, t_rtx *rtx)
 		return ("Invalid number for y of resolution");
 	if (rtx->res.y < 0)
 		return ("Value out of range for y of resolution");
+	if (rtx->res.x > 2560)
+		rtx->res.x = 2560;
+	if (rtx->res.y > 1440)
+		rtx->res.y = 1440;
 	if (rtx->res.x < rtx->res.y)
 		return ("X/Y must be supperior to 1");
 	return (NULL);

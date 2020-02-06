@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 17:21:07 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/05 18:17:04 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/02/06 10:35:01 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ float			cal_lite_inter(t_rtx rtx, t_light *li, t_vec point, t_tg shape)
 		while (sh)
 		{
 			dist = find_dist(li->pos, normalize(min(point, li->pos)), sh);
-			if (dist < ldist && dist > 1)
+			if (dist < ldist && dist > 0)
 				c *= sh->trans;
 			sh = sh->next;
 		}
