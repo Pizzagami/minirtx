@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 15:25:43 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/02/06 15:58:36 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/02/06 16:03:01 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void		ft_switch(char *str, t_rtx *rtx, int fd, int i)
 	err = join(err, check_ligne(str));
 	if (err)
 	{
+		ft_putstr("ERROR : ");
 		ft_putstr(join(err, " (line : "));
 		ft_putnbr(i + 1);
 		ft_putstr(")\n");
