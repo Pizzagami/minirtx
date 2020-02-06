@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/30 17:07:13 by braimbau          #+#    #+#             */
-/*   Updated: 2020/02/06 10:36:00 by braimbau         ###   ########.fr       */
+/*   Created: 2019/11/30 17:07:13 by selgrabl          #+#    #+#             */
+/*   Updated: 2020/02/06 16:00:57 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void		creat_ce(t_tg shape, t_rtx *rtx)
 	shape1->normal = shape.vec;
 	shape1->refl = shape.refl;
 	shape1->trans = shape.trans;
+	shape1->dam = 0;
 	shape1->center = plus(shape.center, fois(shape.vec, shape.hi / 2));
 	shape2 = malloc(sizeof(t_tg));
 	*shape2 = *shape1;
